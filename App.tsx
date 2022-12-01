@@ -83,6 +83,7 @@ export default function App() {
       );
 
       console.log('res ', res.data);
+      console.log('responses ', res.data.responses[0]);
     } catch (err) {
       const _err = err as AxiosError;
       console.log('err ', _err.response);
