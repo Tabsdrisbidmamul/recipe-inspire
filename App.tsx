@@ -2,7 +2,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback } from 'react';
+import colors from './constants/colors';
+import { NavigationContainer } from '@react-navigation/native';
+import Navigation from './components/Navigation/Navigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -35,20 +39,18 @@ export default function App() {
   }
 
   return (
-    <LinearGradient style={styles.container} colors={['#FBAB7E', '#F7CE68']} onLayout={onLayoutRootView}>
-      <Text style={styles.text}>App.tsx working</Text>
-    </LinearGradient>
+    <SafeAreaProvider>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
+      </View>
+    </SafeAreaProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    fontFamily: 'nunito-regular',
-    fontSize: 24,
   },
 });
