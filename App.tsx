@@ -7,6 +7,7 @@ import colors from './constants/colors';
 import { NavigationContainer } from '@react-navigation/native';
 import Navigation from './components/Navigation/Navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { store, StoreContext } from './stores/store';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -40,11 +41,13 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <NavigationContainer>
-          <Navigation />
-        </NavigationContainer>
-      </View>
+      <StoreContext.Provider value={store}>
+        <View style={styles.container} onLayout={onLayoutRootView}>
+          <NavigationContainer>
+            <Navigation />
+          </NavigationContainer>
+        </View>
+      </StoreContext.Provider>
     </SafeAreaProvider>
   );
 }
