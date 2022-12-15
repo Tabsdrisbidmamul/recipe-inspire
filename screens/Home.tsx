@@ -3,6 +3,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import colors from '../constants/colors';
+import { globalStyles } from '../constants/globalStyles';
 
 export default function Home() {
   const navigation = useNavigation();
@@ -29,7 +30,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontFamily: 'nunito-regular',
-    fontSize: 24,
+    ...globalStyles.baseText,
   },
 });

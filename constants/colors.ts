@@ -15,5 +15,12 @@ export default {
     cararra: '#EDECE9',
     alto: '#DEDEDE',
     doveGrey: '#707070',
+    pastel: '#FEFBF6',
+    paleYellow: '#FFFAE7',
+    paleYellowLighter: '#FEFCF3',
+  },
+  blacks: {
+    charcoal: '#434242',
+    deep: '#222222',
   },
 };

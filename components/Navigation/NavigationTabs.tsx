@@ -4,6 +4,8 @@ import Search from '../../screens/Search';
 import Settings from '../../screens/Settings';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
+import { globalStyles } from '../../constants/globalStyles';
+import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,29 +14,30 @@ export default function NavigationTabs() {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: colors.primary.darkBlue,
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: colors.blacks.charcoal,
         tabBarInactiveTintColor: colors.whites.doveGrey,
         tabBarStyle: {
-          // backgroundColor: 'transparent',
-          borderTopColor: colors.primary.darkBlue,
-          borderTopWidth: 0.5,
-          // position: 'absolute',
-          // left: 50,
-          // right: 50,
-          // bottom: 0,
-          // height: 100,
-          // width: '100%',
-          // elevation: 0,
-          // paddingTop: 0,
-          backgroundColor: colors.gradient.yellow,
+          position: 'absolute',
+
+          ...globalStyles.shadows,
+
+          borderRadius: 100,
+          paddingHorizontal: 10,
+          marginHorizontal: 10,
+          bottom: 10,
+          backgroundColor: colors.whites.pastel,
+          ...Platform.select({
+            ios: {
+              bottom: 20,
+            },
+          }),
         },
-        // tabBarLabelStyle: {
-        //   position: 'absolute',
-        //   bottom: 10,
-        //   color: colors.primary.darkBlue,
-        // },
       }}
       initialRouteName="HomeStack"
+      safeAreaInsets={{
+        bottom: 0,
+      }}
     >
       <Tab.Screen
         name="HomeStack"
@@ -68,9 +71,9 @@ export default function NavigationTabs() {
           title: 'Settings',
           tabBarIcon: ({ focused, color, size }) =>
             focused ? (
-              <Ionicons name="settings-sharp" size={size} color={color} />
+              <Ionicons name="menu-sharp" size={size} color={color} />
             ) : (
-              <Ionicons name="settings-outline" size={size} color={color} />
+              <Ionicons name="menu-outline" size={size} color={color} />
             ),
         }}
         component={Settings}

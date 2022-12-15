@@ -43,9 +43,7 @@ export default function App() {
     <SafeAreaProvider>
       <StoreContext.Provider value={store}>
         <View style={styles.container} onLayout={onLayoutRootView}>
-          <NavigationContainer>
-            <Navigation />
-          </NavigationContainer>
+          <Navigation />
         </View>
       </StoreContext.Provider>
     </SafeAreaProvider>
