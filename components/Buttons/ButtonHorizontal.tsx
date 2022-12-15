@@ -1,15 +1,17 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import { Entypo } from '@expo/vector-icons';
 import { globalStyles } from '../../constants/globalStyles';
 import colors from '../../constants/colors';
 
 interface IProps {
   text: string;
+  style?: StyleProp<ViewStyle>;
+  onPress: (...args: any) => any;
 }
 
-export default function ButtonHorizontal({ text }: IProps) {
+export default function ButtonHorizontal({ text, onPress, style }: IProps) {
   return (
-    <Pressable style={styles.button}>
+    <Pressable onPress={onPress} style={[styles.button, style]}>
       <Text style={styles.buttonText}>{text}</Text>
       <Entypo name="chevron-small-right" style={styles.icon} />
     </Pressable>

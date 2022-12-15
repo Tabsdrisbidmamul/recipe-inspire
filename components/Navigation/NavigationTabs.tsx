@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Home from '../../screens/Home';
-import Search from '../../screens/Search';
-import Settings from '../../screens/Settings';
+import Home from '../../screens/BottomTabs/Home';
+import Search from '../../screens/BottomTabs/Search';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import { Platform } from 'react-native';
+import More from '../../screens/BottomTabs/More';
 
 const Tab = createBottomTabNavigator();
 
@@ -70,9 +70,9 @@ export default function NavigationTabs() {
         component={Search}
       />
       <Tab.Screen
-        name="Settings"
+        name="More"
         options={{
-          title: 'Settings',
+          title: 'More',
           tabBarIcon: ({ focused, color, size }) =>
             focused ? (
               <Ionicons name="menu-sharp" size={size} color={color} />
@@ -80,7 +80,7 @@ export default function NavigationTabs() {
               <Ionicons name="menu-outline" size={size} color={color} />
             ),
         }}
-        component={Settings}
+        component={More}
       />
     </Tab.Navigator>
   );

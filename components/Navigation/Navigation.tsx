@@ -3,7 +3,9 @@ import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Details from '../../screens/Details';
+import Details from '../../screens/StackScreen/Details';
+import Ingredients from '../../screens/StackScreen/Ingredients';
+import Settings from '../../screens/StackScreen/Settings';
 import NavigationTabs from './NavigationTabs';
 
 const Stack = createStackNavigator();
@@ -24,6 +26,8 @@ export default function Navigation() {
       >
         <Stack.Screen name="HomeTab" component={NavigationTabs} />
         <Stack.Screen name="Details" component={Details} />
+        <Stack.Screen name="Settings" component={Settings} />
+        <Stack.Screen name="Ingredients" component={Ingredients} />
       </Stack.Navigator>
     </NavigationContainer>
   );

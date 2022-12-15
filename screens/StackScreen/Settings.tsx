@@ -1,13 +1,14 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import colors from '../constants/colors';
+import { View, Text, StyleSheet } from 'react-native';
+import colors from '../../constants/colors';
+import { globalStyles } from '../../constants/globalStyles';
 
-export default function Search() {
+export default function Settings() {
   return (
     <LinearGradient style={styles.root} colors={[colors.gradient.orange, colors.gradient.yellow]}>
       <View style={styles.root}>
-        <Text style={styles.text}>Search component is working</Text>
+        <Text style={styles.text}>Settings component is working</Text>
       </View>
     </LinearGradient>
   );
@@ -20,7 +21,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    fontFamily: 'nunito-regular',
-    fontSize: 24,
+    ...globalStyles.baseText,
   },
 });

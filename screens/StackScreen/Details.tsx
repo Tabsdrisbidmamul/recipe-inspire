@@ -2,22 +2,23 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import colors from '../constants/colors';
-import { globalStyles } from '../constants/globalStyles';
+import colors from '../../constants/colors';
 
-export default function Home() {
+export default function Details() {
   const navigation = useNavigation();
 
-  function handlePressToNavigateToDetails() {
+  function handlePressBack() {
     //@ts-ignore
-    navigation.navigate('Details');
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
   }
 
   return (
     <LinearGradient style={styles.root} colors={[colors.gradient.orange, colors.gradient.yellow]}>
       <View style={styles.root}>
-        <Text style={styles.text}>Home component is working</Text>
-        <Button onPress={handlePressToNavigateToDetails} title="Go to Details" />
+        <Text style={styles.text}>Details component is working</Text>
+        <Button onPress={handlePressBack} title="Go back" />
       </View>
     </LinearGradient>
   );
@@ -30,6 +31,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
-    ...globalStyles.baseText,
+    fontFamily: 'nunito-regular',
+    fontSize: 24,
   },
 });
