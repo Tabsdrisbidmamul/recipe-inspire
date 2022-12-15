@@ -8,6 +8,10 @@ import NavigationTabs from './NavigationTabs';
 
 const Stack = createStackNavigator();
 
+/**
+ * Main navigation, we do this so we can remove the bottom tab from certain pages
+ * @returns
+ */
 export default function Navigation() {
   return (
     <NavigationContainer>

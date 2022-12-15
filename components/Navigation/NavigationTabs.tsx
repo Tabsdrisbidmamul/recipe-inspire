@@ -9,6 +9,10 @@ import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
+/**
+ * Bottom tabs, remove safe area inset for ios, we move the bottom tabs up - it looks good on Android and iOS
+ * @returns
+ */
 export default function NavigationTabs() {
   return (
     <Tab.Navigator
@@ -21,8 +25,8 @@ export default function NavigationTabs() {
           position: 'absolute',
 
           ...globalStyles.shadows,
+          ...globalStyles.baseBorderRadius,
 
-          borderRadius: 100,
           paddingHorizontal: 10,
           marginHorizontal: 10,
           bottom: 10,

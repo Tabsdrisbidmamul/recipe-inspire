@@ -4,6 +4,10 @@ import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios, { AxiosError } from 'axios';
 import * as FileSystem from 'expo-file-system';
 
+/**
+ * Camera view to take images and have them ready in the app cache
+ * @returns
+ */
 export default function CameraView() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
