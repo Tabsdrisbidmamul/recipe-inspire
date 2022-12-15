@@ -19,9 +19,17 @@ export const globalStyles = StyleSheet.create({
   baseHeaderText: {
     fontFamily: 'nunito-semibold',
     fontSize: 32,
+    marginBottom: 18,
   },
 
   baseContainerPaddingHorizontal: {
     paddingHorizontal: 16,
+  },
+
+  baseCard: {
+    borderRadius: 12,
+    backgroundColor: colors.whites.pastel,
+    paddingHorizontal: 10,
+    paddingVertical: 10,
   },
 });
