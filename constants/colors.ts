@@ -11,9 +11,6 @@ export default {
     red: '#E76F51',
   },
   whites: {
-    desertStorm: '#FAF8F8',
-    cararra: '#EDECE9',
-    alto: '#DEDEDE',
     doveGrey: '#707070',
     pastel: '#FEFBF6',
     paleYellow: '#FFFAE7',
