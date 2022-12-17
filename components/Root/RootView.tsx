@@ -1,12 +1,13 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 
 interface IProps {
   children: JSX.Element[] | JSX.Element;
+  isScrollable?: boolean;
 }
 
 /**
@@ -14,14 +15,26 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function RootView({ children }: IProps) {
+export default function RootView({ children, isScrollable }: IProps) {
   const insets = useSafeAreaInsets();
 
   const height = insets.top + 15;
 
   return (
-    <LinearGradient style={[styles.root]} colors={[colors.gradient.orange, colors.gradient.yellow]}>
-      <View style={[styles.container, { paddingTop: height }]}>{children}</View>
+    <LinearGradient
+      style={[styles.root]}
+      colors={[colors.gradient.orange, colors.gradient.yellow]}
+      start={[0, 0.5]}
+      end={[0.5, 1]}
+      locations={[0.15, 1]}
+    >
+      {isScrollable ? (
+        <View style={[styles.container, { paddingTop: height }]}>
+          <ScrollView style={styles.scrollContainer}>{children}</ScrollView>
+        </View>
+      ) : (
+        <View style={[styles.container, { paddingTop: height }]}>{children}</View>
+      )}
     </LinearGradient>
   );
 }
@@ -33,5 +46,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     ...globalStyles.baseContainerPaddingHorizontal,
+  },
+  scrollContainer: {
+    flex: 1,
+    ...globalStyles.baseContentMargin,
   },
 });

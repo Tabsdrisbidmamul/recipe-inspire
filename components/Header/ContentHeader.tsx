@@ -11,7 +11,7 @@ interface IProps {
  * @returns
  */
 export default function ContentHeader({ title }: IProps) {
-  return <Text style={[styles.header]}>More</Text>;
+  return <Text style={[styles.header]}>{title}</Text>;
 }
 
 const styles = StyleSheet.create({

@@ -1,14 +1,20 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import colors from '../../constants/colors';
+import React, { useEffect } from 'react';
+import { StyleSheet, Switch } from 'react-native';
 import { globalStyles } from '../../constants/globalStyles';
 import { useNavigation } from '@react-navigation/native';
 import NavigationHeader from '../../components/Header/NavigationHeader';
+import ContentHeader from '../../components/Header/ContentHeader';
+import RootView from '../../components/Root/RootView';
+import BaseCard from '../../components/Cards/BaseCard';
+import SettingsToggle from '../../components/Buttons/SettingsToggle';
+import useStore from '../../hooks/useStore';
 
 export default observer(function Ingredients() {
+  const { ingredientsStore } = useStore();
   const navigation = useNavigation();
+
+  const { getCommonIngredientsFromLocalStorage, commonIngredients } = ingredientsStore;
 
   function navigateGoBack() {
     if (navigation.canGoBack()) {
@@ -16,27 +22,23 @@ export default observer(function Ingredients() {
     }
   }
 
+  useEffect(() => {
+    getCommonIngredientsFromLocalStorage();
+  }, []);
+
   return (
-    <LinearGradient style={styles.root} colors={[colors.gradient.orange, colors.gradient.yellow]}>
+    <RootView isScrollable>
       <NavigationHeader title="Ingredients" handleNavigateBack={navigateGoBack} />
-    </LinearGradient>
+
+      {/* <ContentHeader title="Bare Minimum" /> */}
+
+      <BaseCard>
+        {Object.entries(commonIngredients).map((el, i) => (
+          <SettingsToggle key={i} name={el[0]} value={el[1]} />
+        ))}
+      </BaseCard>
+    </RootView>
   );
 });
 
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-  },
-  header: {
-    ...globalStyles.baseHeaderText,
-  },
-  headerStyle: {
-    flex: 1,
-    alignSelf: 'stretch',
-  },
-  content: {
-    alignItems: 'center',
-    flex: 1,
-    padding: 24,
-  },
-});
+const styles = StyleSheet.create({});
