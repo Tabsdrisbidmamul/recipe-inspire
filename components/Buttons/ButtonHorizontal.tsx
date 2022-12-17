@@ -9,6 +9,11 @@ interface IProps {
   onPress: (...args: any) => any;
 }
 
+/**
+ * Button that takes 100% width - text and icon are justified
+ * @param param0
+ * @returns
+ */
 export default function ButtonHorizontal({ text, onPress, style }: IProps) {
   return (
     <Pressable onPress={onPress} style={[styles.button, style]}>

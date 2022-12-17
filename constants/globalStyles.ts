@@ -36,19 +36,39 @@ export const globalStyles = StyleSheet.create({
 
   headerH2: {
     fontFamily: 'nunito-medium',
-    fontSize: 26,
+    fontSize: 22,
     marginBottom: 12,
     color,
+  },
+
+  basePaddingHorizontal: {
+    paddingHorizontal: 10,
+  },
+
+  basePaddingVertical: {
+    paddingVertical: 16,
+  },
+
+  baseMarginHorizontal: {
+    marginHorizontal: 10,
   },
 
   baseContainerPaddingHorizontal: {
     paddingHorizontal: 16,
   },
 
+  baseContainerPaddingVertical: {
+    paddingVertical: 16,
+  },
+
+  baseContainerMarginHorizontal: {
+    marginHorizontal: 16,
+  },
+
   baseCard: {
     borderRadius: 12,
     backgroundColor: colors.whites.paleYellowLighter,
-    paddingHorizontal: 10,
-    paddingVertical: 10,
+    paddingHorizontal: 20,
+    paddingVertical: 20,
   },
 });

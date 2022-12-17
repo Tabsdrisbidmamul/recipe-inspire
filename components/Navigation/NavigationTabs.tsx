@@ -26,9 +26,9 @@ export default function NavigationTabs() {
 
           ...globalStyles.shadows,
           ...globalStyles.baseBorderRadius,
+          ...globalStyles.basePaddingHorizontal,
+          ...globalStyles.baseMarginHorizontal,
 
-          paddingHorizontal: 10,
-          marginHorizontal: 10,
           bottom: 10,
           backgroundColor: colors.whites.pastel,
           ...Platform.select({

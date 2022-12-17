@@ -1,14 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { observer } from 'mobx-react-lite';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { StyleSheet, View } from 'react-native';
 import ButtonHorizontal from '../../components/Buttons/ButtonHorizontal';
 import LoginButton from '../../components/Buttons/LoginButton';
 import BaseCard from '../../components/Cards/BaseCard';
-import colors from '../../constants/colors';
-import { globalStyles } from '../../constants/globalStyles';
+import Content from '../../components/Content/Content';
+import ContentHeader from '../../components/Header/ContentHeader';
+import RootView from '../../components/Root/RootView';
 
 /**
  * Settings screen
@@ -17,10 +16,7 @@ import { globalStyles } from '../../constants/globalStyles';
  * - misc
  */
 export default observer(function More() {
-  const insets = useSafeAreaInsets();
   const navigation = useNavigation();
-
-  const height = insets.top + 15;
 
   function navigateToSettings() {
     //@ts-ignore
@@ -33,46 +29,19 @@ export default observer(function More() {
   }
 
   return (
-    <LinearGradient style={[styles.root]} colors={[colors.gradient.orange, colors.gradient.yellow]}>
-      <View style={[styles.container, { paddingTop: height }]}>
-        <Text style={[styles.header]}>More</Text>
+    <RootView>
+      <ContentHeader title="More" />
 
-        <View style={styles.content}>
-          <LoginButton />
+      <Content>
+        <LoginButton />
+      </Content>
+
+      <BaseCard>
+        <View>
+          <ButtonHorizontal onPress={navigateToSettings} text="Settings" />
+          <ButtonHorizontal onPress={navigateToIngredients} style={{ marginBottom: 0 }} text="Ingredients" />
         </View>
-
-        <BaseCard style={styles.content}>
-          <View style={styles.settingContainer}>
-            <ButtonHorizontal onPress={navigateToSettings} text="Settings" />
-            <ButtonHorizontal onPress={navigateToIngredients} style={{ marginBottom: 0 }} text="Ingredients" />
-          </View>
-        </BaseCard>
-      </View>
-    </LinearGradient>
+      </BaseCard>
+    </RootView>
   );
-});
-
-const styles = StyleSheet.create({
-  root: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    ...globalStyles.baseContainerPaddingHorizontal,
-  },
-  content: {
-    ...globalStyles.baseContentMargin,
-  },
-  loginText: {
-    ...globalStyles.baseText,
-    ...globalStyles.headerH2,
-  },
-  header: {
-    ...globalStyles.baseHeaderText,
-  },
-  settingContainer: {
-    padding: 16,
-  },
 });
