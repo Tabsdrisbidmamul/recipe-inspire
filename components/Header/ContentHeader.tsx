@@ -1,4 +1,5 @@
 import { Text, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { globalStyles } from '../../constants/globalStyles';
 
 interface IProps {
@@ -11,7 +12,11 @@ interface IProps {
  * @returns
  */
 export default function ContentHeader({ title }: IProps) {
-  return <Text style={[styles.header]}>{title}</Text>;
+  const insets = useSafeAreaInsets();
+
+  const height = insets.top + 15;
+
+  return <Text style={[styles.header, { paddingTop: height }]}>{title}</Text>;
 }
 
 const styles = StyleSheet.create({

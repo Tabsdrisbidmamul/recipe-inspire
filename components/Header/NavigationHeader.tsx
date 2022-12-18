@@ -4,6 +4,7 @@ import { globalStyles } from '../../constants/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { StatusBar } from 'expo-status-bar';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface IProps {
   title: string;
@@ -16,9 +17,13 @@ interface IProps {
  * @returns
  */
 export default function NavigationHeader({ title, handleNavigateBack }: IProps) {
+  const insets = useSafeAreaInsets();
+
+  const height = insets.top + 15;
+
   return (
     <>
-      <View style={[styles.container]}>
+      <View style={[styles.container, { marginTop: height }]}>
         <Ionicons onPress={handleNavigateBack} name="arrow-back-sharp" style={styles.icon} />
         <Text style={styles.title}>{title}</Text>
         <StatusBar style="light"></StatusBar>
@@ -36,6 +41,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: colors.whites.pastel,
     alignItems: 'center',
+    paddingVertical: 12,
   },
 
   icon: {
@@ -47,6 +53,7 @@ const styles = StyleSheet.create({
 
   title: {
     ...globalStyles.headerH2,
+    fontSize: 20,
     marginBottom: 0,
   },
 });

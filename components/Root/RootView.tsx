@@ -16,10 +16,6 @@ interface IProps {
  * @returns
  */
 export default function RootView({ children, isScrollable }: IProps) {
-  const insets = useSafeAreaInsets();
-
-  const height = insets.top + 15;
-
   return (
     <LinearGradient
       style={[styles.root]}
@@ -29,11 +25,11 @@ export default function RootView({ children, isScrollable }: IProps) {
       locations={[0.15, 1]}
     >
       {isScrollable ? (
-        <View style={[styles.container, { paddingTop: height }]}>
+        <View style={[styles.container]}>
           <ScrollView style={styles.scrollContainer}>{children}</ScrollView>
         </View>
       ) : (
-        <View style={[styles.container, { paddingTop: height }]}>{children}</View>
+        <View style={[styles.container]}>{children}</View>
       )}
     </LinearGradient>
   );
