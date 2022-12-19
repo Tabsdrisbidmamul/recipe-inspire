@@ -8,6 +8,7 @@ import { globalStyles } from '../../constants/globalStyles';
 interface IProps {
   children: JSX.Element[] | JSX.Element;
   isScrollable?: boolean;
+  isKeyboardDismissible?: boolean;
 }
 
 /**
@@ -15,7 +16,7 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function RootView({ children, isScrollable }: IProps) {
+export default function RootView({ children, isScrollable, isKeyboardDismissible }: IProps) {
   return (
     <LinearGradient
       style={[styles.root]}
@@ -26,7 +27,13 @@ export default function RootView({ children, isScrollable }: IProps) {
     >
       {isScrollable ? (
         <View style={[styles.container]}>
-          <ScrollView style={styles.scrollContainer}>{children}</ScrollView>
+          {isKeyboardDismissible ? (
+            <ScrollView keyboardDismissMode="on-drag" style={styles.scrollContainer}>
+              {children}
+            </ScrollView>
+          ) : (
+            <ScrollView style={styles.scrollContainer}>{children}</ScrollView>
+          )}
         </View>
       ) : (
         <View style={[styles.container]}>{children}</View>

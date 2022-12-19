@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
+import React, { useState } from 'react';
 import { Pressable, TextInput, View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { globalStyles } from '../../constants/globalStyles';
@@ -23,6 +23,7 @@ interface IProps {
 export default observer(function SearchField({ mode }: IProps) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
+  const [textInputValue, setTextInputValue] = useState('');
 
   const height = insets.top + globalConstants.insetHeight;
 
@@ -50,7 +51,17 @@ export default observer(function SearchField({ mode }: IProps) {
       break;
     }
     case 'input': {
-      content = <></>;
+      content = (
+        <View>
+          <TextInput
+            placeholder="Search"
+            value={textInputValue}
+            onChangeText={setTextInputValue}
+            style={styles.textInput}
+            autoFocus
+          />
+        </View>
+      );
     }
   }
 
@@ -75,12 +86,6 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     flex: 2,
   },
-  icon: {
-    ...globalStyles.icon,
-  },
-  buttonText: {
-    ...globalStyles.baseText,
-  },
   iconContainer: {
     marginLeft: 15,
     width: 50,
@@ -91,9 +96,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  icon: {
+    ...globalStyles.icon,
+  },
   cameraIcon: {
     color: colors.whites.pastel,
-
     fontSize: 35,
+  },
+
+  buttonText: {
+    ...globalStyles.baseText,
+  },
+
+  textInput: {
+    borderRadius: 100,
+    ...globalStyles.searchButtonBackgroundColor,
+    paddingHorizontal: 30,
+    paddingVertical: 12,
   },
 });
