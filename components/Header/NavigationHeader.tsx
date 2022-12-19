@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import globalConstants from '../../constants/globalConstants';
 
 interface IProps {
   title: string;
@@ -19,7 +20,7 @@ interface IProps {
 export default function NavigationHeader({ title, handleNavigateBack }: IProps) {
   const insets = useSafeAreaInsets();
 
-  const height = insets.top + 15;
+  const height = insets.top + globalConstants.insetHeight;
 
   return (
     <>

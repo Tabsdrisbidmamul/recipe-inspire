@@ -5,6 +5,7 @@ import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Details from '../../screens/StackScreen/Details';
 import Ingredients from '../../screens/StackScreen/Ingredients';
+import SearchResults from '../../screens/StackScreen/SearchResults';
 import Settings from '../../screens/StackScreen/Settings';
 import NavigationTabs from './NavigationTabs';
 
@@ -28,6 +29,7 @@ export default function Navigation() {
         <Stack.Screen name="Details" component={Details} />
         <Stack.Screen name="Settings" component={Settings} />
         <Stack.Screen name="Ingredients" component={Ingredients} />
+        <Stack.Screen name="SearchResults" component={SearchResults} />
       </Stack.Navigator>
     </NavigationContainer>
   );

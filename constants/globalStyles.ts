@@ -65,10 +65,27 @@ export const globalStyles = StyleSheet.create({
     marginHorizontal: 16,
   },
 
+  buttonBackgroundColor: {
+    backgroundColor: colors.primary.darkBlue,
+  },
+
+  buttonTextColor: {
+    color: colors.whites.pastel,
+  },
+
+  searchButtonBackgroundColor: {
+    backgroundColor: colors.whites.paleYellow,
+  },
+
   baseCard: {
     borderRadius: 12,
     backgroundColor: colors.whites.paleYellowLighter,
     paddingHorizontal: 20,
     paddingVertical: 20,
+  },
+
+  icon: {
+    color: colors.blacks.charcoal,
+    fontSize: 24,
   },
 });

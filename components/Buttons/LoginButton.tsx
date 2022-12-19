@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
     alignItems: 'center',
-    backgroundColor: colors.whites.pastel,
+    ...globalStyles.buttonBackgroundColor,
     ...globalStyles.shadows,
     ...globalStyles.baseBorderRadius,
   },
 
   buttonText: {
     ...globalStyles.baseText,
-    // textTransform: 'uppercase',
+    ...globalStyles.buttonTextColor,
   },
 });
