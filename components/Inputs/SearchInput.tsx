@@ -1,5 +1,5 @@
-import React, { createRef, useCallback, useRef, useState } from 'react';
-import { View, Pressable, TextInput, StyleSheet } from 'react-native';
+import React, { createRef } from 'react';
+import { View, Pressable, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,7 +10,7 @@ import { _debounce } from '../../helpers/debounce';
 import DelayInput from 'react-native-debounce-input';
 
 /**
- * Search input, will update the store for every keystroke
+ * Search input - debounced, will update the store for every keystroke
  * @returns
  */
 export default observer(function SearchInput() {
