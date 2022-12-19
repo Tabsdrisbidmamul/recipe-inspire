@@ -12,7 +12,16 @@ interface IProps {
  * @returns
  */
 export default function BaseCard({ children, style }: IProps) {
-  return <View style={[styles.card, style]}>{children}</View>;
+  return (
+    <View
+      accessible
+      accessibilityLabel="Card content container"
+      accessibilityHint="Wrapper for content"
+      style={[styles.card, style]}
+    >
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

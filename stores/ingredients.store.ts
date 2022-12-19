@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
  */
 export default class IngredientsStore {
   private readonly COMMON_INGREDIENT_KEY = 'commonIngredient';
+  searchValue = '';
 
   commonIngredients = {
     salt: false,
@@ -86,5 +87,15 @@ export default class IngredientsStore {
    */
   setCommonIngredients = (ingredientName: string, value: boolean) => {
     this.commonIngredients[ingredientName] = value;
+  };
+
+  /**
+   * Set new search value, this is used for dynamic search results
+   * @param value
+   */
+  setSearchValue = (value: string) => {
+    this.searchValue = value;
+
+    console.log('this.searchValue ', this.searchValue);
   };
 }

@@ -20,6 +20,7 @@ export default observer(function SettingsToggle({ name, value }: IProps) {
 
   const { setCommonIngredients, storeCommonIngredientsToLocalStorage } = ingredientsStore;
 
+  // For every component update, notify the store
   useEffect(() => {
     setCommonIngredients(name.toLowerCase(), isEnable);
     storeCommonIngredientsToLocalStorage();
@@ -28,7 +29,13 @@ export default observer(function SettingsToggle({ name, value }: IProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{name.charAt(0).toUpperCase() + name.substring(1).toLowerCase()}</Text>
-      <Switch onValueChange={setIsEnabled} value={isEnable} />
+      <Switch
+        accessible
+        accessibilityLabel="Switch toggle"
+        accessibilityHint={`Set the setting for ${name} on or off`}
+        onValueChange={setIsEnabled}
+        value={isEnable}
+      />
     </View>
   );
 });

@@ -46,8 +46,7 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    color: colors.blacks.charcoal,
-    fontSize: 24,
+    ...globalStyles.icon,
     marginRight: 16,
     marginLeft: 16,
   },

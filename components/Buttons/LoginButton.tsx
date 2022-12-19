@@ -13,7 +13,13 @@ interface IProps {
  */
 export default function LoginButton({ onPress }: IProps) {
   return (
-    <Pressable onPress={onPress} style={styles.button}>
+    <Pressable
+      accessible
+      accessibilityLabel="Login button"
+      accessibilityHint="Navigates to login screen and form"
+      onPress={onPress}
+      style={styles.button}
+    >
       <Text style={styles.buttonText}>Log in</Text>
     </Pressable>
   );

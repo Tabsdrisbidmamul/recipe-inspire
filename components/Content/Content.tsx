@@ -12,7 +12,16 @@ interface IProps {
  * @returns
  */
 export default function Content({ children }: IProps) {
-  return <View style={styles.content}>{children}</View>;
+  return (
+    <View
+      accessible
+      accessibilityLabel="Content container"
+      accessibilityHint="Wrapper for content"
+      style={styles.content}
+    >
+      {children}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({

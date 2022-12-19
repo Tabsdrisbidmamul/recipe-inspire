@@ -16,7 +16,13 @@ interface IProps {
  */
 export default function ButtonHorizontal({ text, onPress, style }: IProps) {
   return (
-    <Pressable onPress={onPress} style={[styles.button, style]}>
+    <Pressable
+      accessible
+      accessibilityLabel="Generic button"
+      accessibilityHint={`Navigates to ${text} screen`}
+      onPress={onPress}
+      style={[styles.button, style]}
+    >
       <Text style={styles.buttonText}>{text}</Text>
       <Entypo name="chevron-small-right" style={styles.icon} />
     </Pressable>

@@ -1,12 +1,9 @@
-import { observer } from 'mobx-react-lite';
-import React, { useState } from 'react';
-import { Pressable, TextInput, View, Text, StyleSheet } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { globalStyles } from '../../constants/globalStyles';
+import React from 'react';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import globalConstants from '../../constants/globalConstants';
-import colors from '../../constants/colors';
-import { useNavigation } from '@react-navigation/native';
+import SearchButton from '../Buttons/SearchButton';
+import SearchInput from './SearchInput';
 
 interface IProps {
   mode: 'button' | 'input';
@@ -20,99 +17,22 @@ interface IProps {
  * @params props
  * @returns
  */
-export default observer(function SearchField({ mode }: IProps) {
+export default function SearchField({ mode }: IProps) {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation();
-  const [textInputValue, setTextInputValue] = useState('');
 
   const height = insets.top + globalConstants.insetHeight;
 
   let content = <></>;
 
-  function handleSearchButtonPress() {
-    //@ts-ignore
-    navigation.navigate('SearchResults');
-  }
-
   switch (mode) {
     case 'button': {
-      content = (
-        <View style={styles.buttonAndCameraContainer}>
-          <Pressable onPress={handleSearchButtonPress} style={styles.buttonContainer}>
-            <Text style={styles.buttonText}>Search</Text>
-            <Ionicons name="search" style={styles.icon} />
-          </Pressable>
-
-          <Pressable style={styles.iconContainer}>
-            <Ionicons name="camera-outline" style={[styles.icon, styles.cameraIcon]} />
-          </Pressable>
-        </View>
-      );
+      content = <SearchButton />;
       break;
     }
     case 'input': {
-      content = (
-        <View>
-          <TextInput
-            placeholder="Search"
-            value={textInputValue}
-            onChangeText={setTextInputValue}
-            style={styles.textInput}
-            autoFocus
-          />
-        </View>
-      );
+      content = <SearchInput />;
     }
   }
 
   return <View style={[{ marginTop: height }]}>{content}</View>;
-});
-
-const styles = StyleSheet.create({
-  buttonAndCameraContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    ...globalStyles.searchButtonBackgroundColor,
-    ...globalStyles.basePaddingHorizontal,
-    ...globalStyles.basePaddingVertical,
-    ...globalStyles.baseBorderRadius,
-    paddingHorizontal: 30,
-    paddingVertical: 12,
-    flex: 2,
-  },
-  iconContainer: {
-    marginLeft: 15,
-    width: 50,
-    height: 50,
-    backgroundColor: colors.primary.darkBlue,
-    borderRadius: 100,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  icon: {
-    ...globalStyles.icon,
-  },
-  cameraIcon: {
-    color: colors.whites.pastel,
-    fontSize: 35,
-  },
-
-  buttonText: {
-    ...globalStyles.baseText,
-  },
-
-  textInput: {
-    borderRadius: 100,
-    ...globalStyles.searchButtonBackgroundColor,
-    paddingHorizontal: 30,
-    paddingVertical: 12,
-  },
-});
+}
