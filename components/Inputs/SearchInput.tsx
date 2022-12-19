@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-between',
+    ...globalStyles.baseContentMargin,
   },
   backContainer: {
     backgroundColor: colors.whites.pastel,
