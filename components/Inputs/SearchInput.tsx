@@ -17,7 +17,7 @@ export default observer(function SearchInput() {
   const navigation = useNavigation();
   const inputRef = createRef();
   const { ingredientsStore } = useStore();
-  const { searchValue, setSearchValue } = ingredientsStore;
+  const { searchValue, setSearchValue, fetchResults } = ingredientsStore;
 
   function handleBackButtonPress() {
     if (navigation.canGoBack()) {
@@ -25,8 +25,9 @@ export default observer(function SearchInput() {
     }
   }
 
-  function handleInputChange(value: string) {
+  async function handleInputChange(value: string) {
     setSearchValue(value);
+    await fetchResults();
   }
 
   return (
@@ -48,7 +49,7 @@ export default observer(function SearchInput() {
         //@ts-ignore
         inputRef={inputRef}
         //@ts-ignore
-        onChangeText={handleInputChange}
+        onChangeText={(value) => handleInputChange(value).then()}
         delayTimeout={500}
         style={styles.textInput}
         autoFocus
