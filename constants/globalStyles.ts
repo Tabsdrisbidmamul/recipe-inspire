@@ -65,6 +65,10 @@ export const globalStyles = StyleSheet.create({
     marginHorizontal: 16,
   },
 
+  baseContainerMarginVertical: {
+    marginVertical: 16,
+  },
+
   buttonBackgroundColor: {
     backgroundColor: colors.primary.darkBlue,
   },

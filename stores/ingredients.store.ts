@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Agent from '../agents';
-import { SearchResults } from '../interfaces/results.interface';
+import { Result, SearchResults } from '../interfaces/results.interface';
 
 /**
  * These settings correspond to the ingredients settings page
@@ -43,6 +43,7 @@ export default class IngredientsStore {
   } as { [key: string]: boolean };
 
   searchResults = {} as SearchResults;
+  searchResultsCache: Result[] = [];
 
   loader = false;
 
@@ -109,6 +110,7 @@ export default class IngredientsStore {
   fetchResults = async () => {
     if (this.searchValue === '') {
       this.setSearchResults({} as SearchResults);
+      this.setSearchResultsCache([], 'fetch');
       return;
     }
 
@@ -121,8 +123,9 @@ export default class IngredientsStore {
       const res = _res as SearchResults;
 
       this.setSearchResults(res);
+      this.setSearchResultsCache(res.results, 'fetch');
 
-      console.log('this.searchResults ', this.searchResults);
+      // console.log('this.searchResults ', this.searchResults);
     } catch (e) {
       console.error('ERROR: setSearchResults axios error ');
       console.log(e);
@@ -136,6 +139,19 @@ export default class IngredientsStore {
    */
   private setSearchResults = (results: SearchResults) => {
     this.searchResults = results;
+  };
+
+  /**
+   * Set a cache of the overall search results, this will be used when rendering all the results in the flatlist
+   */
+  private setSearchResultsCache = (results: Result[], mode: 'fetch' | 'paginate') => {
+    if (results.length && mode === 'fetch') {
+      this.searchResultsCache = [...results];
+    } else if (results.length && mode === 'paginate') {
+      this.searchResultsCache = [...this.searchResultsCache, ...results];
+    } else {
+      this.searchResultsCache = [];
+    }
   };
 
   /**

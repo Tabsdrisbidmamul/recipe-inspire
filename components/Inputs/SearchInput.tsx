@@ -1,5 +1,5 @@
-import React, { createRef } from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import React, { createRef, useEffect, useState } from 'react';
+import { View, Pressable, StyleSheet, Keyboard } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -15,6 +15,7 @@ import DelayInput from 'react-native-debounce-input';
  */
 export default observer(function SearchInput() {
   const navigation = useNavigation();
+
   const inputRef = createRef();
   const { ingredientsStore } = useStore();
   const { searchValue, setSearchValue, fetchResults } = ingredientsStore;
@@ -27,7 +28,6 @@ export default observer(function SearchInput() {
 
   async function handleInputChange(value: string) {
     setSearchValue(value);
-    await fetchResults();
   }
 
   return (
@@ -49,7 +49,7 @@ export default observer(function SearchInput() {
         //@ts-ignore
         inputRef={inputRef}
         //@ts-ignore
-        onChangeText={(value) => handleInputChange(value).then()}
+        onChangeText={(value) => handleInputChange(value as string)}
         delayTimeout={500}
         style={styles.textInput}
         autoFocus

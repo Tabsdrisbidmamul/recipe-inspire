@@ -25,7 +25,10 @@ const requests = {
 };
 
 const dev = {
-  results: () => results,
+  results: async () => {
+    await sleep(1000);
+    return results;
+  },
 };
 
 const spoonacular = {

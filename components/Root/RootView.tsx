@@ -28,7 +28,7 @@ export default function RootView({ children, isScrollable, isKeyboardDismissible
       {isScrollable ? (
         <View style={[styles.container]}>
           {isKeyboardDismissible ? (
-            <ScrollView keyboardDismissMode="on-drag" style={styles.scrollContainer}>
+            <ScrollView keyboardDismissMode="interactive" style={styles.scrollContainer}>
               {children}
             </ScrollView>
           ) : (

@@ -1,39 +1,46 @@
 import { observer } from 'mobx-react-lite';
 import RootView from '../../components/Root/RootView';
-import { KeyboardAvoidingView, StyleSheet, Image, View, Text } from 'react-native';
+import { FlatList, Keyboard } from 'react-native';
 import SearchField from '../../components/Inputs/SearchField';
 import React, { useEffect, useState } from 'react';
-import BaseCard from '../../components/Cards/BaseCard';
-import { globalStyles } from '../../constants/globalStyles';
-import globalConstants from '../../constants/globalConstants';
 import SearchResultCard from '../../components/Cards/SearchResultCard';
 import useStore from '../../hooks/useStore';
-import { Result } from '../../interfaces/results.interface';
+import LottieLoader from '../../components/Loader/LottieLoader';
+import EmptyList from '../../components/Message/EmptyList';
 
 /**
  * Screen for search results
  */
 export default observer(function SearchResults() {
-  const [results, setResults] = useState<Result[]>([]);
-
   const { ingredientsStore } = useStore();
-  const { searchResults } = ingredientsStore;
+  const { searchResultsCache, loader, searchValue, fetchResults } = ingredientsStore;
 
   useEffect(() => {
-    if (searchResults.results === undefined) return;
-
-    setResults((current) => [...current, ...searchResults.results]);
-    console.log('results ', results);
-  }, [searchResults]);
+    fetchResults();
+  }, [searchValue]);
 
   return (
-    <RootView isScrollable isKeyboardDismissible>
+    <RootView>
       <SearchField mode="input" />
-      <KeyboardAvoidingView>
-        {results.map((el, i) => (
-          <SearchResultCard key={i} id={el.id.toString()} uri={el.image} title={el.title} summary={`${el.summary}`} />
-        ))}
-      </KeyboardAvoidingView>
+
+      {loader ? (
+        <LottieLoader />
+      ) : (
+        <FlatList
+          data={searchResultsCache}
+          renderItem={({ item, index }) => (
+            <SearchResultCard
+              key={index}
+              id={item.id.toString()}
+              uri={item.image}
+              title={item.title}
+              summary={`${item.summary}`}
+            />
+          )}
+          onScrollBeginDrag={Keyboard.dismiss}
+          ListEmptyComponent={EmptyList}
+        />
+      )}
     </RootView>
   );
 });

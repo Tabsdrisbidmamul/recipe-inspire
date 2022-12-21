@@ -18,3 +18,7 @@ Expo app which will allows users to scan fruit or veg - this will be pushed up t
 - `npm i`
 - Have an Android or iOS emulator running or [Expo Go App](https://expo.dev/client) installed
 - `npm run start`
+
+## Acknowledgements
+
+Jalajpathak, n.d. Food loader (online). LottieFiles. Available from: https://lottiefiles.com/130956-food-loader [Accessed 21/12/2022]

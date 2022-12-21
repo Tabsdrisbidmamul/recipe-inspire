@@ -28,6 +28,16 @@ export default function SearchResultCard({ id, uri, title, summary }: IProps) {
     });
   }
 
+  function extractWords(title: string) {
+    if (title === null) return;
+
+    const regexp = new RegExp(/(\w|\s)*\w(?=")|\w+/g);
+
+    const matched = title.match(regexp);
+
+    return matched?.slice(0, 3).join(' ');
+  }
+
   return (
     <BaseCard mode="link" onPress={handleCardPressedNavigateToRecipeDetailScreen} style={styles.cardContainer}>
       <Image
@@ -37,7 +47,7 @@ export default function SearchResultCard({ id, uri, title, summary }: IProps) {
         style={styles.image}
       />
       <View style={styles.contentContainer}>
-        <Text style={styles.header}>{title}</Text>
+        <Text style={styles.header}>{extractWords(title)}...</Text>
         <RenderHtml
           contentWidth={250}
           source={{
@@ -65,12 +75,13 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   contentContainer: {
-    padding: 10,
-    marginLeft: 10,
+    ...globalStyles.baseContainerMarginHorizontal,
+    ...globalStyles.baseContainerMarginVertical,
   },
   header: {
     ...globalStyles.baseHeaderText,
-    maxWidth: 250,
+    maxWidth: 225,
+    marginBottom: 10,
   },
   text: {
     ...globalStyles.baseText,
@@ -84,6 +95,6 @@ const tagStyles = {
     maxWidth: 200,
     maxHeight: 200,
     fontSize: 16,
-    marginBottom: 18,
+    // marginBottom: 18,
   },
 };
