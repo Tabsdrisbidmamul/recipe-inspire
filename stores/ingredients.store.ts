@@ -46,6 +46,7 @@ export default class IngredientsStore {
   searchResultsCache: Result[] = [];
 
   filters = {
+    'gluten free': false,
     ketogenic: false,
     vegetarian: false,
     'lacto-vegetarian': false,
@@ -129,18 +130,25 @@ export default class IngredientsStore {
 
     this.setLoader(true);
     try {
-      //TODO: Change the call from dev to spoonacular
-      const _res = await Agent.dev.results();
+      let res = {} as SearchResults;
 
-      // @ts-ignore
-      const res = _res as SearchResults;
+      // any filters set, add them to the query
+      if (Object.values(this.filters).some((el) => el)) {
+        const filters = Object.entries(this.filters)
+          .filter((el) => el[1])
+          .map((el) => el[0]);
+
+        res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters);
+      } else {
+        res = await Agent.spoonacular.searchWithQuery(this.searchValue);
+      }
+
+      console.log('res ', res);
 
       this.setSearchResults(res);
       this.setSearchResultsCache(res.results, 'fetch');
-
-      // console.log('this.searchResults ', this.searchResults);
     } catch (e) {
-      console.error('ERROR: setSearchResults axios error ');
+      console.error('ERROR: fetchResults axios error ');
       console.log(e);
     } finally {
       this.setLoader(false);
@@ -154,8 +162,7 @@ export default class IngredientsStore {
    */
   setFilters = (key: string, value: boolean) => {
     this.filters[key] = value;
-
-    console.log('this.filters ', this.filters);
+    this.fetchResults();
   };
 
   /**

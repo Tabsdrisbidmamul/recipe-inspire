@@ -50,7 +50,7 @@ export default observer(function SearchInput() {
         inputRef={inputRef}
         //@ts-ignore
         onChangeText={(value) => handleInputChange(value as string)}
-        delayTimeout={500}
+        delayTimeout={150}
         style={styles.textInput}
         autoFocus
         placeholder="Search"

@@ -1,5 +1,6 @@
 import axios, { Axios, AxiosResponse } from 'axios';
 import results from './data/results/result1.json';
+import { SearchResults } from './interfaces/results.interface';
 
 const sleep = (delay: number) => {
   return new Promise((resolve: any) => {
@@ -7,13 +8,13 @@ const sleep = (delay: number) => {
   });
 };
 
-// axios.defaults.baseURL = "https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d/";
+axios.defaults.baseURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&';
 
-axios.interceptors.response.use(async (response) => {
-  await sleep(1000);
+// axios.interceptors.response.use(async (response) => {
+//   await sleep(1000);
 
-  return response;
-});
+//   return response;
+// });
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -32,7 +33,25 @@ const dev = {
 };
 
 const spoonacular = {
-  search: (query: string) => requests.get('results/result1.json'),
+  searchWithQuery: (query: string) =>
+    requests.get<SearchResults>(`query=${query}&addRecipeNutrition=true&addRecipeInformation=true`),
+
+  searchWithQueryAndFilters: (query: string, filters: string[]) =>
+    requests.get<SearchResults>(
+      `query=${query}&diet=${filters.join(',')}&addRecipeNutrition=true&addRecipeInformation=true`
+    ),
+
+  searchWithIngredients: (ingredients: string[]) =>
+    requests.get<SearchResults>(
+      `includeIngredients=${ingredients.join(',')}&addRecipeNutrition=true&addRecipeInformation=true`
+    ),
+
+  searchWithIngredientsAndFilters: (ingredients: string[], filters: string[]) =>
+    requests.get<SearchResults>(
+      `includeIngredients=${ingredients.join(',')}&diet=${filters.join(
+        ','
+      )}&addRecipeNutrition=true&addRecipeInformation=true`
+    ),
 };
 
 const Agent = {
