@@ -8,13 +8,15 @@ import useStore from '../../hooks/useStore';
 import LottieLoader from '../../components/Loader/LottieLoader';
 import EmptyList from '../../components/Message/EmptyList';
 import SearchFilters from '../../components/Inputs/SearchFilters';
+import uuid from 'react-native-uuid';
 
 /**
  * Screen for search results
  */
 export default observer(function SearchResults() {
   const { ingredientsStore } = useStore();
-  const { searchResultsCache, loader, searchValue, fetchResults } = ingredientsStore;
+  const { searchResultsCache, loader, searchValue, fetchResults, fetchPaginatedResults, paginateLoader } =
+    ingredientsStore;
 
   useEffect(() => {
     fetchResults();
@@ -29,20 +31,27 @@ export default observer(function SearchResults() {
       {loader ? (
         <LottieLoader />
       ) : (
-        <FlatList
-          data={searchResultsCache}
-          renderItem={({ item, index }) => (
-            <SearchResultCard
-              key={index}
-              id={item.id.toString()}
-              uri={item.image}
-              title={item.title}
-              summary={`${item.summary}`}
-            />
-          )}
-          onScrollBeginDrag={Keyboard.dismiss}
-          ListEmptyComponent={EmptyList}
-        />
+        <>
+          <FlatList
+            data={searchResultsCache}
+            renderItem={({ item }) => (
+              <SearchResultCard
+                id={item.id.toString()}
+                uri={item.image}
+                title={item.title}
+                summary={`${item.summary}`}
+              />
+            )}
+            //@ts-ignore
+            keyExtractor={(_, _2) => uuid.v4()}
+            onScrollBeginDrag={Keyboard.dismiss}
+            ListEmptyComponent={EmptyList}
+            onEndReachedThreshold={0.4}
+            onEndReached={fetchPaginatedResults}
+          />
+
+          {paginateLoader ? <LottieLoader /> : null}
+        </>
       )}
     </RootView>
   );

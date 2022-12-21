@@ -45,6 +45,9 @@ export default class IngredientsStore {
   searchResults = {} as SearchResults;
   searchResultsCache: Result[] = [];
 
+  currentPage = 0;
+  maxPages = 0;
+
   filters = {
     'gluten free': false,
     ketogenic: false,
@@ -60,6 +63,7 @@ export default class IngredientsStore {
   } as { [key: string]: boolean };
 
   loader = false;
+  paginateLoader = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -130,29 +134,62 @@ export default class IngredientsStore {
 
     this.setLoader(true);
     try {
-      let res = {} as SearchResults;
-
-      // any filters set, add them to the query
-      if (Object.values(this.filters).some((el) => el)) {
-        const filters = Object.entries(this.filters)
-          .filter((el) => el[1])
-          .map((el) => el[0]);
-
-        res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters);
-      } else {
-        res = await Agent.spoonacular.searchWithQuery(this.searchValue);
-      }
-
-      console.log('res ', res);
+      const res = await this._fetchResults();
 
       this.setSearchResults(res);
       this.setSearchResultsCache(res.results, 'fetch');
+      this.calculateAndSetMaxPages(res);
     } catch (e) {
       console.error('ERROR: fetchResults axios error ');
-      console.log(e);
     } finally {
       this.setLoader(false);
     }
+  };
+
+  /**
+   * Fetch search results for the next page
+   */
+  fetchPaginatedResults = async () => {
+    if (this.currentPage > this.maxPages) return;
+
+    this.setCurrentPage(this.currentPage + 1);
+
+    this.setPaginateLoader(true);
+    try {
+      const res = await this._fetchResults();
+
+      this.setSearchResults(res);
+      this.setSearchResultsCache(res.results, 'paginate');
+    } catch (e) {
+      console.error('ERROR: fetchResults axios error ');
+    } finally {
+      this.setPaginateLoader(false);
+    }
+  };
+
+  /**
+   * helper method to fetch the results, common function and refactored
+   * @returns
+   */
+  private _fetchResults = async () => {
+    let res = {} as SearchResults;
+
+    // any filters set, add them to the query
+    if (Object.values(this.filters).some((el) => el)) {
+      const filters = Object.entries(this.filters)
+        .filter((el) => el[1])
+        .map((el) => el[0]);
+
+      res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters);
+    } else {
+      // TODO: remove dev call
+      // res = await Agent.spoonacular.searchWithQuery(this.searchValue);
+
+      //@ts-ignore
+      res = (await Agent.dev.paginate()) as SearchResults;
+    }
+
+    return res;
   };
 
   /**
@@ -170,6 +207,32 @@ export default class IngredientsStore {
    */
   private setSearchResults = (results: SearchResults) => {
     this.searchResults = results;
+  };
+
+  /**
+   * Set the current page
+   * @param page
+   */
+  private setCurrentPage = (page: number) => {
+    this.currentPage = page;
+  };
+
+  /**
+   * Set max pages for the search
+   * @param pages
+   */
+  private setMaxPages = (pages: number) => {
+    this.maxPages = pages;
+  };
+
+  /**
+   * Will calculate the maximum number of pages for the search and will set the max pages
+   * @param results
+   */
+  private calculateAndSetMaxPages = (results: SearchResults) => {
+    const pages = Math.ceil(results.totalResults / results.number);
+
+    this.setMaxPages(pages);
   };
 
   /**
@@ -191,5 +254,13 @@ export default class IngredientsStore {
    */
   setLoader = (state: boolean) => {
     this.loader = state;
+  };
+
+  /**
+   * Set the paginate loader when making async calls
+   * @param state
+   */
+  private setPaginateLoader = (state: boolean) => {
+    this.paginateLoader = state;
   };
 }

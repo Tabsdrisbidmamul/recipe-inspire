@@ -1,5 +1,6 @@
 import axios, { Axios, AxiosResponse } from 'axios';
 import results from './data/results/result1.json';
+import results2 from './data/results/result2.json';
 import { SearchResults } from './interfaces/results.interface';
 
 const sleep = (delay: number) => {
@@ -29,6 +30,10 @@ const dev = {
   results: async () => {
     await sleep(1000);
     return results;
+  },
+  paginate: async () => {
+    await sleep(1000);
+    return results2;
   },
 };
 
