@@ -35,7 +35,7 @@ export default function SearchResultCard({ id, uri, title, summary }: IProps) {
 
     const matched = title.match(regexp);
 
-    return matched?.slice(0, 3).join(' ');
+    return matched?.slice(0, 2).join(' ');
   }
 
   return (

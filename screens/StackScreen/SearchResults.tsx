@@ -7,6 +7,7 @@ import SearchResultCard from '../../components/Cards/SearchResultCard';
 import useStore from '../../hooks/useStore';
 import LottieLoader from '../../components/Loader/LottieLoader';
 import EmptyList from '../../components/Message/EmptyList';
+import SearchFilters from '../../components/Inputs/SearchFilters';
 
 /**
  * Screen for search results
@@ -22,6 +23,8 @@ export default observer(function SearchResults() {
   return (
     <RootView>
       <SearchField mode="input" />
+
+      <SearchFilters />
 
       {loader ? (
         <LottieLoader />

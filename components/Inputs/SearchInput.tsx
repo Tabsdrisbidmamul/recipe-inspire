@@ -1,5 +1,5 @@
-import React, { createRef, useEffect, useState } from 'react';
-import { View, Pressable, StyleSheet, Keyboard } from 'react-native';
+import React, { createRef } from 'react';
+import { View, Pressable, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -18,7 +18,7 @@ export default observer(function SearchInput() {
 
   const inputRef = createRef();
   const { ingredientsStore } = useStore();
-  const { searchValue, setSearchValue, fetchResults } = ingredientsStore;
+  const { searchValue, setSearchValue } = ingredientsStore;
 
   function handleBackButtonPress() {
     if (navigation.canGoBack()) {

@@ -45,6 +45,19 @@ export default class IngredientsStore {
   searchResults = {} as SearchResults;
   searchResultsCache: Result[] = [];
 
+  filters = {
+    ketogenic: false,
+    vegetarian: false,
+    'lacto-vegetarian': false,
+    'ovo-vegetarian': false,
+    vega: false,
+    pescetarian: false,
+    paleo: false,
+    primal: false,
+    'low foodmap': false,
+    whole30: false,
+  } as { [key: string]: boolean };
+
   loader = false;
 
   constructor() {
@@ -132,6 +145,17 @@ export default class IngredientsStore {
     } finally {
       this.setLoader(false);
     }
+  };
+
+  /**
+   * set the filter in the filters object
+   * @param key
+   * @param value
+   */
+  setFilters = (key: string, value: boolean) => {
+    this.filters[key] = value;
+
+    console.log('this.filters ', this.filters);
   };
 
   /**
