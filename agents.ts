@@ -9,7 +9,7 @@ const sleep = (delay: number) => {
   });
 };
 
-axios.defaults.baseURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&';
+// axios.defaults.baseURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&';
 
 // axios.interceptors.response.use(async (response) => {
 //   await sleep(1000);
@@ -38,24 +38,33 @@ const dev = {
 };
 
 const spoonacular = {
-  searchWithQuery: (query: string) =>
-    requests.get<SearchResults>(`query=${query}&addRecipeNutrition=true&addRecipeInformation=true`),
+  searchWithQuery: (query: string, offset: number) => {
+    // console.log(`spoonacular query ${query} and offset ${offset}\n`);
+    // console.log(`query=${query}&offset=${offset}&addRecipeNutrition=true&addRecipeInformation=true`);
+    return requests.get<SearchResults>(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&addRecipeNutrition=true&addRecipeInformation=true`
+    );
+  },
 
-  searchWithQueryAndFilters: (query: string, filters: string[]) =>
+  searchWithQueryAndFilters: (query: string, filters: string[], offset: number) =>
     requests.get<SearchResults>(
-      `query=${query}&diet=${filters.join(',')}&addRecipeNutrition=true&addRecipeInformation=true`
-    ),
-
-  searchWithIngredients: (ingredients: string[]) =>
-    requests.get<SearchResults>(
-      `includeIngredients=${ingredients.join(',')}&addRecipeNutrition=true&addRecipeInformation=true`
-    ),
-
-  searchWithIngredientsAndFilters: (ingredients: string[], filters: string[]) =>
-    requests.get<SearchResults>(
-      `includeIngredients=${ingredients.join(',')}&diet=${filters.join(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&diet=${filters.join(
         ','
       )}&addRecipeNutrition=true&addRecipeInformation=true`
+    ),
+
+  searchWithIngredients: (ingredients: string[], offset: number) =>
+    requests.get<SearchResults>(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&offset=${offset}&includeIngredients=${ingredients.join(
+        ','
+      )}&addRecipeNutrition=true&addRecipeInformation=true`
+    ),
+
+  searchWithIngredientsAndFilters: (ingredients: string[], filters: string[], offset: number) =>
+    requests.get<SearchResults>(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&offset=${offset}&includeIngredients=${ingredients.join(
+        ','
+      )}&diet=${filters.join(',')}&addRecipeNutrition=true&addRecipeInformation=true`
     ),
 };
 

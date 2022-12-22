@@ -9,6 +9,7 @@ import LottieLoader from '../../components/Loader/LottieLoader';
 import EmptyList from '../../components/Message/EmptyList';
 import SearchFilters from '../../components/Inputs/SearchFilters';
 import uuid from 'react-native-uuid';
+import { Result } from '../../interfaces/results.interface';
 
 /**
  * Screen for search results

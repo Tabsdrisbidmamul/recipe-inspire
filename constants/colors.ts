@@ -1,7 +1,7 @@
 export default {
   gradient: {
-    orange: '#FBAB7E',
-    yellow: '#F7CE68',
+    pink: '#FAACA8',
+    purple: '#DDD6F3',
   },
   primary: {
     darkBlue: '#264653',

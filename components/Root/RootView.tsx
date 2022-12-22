@@ -20,10 +20,10 @@ export default function RootView({ children, isScrollable, isKeyboardDismissible
   return (
     <LinearGradient
       style={[styles.root]}
-      colors={[colors.gradient.orange, colors.gradient.yellow]}
+      colors={[colors.gradient.pink, colors.gradient.purple]}
       start={[0, 0.5]}
       end={[0.5, 1]}
-      locations={[0.15, 1]}
+      locations={[0.4, 1]}
     >
       {isScrollable ? (
         <View style={[styles.container]}>

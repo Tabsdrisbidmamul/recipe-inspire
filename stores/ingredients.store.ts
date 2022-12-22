@@ -159,6 +159,7 @@ export default class IngredientsStore {
       const res = await this._fetchResults();
 
       this.setSearchResults(res);
+
       this.setSearchResultsCache(res.results, 'paginate');
     } catch (e) {
       console.error('ERROR: fetchResults axios error ');
@@ -180,10 +181,10 @@ export default class IngredientsStore {
         .filter((el) => el[1])
         .map((el) => el[0]);
 
-      res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters);
+      res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters, this.currentPage);
     } else {
       // TODO: remove dev call
-      // res = await Agent.spoonacular.searchWithQuery(this.searchValue);
+      // res = await Agent.spoonacular.searchWithQuery(this.searchValue, this.currentPage);
 
       //@ts-ignore
       res = (await Agent.dev.paginate()) as SearchResults;
