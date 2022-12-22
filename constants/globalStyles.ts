@@ -70,7 +70,7 @@ export const globalStyles = StyleSheet.create({
   },
 
   buttonBackgroundColor: {
-    backgroundColor: colors.primary.darkBlue,
+    backgroundColor: colors.blacks.charcoal,
   },
 
   buttonTextColor: {

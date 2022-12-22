@@ -4,6 +4,7 @@ import { View, Pressable, StyleSheet, Text } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
+import CameraButton from './CameraButton';
 
 /**
  * Search button, styled to look like an input, but will navigate the user to the search results screen
@@ -30,14 +31,7 @@ export default function SearchButton() {
         <Ionicons name="search" style={styles.icon} />
       </Pressable>
 
-      <Pressable
-        accessible
-        accessibilityLabel="Camera button"
-        accessibilityHint="Navigates to camera screen"
-        style={styles.iconContainer}
-      >
-        <Ionicons name="camera-outline" style={[styles.icon, styles.cameraIcon]} />
-      </Pressable>
+      <CameraButton />
     </View>
   );
 }
@@ -60,23 +54,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     flex: 2,
   },
-  iconContainer: {
-    marginLeft: 15,
-    width: 50,
-    height: 50,
-    backgroundColor: colors.primary.darkBlue,
-    borderRadius: 100,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 
   icon: {
     ...globalStyles.icon,
-  },
-  cameraIcon: {
-    color: colors.whites.pastel,
-    fontSize: 35,
   },
   searchIcon: {
     position: 'absolute',
