@@ -78,7 +78,7 @@ export const globalStyles = StyleSheet.create({
   },
 
   searchButtonBackgroundColor: {
-    backgroundColor: colors.whites.paleYellow,
+    backgroundColor: colors.whites.pastel,
   },
 
   baseCard: {
@@ -86,6 +86,15 @@ export const globalStyles = StyleSheet.create({
     backgroundColor: colors.whites.paleYellowLighter,
     paddingHorizontal: 20,
     paddingVertical: 20,
+  },
+
+  basePill: {
+    paddingVertical: 4,
+    paddingHorizontal: 12,
+    borderRadius: 25,
+    borderColor: colors.blacks.charcoal,
+    borderWidth: 1,
+    backgroundColor: 'transparent',
   },
 
   icon: {

@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     ...globalStyles.basePaddingHorizontal,
     ...globalStyles.basePaddingVertical,
     ...globalStyles.baseBorderRadius,
+    ...globalStyles.shadows,
     paddingHorizontal: 30,
     paddingVertical: 12,
     flex: 2,

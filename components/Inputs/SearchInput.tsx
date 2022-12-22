@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'space-between',
     ...globalStyles.baseContentMargin,
+    ...globalStyles.shadows,
   },
   backContainer: {
     backgroundColor: colors.whites.pastel,

@@ -43,12 +43,7 @@ const styles = StyleSheet.create({
     ...globalStyles.baseContentMargin,
   },
   pill: {
-    padding: 8,
-    paddingHorizontal: 10,
-    borderRadius: 25,
-    borderColor: colors.blacks.charcoal,
-    borderWidth: 1,
-    backgroundColor: 'transparent',
+    ...globalStyles.basePill,
     marginRight: 10,
   },
   active: {
@@ -56,6 +51,7 @@ const styles = StyleSheet.create({
   },
   text: {
     ...globalStyles.baseText,
+    color: colors.blacks.deep,
     fontSize: 14,
   },
   activeText: {
