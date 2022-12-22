@@ -10,6 +10,9 @@ export default {
     orange: '#F4A261',
     red: '#E76F51',
   },
+  secondary: {
+    'gradient pink lighter': '#FFF9F8',
+  },
   whites: {
     doveGrey: '#707070',
     pastel: '#FEFBF6',

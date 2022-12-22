@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import { globalStyles } from '../../constants/globalStyles';
 
 interface IProps {
   children: JSX.Element[] | JSX.Element;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -11,13 +12,13 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function Content({ children }: IProps) {
+export default function Content({ children, style }: IProps) {
   return (
     <View
       accessible
       accessibilityLabel="Content container"
       accessibilityHint="Wrapper for content"
-      style={styles.content}
+      style={[styles.content, style]}
     >
       {children}
     </View>

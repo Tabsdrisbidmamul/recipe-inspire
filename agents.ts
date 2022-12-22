@@ -9,6 +9,7 @@ const sleep = (delay: number) => {
   });
 };
 
+// BUG :Base url is not respected in native
 // axios.defaults.baseURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&';
 
 // axios.interceptors.response.use(async (response) => {

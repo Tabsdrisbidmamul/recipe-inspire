@@ -102,3 +102,13 @@ export const globalStyles = StyleSheet.create({
     fontSize: 24,
   },
 });
+
+export const globalTagStyles = {
+  body: {
+    ...globalStyles.baseText,
+    maxWidth: 200,
+    maxHeight: 200,
+    fontSize: 16,
+    // marginBottom: 18,
+  },
+};

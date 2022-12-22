@@ -5,10 +5,16 @@ import React, { useLayoutEffect, useState } from 'react';
 import { Button, StyleSheet, Text, View, Image } from 'react-native';
 import BaseCard from '../../components/Cards/BaseCard';
 import ImageCard from '../../components/Cards/ImageCard';
+import Content from '../../components/Content/Content';
 import NavigationHeader from '../../components/Header/NavigationHeader';
 import RootView from '../../components/Root/RootView';
 import useStore from '../../hooks/useStore';
 import { Result } from '../../interfaces/results.interface';
+import Column from '../../layouts/column/Colum';
+import Row from '../../layouts/row/Row';
+import RenderHtml from 'react-native-render-html';
+import { globalStyles, globalTagStyles } from '../../constants/globalStyles';
+import colors from '../../constants/colors';
 
 export default observer(function Details() {
   const navigation = useNavigation();
@@ -41,8 +47,38 @@ export default observer(function Details() {
       <NavigationHeader handleNavigateBack={handlePressBack} title={recipe.title} />
 
       <ImageCard uri={recipe.image} />
+
+      <BaseCard style={{ marginTop: 12, backgroundColor: colors.secondary['gradient pink lighter'] }}>
+        <Text style={styles.header}>Summary</Text>
+        <RenderHtml
+          contentWidth={250}
+          source={{
+            html: `${recipe.summary}`,
+          }}
+          tagsStyles={tagStyles}
+        ></RenderHtml>
+      </BaseCard>
     </RootView>
   );
 });
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {
+    ...globalStyles.headerH2,
+    color: colors.whites.doveGrey,
+    fontFamily: 'nunito-medium-italic',
+    fontSize: 30,
+  },
+  text: {
+    ...globalStyles.baseText,
+  },
+});
+
+const tagStyles = {
+  body: {
+    ...globalTagStyles.body,
+    maxHeight: 'unset',
+    maxWidth: 'unset',
+    fontSize: 16,
+  },
+};

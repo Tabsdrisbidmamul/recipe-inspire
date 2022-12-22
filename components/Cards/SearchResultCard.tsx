@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
 import globalConstants from '../../constants/globalConstants';
-import { globalStyles } from '../../constants/globalStyles';
+import { globalStyles, globalTagStyles } from '../../constants/globalStyles';
 import BaseCard from './BaseCard';
 import RenderHtml from 'react-native-render-html';
 
@@ -91,10 +91,6 @@ const styles = StyleSheet.create({
 
 const tagStyles = {
   body: {
-    ...globalStyles.baseText,
-    maxWidth: 200,
-    maxHeight: 200,
-    fontSize: 16,
-    // marginBottom: 18,
+    ...globalTagStyles.body,
   },
 };
