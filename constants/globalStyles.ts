@@ -101,6 +101,13 @@ export const globalStyles = StyleSheet.create({
     color: colors.blacks.charcoal,
     fontSize: 24,
   },
+
+  circle: {
+    height: 5,
+    width: 5,
+    backgroundColor: colors.whites.pastel,
+    borderRadius: 100,
+  },
 });
 
 export const globalTagStyles = {

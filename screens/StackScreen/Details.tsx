@@ -15,7 +15,12 @@ import Row from '../../layouts/row/Row';
 import RenderHtml from 'react-native-render-html';
 import { globalStyles, globalTagStyles } from '../../constants/globalStyles';
 import colors from '../../constants/colors';
+import PillContainer from '../../components/Pill/PillContainer';
+import Pill from '../../components/Pill/Pill';
 
+/**
+ * Recipe Detail screen
+ */
 export default observer(function Details() {
   const navigation = useNavigation();
   const route = useRoute();
@@ -46,7 +51,20 @@ export default observer(function Details() {
     <RootView isScrollable>
       <NavigationHeader handleNavigateBack={handlePressBack} title={recipe.title} />
 
-      <ImageCard uri={recipe.image} />
+      <ImageCard
+        uri={recipe.image}
+        readyInMinutes={recipe.readyInMinutes}
+        servings={recipe.servings}
+        title={recipe.title}
+      />
+
+      <Content style={{ justifyContent: 'center' }}>
+        <PillContainer style={{ marginTop: 20, marginBottom: -20 }}>
+          {recipe.diets?.map((el, i) => (
+            <Pill key={i} message={el} />
+          ))}
+        </PillContainer>
+      </Content>
 
       <BaseCard style={{ marginTop: 12, backgroundColor: colors.secondary['gradient pink lighter'] }}>
         <Text style={styles.header}>Summary</Text>
@@ -66,8 +84,8 @@ const styles = StyleSheet.create({
   header: {
     ...globalStyles.headerH2,
     color: colors.whites.doveGrey,
-    fontFamily: 'nunito-medium-italic',
-    fontSize: 30,
+    fontFamily: 'nunito-semibold',
+    fontSize: 28,
   },
   text: {
     ...globalStyles.baseText,

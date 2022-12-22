@@ -5,12 +5,15 @@ import globalConstants from '../../constants/globalConstants';
 import { globalStyles, globalTagStyles } from '../../constants/globalStyles';
 import BaseCard from './BaseCard';
 import RenderHtml from 'react-native-render-html';
+import PillContainer from '../Pill/PillContainer';
+import Pill from '../Pill/Pill';
 
 interface IProps {
   id: string;
   uri: string;
   title: string;
   summary: string;
+  diets: string[];
 }
 
 /**
@@ -18,7 +21,7 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function SearchResultCard({ id, uri, title, summary }: IProps) {
+export default function SearchResultCard({ id, uri, title, summary, diets: diet }: IProps) {
   const navigation = useNavigation();
 
   function handleCardPressedNavigateToRecipeDetailScreen() {
@@ -48,6 +51,11 @@ export default function SearchResultCard({ id, uri, title, summary }: IProps) {
       />
       <View style={styles.contentContainer}>
         <Text style={styles.header}>{extractWords(title)}...</Text>
+        <PillContainer style={{ maxWidth: 250 }}>
+          {diet.map((el, i) => (
+            <Pill key={i} message={el} />
+          ))}
+        </PillContainer>
         <RenderHtml
           contentWidth={250}
           source={{

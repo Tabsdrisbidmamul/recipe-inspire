@@ -41,6 +41,7 @@ export default observer(function SearchResults() {
                 uri={item.image}
                 title={item.title}
                 summary={`${item.summary}`}
+                diets={item.diets}
               />
             )}
             //@ts-ignore
