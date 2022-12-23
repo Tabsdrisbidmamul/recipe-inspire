@@ -4,7 +4,7 @@ import Agent from '../agents';
 import { Result, SearchResults } from '../interfaces/results.interface';
 
 /**
- * These settings correspond to the ingredients settings page
+ * store for ingredients, and diet settings as well making http calls to get recipes and recipe details
  */
 export default class IngredientsStore {
   private readonly COMMON_INGREDIENT_KEY = 'commonIngredient';

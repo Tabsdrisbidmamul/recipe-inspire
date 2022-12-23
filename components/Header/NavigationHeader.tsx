@@ -6,10 +6,13 @@ import colors from '../../constants/colors';
 import { StatusBar } from 'expo-status-bar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import globalConstants from '../../constants/globalConstants';
+import { observer } from 'mobx-react-lite';
+import useStore from '../../hooks/useStore';
 
 interface IProps {
   title: string;
   handleNavigateBack: (...args: any) => any;
+  mode: 'default' | 'recipe';
 }
 
 /**
@@ -17,7 +20,9 @@ interface IProps {
  * @param prop
  * @returns
  */
-export default function NavigationHeader({ title, handleNavigateBack }: IProps) {
+export default observer(function NavigationHeader({ title, handleNavigateBack, mode = 'default' }: IProps) {
+  const { ingredientsStore } = useStore();
+  const { selectedRecipe } = ingredientsStore;
   const insets = useSafeAreaInsets();
 
   const height = insets.top + globalConstants.insetHeight;
@@ -25,13 +30,16 @@ export default function NavigationHeader({ title, handleNavigateBack }: IProps) 
   return (
     <>
       <View style={[styles.container, { marginTop: height }]}>
-        <Ionicons onPress={handleNavigateBack} name="arrow-back-sharp" style={styles.icon} />
-        <Text style={styles.title}>{title}</Text>
-        <StatusBar style="light"></StatusBar>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <Ionicons onPress={handleNavigateBack} name="arrow-back-sharp" style={styles.icon} />
+          <Text style={styles.title}>{title}</Text>
+        </View>
+        {mode === 'recipe' ? <Ionicons name="heart-outline" style={styles.icon} /> : null}
       </View>
+      <StatusBar style="light"></StatusBar>
     </>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.whites.pastel,
     alignItems: 'center',
     paddingVertical: 12,
+    justifyContent: 'space-between',
   },
 
   icon: {

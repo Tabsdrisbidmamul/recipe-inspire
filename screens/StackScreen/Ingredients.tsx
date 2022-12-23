@@ -28,7 +28,7 @@ export default observer(function Ingredients() {
 
   return (
     <RootView isScrollable>
-      <NavigationHeader title="Ingredients" handleNavigateBack={navigateGoBack} />
+      <NavigationHeader title="Ingredients" handleNavigateBack={navigateGoBack} mode="default" />
 
       {/* <ContentHeader title="Bare Minimum" /> */}
 

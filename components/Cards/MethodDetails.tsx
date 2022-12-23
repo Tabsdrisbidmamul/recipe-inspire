@@ -1,11 +1,48 @@
-import React from 'react';
-import { View } from 'react-native';
-import { Step } from '../../interfaces/results.interface';
+import React, { useLayoutEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import colors from '../../constants/colors';
+import { globalStyles } from '../../constants/globalStyles';
+import { AnalyzedInstruction, Step } from '../../interfaces/results.interface';
+import BaseCard from './BaseCard';
 
 interface IProps {
-  steps: Step[];
+  analyzedInstructions: AnalyzedInstruction[];
 }
 
-export default function MethodDetails({ steps }: IProps) {
-  return <View></View>;
+export default function MethodDetails({ analyzedInstructions }: IProps) {
+  const [steps, setSteps] = useState<string[]>([]);
+
+  useLayoutEffect(() => {
+    const steps: string[] = [];
+    analyzedInstructions?.forEach((el) => {
+      el.steps.forEach((step) => {
+        steps.push(step.step);
+      });
+    });
+    setSteps(steps);
+  }, [analyzedInstructions]);
+
+  return (
+    <BaseCard style={{ backgroundColor: colors.secondary['gradient pink lighter'], marginTop: 12 }}>
+      <Text style={styles.header}>Method</Text>
+      <View>
+        {steps.map((el, i) => (
+          <View key={i} style={{ flexDirection: 'row', alignItems: 'flex-start', maxWidth: 300, marginBottom: 8 }}>
+            <Text style={[styles.text, { marginRight: 10 }]}>{i + 1}</Text>
+            <Text style={styles.text}>{el}</Text>
+          </View>
+        ))}
+      </View>
+    </BaseCard>
+  );
 }
+
+const styles = StyleSheet.create({
+  header: {
+    ...globalStyles.headerH2,
+  },
+  text: {
+    ...globalStyles.baseText,
+    fontSize: 16,
+  },
+});

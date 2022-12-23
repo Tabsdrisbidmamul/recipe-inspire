@@ -6,7 +6,7 @@ import { globalStyles } from '../../constants/globalStyles';
 
 export default function Settings() {
   return (
-    <LinearGradient style={styles.root} colors={[colors.gradient.orange, colors.gradient.yellow]}>
+    <LinearGradient style={styles.root} colors={[colors.gradient.pink, colors.gradient.purple]}>
       <View style={styles.root}>
         <Text style={styles.text}>Settings component is working</Text>
       </View>

@@ -19,9 +19,10 @@ import PillContainer from '../../components/Pill/PillContainer';
 import Pill from '../../components/Pill/Pill';
 import IngredientDetails from '../../components/Cards/IngredientDetails';
 import LottieLoader from '../../components/Loader/LottieLoader';
+import MethodDetails from '../../components/Cards/MethodDetails';
 
 /**
- * Recipe Detail screen
+ * Recipe Detail screen we fetch the recipe on screen load and set the recipe on load as well, this is to avoid endless calls from spam clicks from the results view
  */
 export default observer(function Details() {
   const navigation = useNavigation();
@@ -51,7 +52,7 @@ export default observer(function Details() {
 
   return (
     <RootView isScrollable>
-      <NavigationHeader handleNavigateBack={handlePressBack} title="Recipe" />
+      <NavigationHeader handleNavigateBack={handlePressBack} title="Recipe" mode="recipe" />
 
       {loader ? (
         <LottieLoader />
@@ -84,6 +85,8 @@ export default observer(function Details() {
       </BaseCard> */}
 
           <IngredientDetails extendedDetails={recipe.extendedIngredients} />
+
+          <MethodDetails analyzedInstructions={recipe.analyzedInstructions} />
         </>
       )}
     </RootView>
