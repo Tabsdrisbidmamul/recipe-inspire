@@ -27,7 +27,7 @@ export default function ImageCard({ uri, readyInMinutes, servings, title }: IPro
         <View>
           <Text style={styles.header}>{title}</Text>
         </View>
-        <View style={{ flexDirection: 'row', marginTop: -10 }}>
+        <View style={{ flexDirection: 'row', marginTop: -10, justifyContent: 'flex-end' }}>
           <Text style={styles.text}>Ready in {readyInMinutes} minutes</Text>
           <View style={styles.circle}></View>
           <Text style={styles.text}>Servings {servings}</Text>
@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 15,
     justifyContent: 'center',
+    maxWidth: 300,
   },
   text: {
     ...globalStyles.baseText,

@@ -65,6 +65,8 @@ export default class IngredientsStore {
   loader = false;
   paginateLoader = false;
 
+  selectedRecipe: Result = {} as Result;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -191,6 +193,37 @@ export default class IngredientsStore {
     }
 
     return res;
+  };
+
+  /**
+   * Fetch the selected recipe details view
+   * @param recipeId
+   */
+  getRecipe = async (recipeId: number) => {
+    try {
+      this.setLoader(true);
+
+      // TODO: remove dev calls
+      // const recipe = await Agent.spoonacular.getRecipeInformation(recipeId);
+
+      // @ts-ignore
+      const recipe = (await Agent.dev.details()) as Result;
+
+      this.setSelectedRecipe(recipe);
+    } catch (e) {
+      console.error(`ERROR: getRecipe() could not retrieve recipe for ${recipeId}`);
+      console.log(e);
+    } finally {
+      this.setLoader(false);
+    }
+  };
+
+  /**
+   * Set the selected recipe
+   * @param recipe
+   */
+  private setSelectedRecipe = (recipe: Result) => {
+    this.selectedRecipe = recipe;
   };
 
   /**

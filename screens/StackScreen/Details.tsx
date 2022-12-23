@@ -17,6 +17,8 @@ import { globalStyles, globalTagStyles } from '../../constants/globalStyles';
 import colors from '../../constants/colors';
 import PillContainer from '../../components/Pill/PillContainer';
 import Pill from '../../components/Pill/Pill';
+import IngredientDetails from '../../components/Cards/IngredientDetails';
+import LottieLoader from '../../components/Loader/LottieLoader';
 
 /**
  * Recipe Detail screen
@@ -25,7 +27,7 @@ export default observer(function Details() {
   const navigation = useNavigation();
   const route = useRoute();
   const { ingredientsStore } = useStore();
-  const { searchResultsCache } = ingredientsStore;
+  const { selectedRecipe, getRecipe, loader } = ingredientsStore;
 
   const [recipe, setRecipe] = useState<Result>({} as Result);
 
@@ -33,12 +35,12 @@ export default observer(function Details() {
     // @ts-ignore
     const { recipeId } = route.params;
 
-    const foundRecipe = searchResultsCache.find((el) => el.id === +recipeId);
-
-    if (foundRecipe === undefined) return;
-
-    setRecipe(foundRecipe);
+    getRecipe(+recipeId);
   }, [route.params]);
+
+  useLayoutEffect(() => {
+    setRecipe(selectedRecipe);
+  }, [selectedRecipe]);
 
   function handlePressBack() {
     //@ts-ignore
@@ -51,22 +53,26 @@ export default observer(function Details() {
     <RootView isScrollable>
       <NavigationHeader handleNavigateBack={handlePressBack} title="Recipe" />
 
-      <ImageCard
-        uri={recipe.image}
-        readyInMinutes={recipe.readyInMinutes}
-        servings={recipe.servings}
-        title={recipe.title}
-      />
+      {loader ? (
+        <LottieLoader />
+      ) : (
+        <>
+          <ImageCard
+            uri={recipe.image}
+            readyInMinutes={recipe.readyInMinutes}
+            servings={recipe.servings}
+            title={recipe.title}
+          />
 
-      <Content style={{ justifyContent: 'center' }}>
-        <PillContainer style={{ marginTop: 20, marginBottom: -20 }}>
-          {recipe.diets?.map((el, i) => (
-            <Pill key={i} message={el} />
-          ))}
-        </PillContainer>
-      </Content>
+          <Content style={{ justifyContent: 'center' }}>
+            <PillContainer style={{ marginTop: 20, marginBottom: -20 }}>
+              {recipe.diets?.map((el, i) => (
+                <Pill key={i} message={el} />
+              ))}
+            </PillContainer>
+          </Content>
 
-      <BaseCard style={{ marginTop: 12, backgroundColor: colors.secondary['gradient pink lighter'] }}>
+          {/* <BaseCard style={{ marginTop: 12, backgroundColor: colors.secondary['gradient pink lighter'] }}>
         <Text style={styles.header}>Summary</Text>
         <RenderHtml
           contentWidth={250}
@@ -75,7 +81,11 @@ export default observer(function Details() {
           }}
           tagsStyles={tagStyles}
         ></RenderHtml>
-      </BaseCard>
+      </BaseCard> */}
+
+          <IngredientDetails extendedDetails={recipe.extendedIngredients} />
+        </>
+      )}
     </RootView>
   );
 });

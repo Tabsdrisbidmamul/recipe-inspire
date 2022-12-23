@@ -1,7 +1,8 @@
 import axios, { Axios, AxiosResponse } from 'axios';
 import results from './data/results/result1.json';
 import results2 from './data/results/result2.json';
-import { SearchResults } from './interfaces/results.interface';
+import details from './data/details/details1.json';
+import { Result, SearchResults } from './interfaces/results.interface';
 
 const sleep = (delay: number) => {
   return new Promise((resolve: any) => {
@@ -36,6 +37,10 @@ const dev = {
     await sleep(1000);
     return results2;
   },
+  details: async () => {
+    await sleep(1000);
+    return details;
+  },
 };
 
 const spoonacular = {
@@ -69,7 +74,9 @@ const spoonacular = {
     ),
 
   getRecipeInformation: (recipeId: number) =>
-    requests.get(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537`),
+    requests.get<Result>(
+      `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d`
+    ),
 };
 
 const Agent = {
