@@ -49,7 +49,7 @@ export default observer(function Details() {
 
   return (
     <RootView isScrollable>
-      <NavigationHeader handleNavigateBack={handlePressBack} title={recipe.title} />
+      <NavigationHeader handleNavigateBack={handlePressBack} title="Recipe" />
 
       <ImageCard
         uri={recipe.image}

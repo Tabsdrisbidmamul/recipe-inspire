@@ -43,7 +43,7 @@ const spoonacular = {
     // console.log(`spoonacular query ${query} and offset ${offset}\n`);
     // console.log(`query=${query}&offset=${offset}&addRecipeNutrition=true&addRecipeInformation=true`);
     return requests.get<SearchResults>(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&addRecipeNutrition=true&addRecipeInformation=true`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&fillIngredients=true&addRecipeInformation=true`
     );
   },
 
@@ -51,22 +51,25 @@ const spoonacular = {
     requests.get<SearchResults>(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&diet=${filters.join(
         ','
-      )}&addRecipeNutrition=true&addRecipeInformation=true`
+      )}&fillIngredients=true&addRecipeInformation=true`
     ),
 
   searchWithIngredients: (ingredients: string[], offset: number) =>
     requests.get<SearchResults>(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&offset=${offset}&includeIngredients=${ingredients.join(
         ','
-      )}&addRecipeNutrition=true&addRecipeInformation=true`
+      )}&fillIngredients=true&addRecipeInformation=true`
     ),
 
   searchWithIngredientsAndFilters: (ingredients: string[], filters: string[], offset: number) =>
     requests.get<SearchResults>(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&offset=${offset}&includeIngredients=${ingredients.join(
         ','
-      )}&diet=${filters.join(',')}&addRecipeNutrition=true&addRecipeInformation=true`
+      )}&diet=${filters.join(',')}&fillIngredients=true&addRecipeInformation=true`
     ),
+
+  getRecipeInformation: (recipeId: number) =>
+    requests.get(`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537`),
 };
 
 const Agent = {

@@ -1,58 +1,36 @@
-export interface Nutrient {
-  name: string;
+export interface Us {
   amount: number;
-  unit: string;
-  percentOfDailyNeeds: number;
+  unitShort: string;
+  unitLong: string;
 }
 
-export interface Property {
-  name: string;
+export interface Metric {
   amount: number;
-  unit: string;
+  unitShort: string;
+  unitLong: string;
 }
 
-export interface Flavonoid {
-  name: string;
-  amount: number;
-  unit: string;
+export interface Measures {
+  us: Us;
+  metric: Metric;
 }
 
-export interface Nutrient2 {
+export interface ExtendedIngredient {
+  id: number;
+  aisle: string;
+  image: string;
+  consistency: string;
   name: string;
+  nameClean: string;
+  original: string;
+  originalName: string;
   amount: number;
   unit: string;
-  percentOfDailyNeeds: number;
+  meta: string[];
+  measures: Measures;
 }
 
 export interface Ingredient {
-  id: number;
-  name: string;
-  amount: number;
-  unit: string;
-  nutrients: Nutrient2[];
-}
-
-export interface CaloricBreakdown {
-  percentProtein: number;
-  percentFat: number;
-  percentCarbs: number;
-}
-
-export interface WeightPerServing {
-  amount: number;
-  unit: string;
-}
-
-export interface Nutrition {
-  nutrients: Nutrient[];
-  properties: Property[];
-  flavonoids: Flavonoid[];
-  ingredients: Ingredient[];
-  caloricBreakdown: CaloricBreakdown;
-  weightPerServing: WeightPerServing;
-}
-
-export interface Ingredient2 {
   id: number;
   name: string;
   localizedName: string;
@@ -80,7 +58,7 @@ export interface Length {
 export interface Step {
   number: number;
   step: string;
-  ingredients: Ingredient2[];
+  ingredients: Ingredient[];
   equipment: Equipment[];
   length: Length;
 }
@@ -88,6 +66,21 @@ export interface Step {
 export interface AnalyzedInstruction {
   name: string;
   steps: Step[];
+}
+
+export interface MissedIngredient {
+  id: number;
+  amount: number;
+  unit: string;
+  unitLong: string;
+  unitShort: string;
+  aisle: string;
+  name: string;
+  original: string;
+  originalName: string;
+  meta: string[];
+  image: string;
+  extendedName: string;
 }
 
 export interface Result {
@@ -110,6 +103,7 @@ export interface Result {
   license: string;
   sourceName: string;
   pricePerServing: number;
+  extendedIngredients: ExtendedIngredient[];
   id: number;
   title: string;
   readyInMinutes: number;
@@ -117,7 +111,6 @@ export interface Result {
   sourceUrl: string;
   image: string;
   imageType: string;
-  nutrition: Nutrition;
   summary: string;
   cuisines: string[];
   dishTypes: string[];
@@ -125,7 +118,12 @@ export interface Result {
   occasions: string[];
   analyzedInstructions: AnalyzedInstruction[];
   spoonacularSourceUrl: string;
-  author: string;
+  usedIngredientCount: number;
+  missedIngredientCount: number;
+  missedIngredients: MissedIngredient[];
+  likes: number;
+  usedIngredients: any[];
+  unusedIngredients: any[];
 }
 
 export interface SearchResults {
