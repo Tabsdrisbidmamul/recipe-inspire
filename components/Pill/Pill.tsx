@@ -13,7 +13,7 @@ interface IProps {
  */
 export default function Pill({ message, style }: IProps) {
   return (
-    <View style={[styles.pill, style]}>
+    <View accessible accessibilityLabel="Recipe Diet" accessibilityHint={message} style={[styles.pill, style]}>
       <Text style={styles.text}>{message}</Text>
     </View>
   );

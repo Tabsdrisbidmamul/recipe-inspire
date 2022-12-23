@@ -48,8 +48,11 @@ export default function SearchResultCard({ id, uri, title, summary, diets: diet 
           uri,
         }}
         style={styles.image}
+        accessible
+        accessibilityLabel={title}
+        accessibilityHint="Recipe Image"
       />
-      <View style={styles.contentContainer}>
+      <View accessible style={styles.contentContainer}>
         <Text style={styles.header}>{extractWords(title)}...</Text>
         <PillContainer style={{ maxWidth: 250 }}>
           {diet.map((el, i) => (

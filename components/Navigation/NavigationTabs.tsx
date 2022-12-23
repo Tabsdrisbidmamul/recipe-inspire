@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../../screens/BottomTabs/Home';
-import Search from '../../screens/BottomTabs/Search';
+import Favourites from '../../screens/BottomTabs/Search';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
@@ -57,17 +57,17 @@ export default function NavigationTabs() {
         component={Home}
       />
       <Tab.Screen
-        name="Search"
+        name="Favourites"
         options={{
-          title: 'Search',
+          title: 'Favourites',
           tabBarIcon: ({ focused, color, size }) =>
             focused ? (
-              <Ionicons name="search" size={size} color={color} />
+              <Ionicons name="heart-sharp" size={size} color={color} />
             ) : (
-              <Ionicons name="search" size={size} color={color} />
+              <Ionicons name="heart-outline" size={size} color={color} />
             ),
         }}
-        component={Search}
+        component={Favourites}
       />
       <Tab.Screen
         name="More"
