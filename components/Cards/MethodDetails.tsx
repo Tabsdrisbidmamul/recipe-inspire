@@ -9,6 +9,11 @@ interface IProps {
   analyzedInstructions: AnalyzedInstruction[];
 }
 
+/**
+ *
+ * @param props
+ * @returns
+ */
 export default function MethodDetails({ analyzedInstructions }: IProps) {
   const [steps, setSteps] = useState<string[]>([]);
 

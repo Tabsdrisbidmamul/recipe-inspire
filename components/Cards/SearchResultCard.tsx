@@ -7,6 +7,8 @@ import BaseCard from './BaseCard';
 import RenderHtml from 'react-native-render-html';
 import PillContainer from '../Pill/PillContainer';
 import Pill from '../Pill/Pill';
+import { observer } from 'mobx-react-lite';
+import useStore from '../../hooks/useStore';
 
 interface IProps {
   id: string;
@@ -21,14 +23,16 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function SearchResultCard({ id, uri, title, summary, diets: diet }: IProps) {
+export default observer(function SearchResultCard({ id, uri, title, summary, diets: diet }: IProps) {
   const navigation = useNavigation();
+  const { ingredientsStore } = useStore();
+  const { setNavigationId } = ingredientsStore;
 
   function handleCardPressedNavigateToRecipeDetailScreen() {
+    setNavigationId(+id);
+
     //@ts-ignore
-    navigation.navigate('Details', {
-      recipeId: id,
-    });
+    navigation.navigate('Details');
   }
 
   function extractWords(title: string) {
@@ -69,7 +73,7 @@ export default function SearchResultCard({ id, uri, title, summary, diets: diet 
       </View>
     </BaseCard>
   );
-}
+});
 
 const styles = StyleSheet.create({
   cardContainer: {

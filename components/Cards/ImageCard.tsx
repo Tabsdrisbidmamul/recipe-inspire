@@ -1,5 +1,5 @@
 import BaseCard from './BaseCard';
-import { Image, ImageBackground, StyleSheet, View, Text } from 'react-native';
+import { Image, ImageBackground, StyleSheet, View, Text, StyleProp, ViewStyle } from 'react-native';
 import { globalStyles } from '../../constants/globalStyles';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -10,15 +10,16 @@ interface IProps {
   readyInMinutes: number;
   servings: number;
   title: string;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**
  *
  * @returns
  */
-export default function ImageCard({ uri, readyInMinutes, servings, title }: IProps) {
+export default function ImageCard({ uri, readyInMinutes, servings, title, style }: IProps) {
   return (
-    <View style={styles.imageContainer}>
+    <View style={[styles.imageContainer, style]}>
       <ImageBackground source={{ uri }} imageStyle={{ borderRadius: 12 }} style={styles.image}>
         <LinearGradient colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,0.9)']} style={styles.gradient} locations={[0.7, 1]} />
       </ImageBackground>

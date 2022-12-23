@@ -20,6 +20,7 @@ import Pill from '../../components/Pill/Pill';
 import IngredientDetails from '../../components/Cards/IngredientDetails';
 import LottieLoader from '../../components/Loader/LottieLoader';
 import MethodDetails from '../../components/Cards/MethodDetails';
+import RecommendedCard from '../../components/Cards/RecommenedCard';
 
 /**
  * Recipe Detail screen we fetch the recipe on screen load and set the recipe on load as well, this is to avoid endless calls from spam clicks from the results view
@@ -28,15 +29,22 @@ export default observer(function Details() {
   const navigation = useNavigation();
   const route = useRoute();
   const { ingredientsStore } = useStore();
-  const { selectedRecipe, getRecipe, loader } = ingredientsStore;
+  const {
+    selectedRecipe,
+    getRecipe,
+    loader,
+    getRecommendedRecipes,
+    popPreviousRecipe,
+    previousRecipe,
+    navigationId,
+    setNavigationId,
+  } = ingredientsStore;
 
   const [recipe, setRecipe] = useState<Result>({} as Result);
 
   useLayoutEffect(() => {
-    // @ts-ignore
-    const { recipeId } = route.params;
-
-    getRecipe(+recipeId);
+    getRecipe(+navigationId);
+    getRecommendedRecipes(+navigationId);
   }, [route.params]);
 
   useLayoutEffect(() => {
@@ -46,6 +54,13 @@ export default observer(function Details() {
   function handlePressBack() {
     //@ts-ignore
     if (navigation.canGoBack()) {
+      if (previousRecipe.length) {
+        const previousRecipe = popPreviousRecipe();
+
+        if (previousRecipe !== undefined) {
+          setNavigationId(previousRecipe.id);
+        }
+      }
       navigation.goBack();
     }
   }
@@ -73,20 +88,11 @@ export default observer(function Details() {
             </PillContainer>
           </Content>
 
-          {/* <BaseCard style={{ marginTop: 12, backgroundColor: colors.secondary['gradient pink lighter'] }}>
-        <Text style={styles.header}>Summary</Text>
-        <RenderHtml
-          contentWidth={250}
-          source={{
-            html: `${recipe.summary}`,
-          }}
-          tagsStyles={tagStyles}
-        ></RenderHtml>
-      </BaseCard> */}
-
           <IngredientDetails extendedDetails={recipe.extendedIngredients} />
 
           <MethodDetails analyzedInstructions={recipe.analyzedInstructions} />
+
+          <RecommendedCard recipe={recipe} />
         </>
       )}
     </RootView>

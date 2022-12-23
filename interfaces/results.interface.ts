@@ -126,6 +126,16 @@ export interface Result {
   unusedIngredients: any[];
 }
 
+export interface RecommendResult {
+  id: number;
+  imageType: string;
+  title: string;
+  readyInMinutes: number;
+  servings: number;
+  source: string;
+  image: string;
+}
+
 export interface SearchResults {
   results: Result[];
   offset: number;

@@ -17,10 +17,12 @@ interface IProps {
 export default function IngredientDetails({ extendedDetails }: IProps) {
   return (
     <BaseCard style={{ marginTop: 12, backgroundColor: colors.secondary['gradient pink lighter'] }}>
-      <Text style={styles.header}>Ingredients</Text>
+      <Text accessible accessibilityLabel="Title" accessibilityHint="Ingredients header" style={styles.header}>
+        Ingredients
+      </Text>
       <View>
         {extendedDetails?.map((el, i) => (
-          <View style={styles.container} key={i}>
+          <View accessible accessibilityLabel="" style={styles.container} key={i}>
             <View style={styles.circle}></View>
             <Text style={styles.text}>
               <Text>{el.original}</Text>{' '}

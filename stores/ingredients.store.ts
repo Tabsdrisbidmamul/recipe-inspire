@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Agent from '../agents';
-import { Result, SearchResults } from '../interfaces/results.interface';
+import { RecommendResult, Result, SearchResults } from '../interfaces/results.interface';
 
 /**
  * store for ingredients, and diet settings as well making http calls to get recipes and recipe details
@@ -67,6 +67,12 @@ export default class IngredientsStore {
 
   selectedRecipe: Result = {} as Result;
 
+  recommendedRecipes: RecommendResult[] = [];
+
+  previousRecipe: Result[] = [];
+
+  navigationId: number = 0;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -108,6 +114,22 @@ export default class IngredientsStore {
   };
 
   /**
+   * We cannot pass params when using goBack() - a real let down, and thus we use our DI to handle something that navigation should have done
+   * @param id
+   */
+  setNavigationId = (id: number) => {
+    this.navigationId;
+  };
+
+  pushToPreviousRecipe = (recipe: Result) => {
+    this.previousRecipe.push(recipe);
+  };
+
+  popPreviousRecipe = () => {
+    return this.previousRecipe.pop();
+  };
+
+  /**
    * Set the ingredient via property name accessor, this will then be used to be saved in local async storage
    * @param ingredientName
    * @param value
@@ -122,6 +144,59 @@ export default class IngredientsStore {
    */
   setSearchValue = (value: string) => {
     this.searchValue = value;
+  };
+
+  /**
+   * Get recommended recipes, we have to make 2 calls, as the first call to get the recommended recipes does not return the image url
+   * @param recipeId
+   */
+  getRecommendedRecipes = async (recipeId: number) => {
+    try {
+      this.setLoader(true);
+      //TODO: remove dev call
+
+      // const res = await Agent.spoonacular.getSimiliarRecipe(recipeId);
+
+      // @ts-ignore
+      const res = (await Agent.dev.recommend()) as RecommendResult[];
+
+      const results = await this._getRecipeInformationToPopulateRecommendedRecipes(res);
+
+      this.setRecommendedRecipes(results);
+    } catch (e) {
+      console.error(`ERROR: getRecommendedRecipes() could not get recipes for recipe id ${recipeId}`);
+    } finally {
+      this.setLoader(false);
+    }
+  };
+
+  /**
+   * Another reason why we need an async for loop in JS, promise.all promises to retrieve the recipes at
+   * @param recipes
+   * @returns
+   */
+  private _getRecipeInformationToPopulateRecommendedRecipes = async (recipes: RecommendResult[]) => {
+    //TODO: remove dev call
+
+    // const promises = recipes.map((el) => Agent.spoonacular.getRecipeInformation(el.id));
+    const promises = recipes.map((el) => Agent.dev.details());
+    const transformedRecipes: RecommendResult[] = [];
+
+    const resolvedPromises = await Promise.all(promises);
+
+    resolvedPromises.forEach((recipe) => {
+      transformedRecipes.push({
+        id: recipe.id,
+        imageType: recipe.imageType,
+        title: recipe.title,
+        readyInMinutes: recipe.readyInMinutes,
+        servings: recipe.servings,
+        source: recipe.sourceUrl,
+        image: recipe.image,
+      });
+    });
+
+    return transformedRecipes;
   };
 
   /**
@@ -222,8 +297,16 @@ export default class IngredientsStore {
    * Set the selected recipe
    * @param recipe
    */
-  private setSelectedRecipe = (recipe: Result) => {
+  setSelectedRecipe = (recipe: Result) => {
     this.selectedRecipe = recipe;
+  };
+
+  /**
+   * Set the recommended recipes array
+   * @param recipes
+   */
+  private setRecommendedRecipes = (recipes: RecommendResult[]) => {
+    this.recommendedRecipes = recipes;
   };
 
   /**

@@ -2,7 +2,8 @@ import axios, { Axios, AxiosResponse } from 'axios';
 import results from './data/results/result1.json';
 import results2 from './data/results/result2.json';
 import details from './data/details/details1.json';
-import { Result, SearchResults } from './interfaces/results.interface';
+import recommend from './data/recommend/recommend1.json';
+import { RecommendResult, Result, SearchResults } from './interfaces/results.interface';
 
 const sleep = (delay: number) => {
   return new Promise((resolve: any) => {
@@ -41,6 +42,10 @@ const dev = {
     await sleep(1000);
     return details;
   },
+  recommend: async () => {
+    await sleep(1000);
+    return recommend;
+  },
 };
 
 const spoonacular = {
@@ -76,6 +81,11 @@ const spoonacular = {
   getRecipeInformation: (recipeId: number) =>
     requests.get<Result>(
       `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d`
+    ),
+
+  getSimiliarRecipe: (recipeId: number) =>
+    requests.get<RecommendResult[]>(
+      `https://api.spoonacular.com/recipes/${recipeId}/similar?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=3`
     ),
 };
 
