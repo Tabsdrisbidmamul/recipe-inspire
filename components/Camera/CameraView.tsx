@@ -1,8 +1,13 @@
 import { Camera, CameraType } from 'expo-camera';
-import { useRef, useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Button, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios, { AxiosError } from 'axios';
 import * as FileSystem from 'expo-file-system';
+import colors from '../../constants/colors';
+import { globalStyles } from '../../constants/globalStyles';
+import LottieLoader from '../Loader/LottieLoader';
+import RootView from '../Root/RootView';
+import BaseCard from '../Cards/BaseCard';
 
 /**
  * Camera view to take images and have them ready in the app cache
@@ -15,22 +20,22 @@ export default function CameraView() {
   let camera = useRef<Camera>(null);
 
   if (!permission) {
-    // Camera permissions are still loading
-    return <View />;
-  }
-
-  if (!permission.granted) {
-    // Camera permissions are not granted yet
     return (
-      <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
+      <View>
+        <LottieLoader />
       </View>
     );
   }
 
-  function toggleCameraType() {
-    setType((current) => (current === CameraType.back ? CameraType.front : CameraType.back));
+  if (!permission.granted) {
+    return (
+      <RootView style={styles.container}>
+        <View>
+          <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+          <Button onPress={requestPermission} title="grant permission" />
+        </View>
+      </RootView>
+    );
   }
 
   async function takePicture() {
@@ -52,27 +57,27 @@ export default function CameraView() {
           },
           features: [
             {
-              maxResults: 50,
+              maxResults: 10,
               type: 'LANDMARK_DETECTION',
             },
 
             {
-              maxResults: 50,
+              maxResults: 10,
               type: 'OBJECT_LOCALIZATION',
             },
 
             {
-              maxResults: 50,
+              maxResults: 10,
               type: 'LABEL_DETECTION',
             },
             {
-              maxResults: 50,
+              maxResults: 10,
               model: 'builtin/latest',
               type: 'DOCUMENT_TEXT_DETECTION',
             },
 
             {
-              maxResults: 50,
+              maxResults: 10,
               type: 'IMAGE_PROPERTIES',
             },
           ],
@@ -90,7 +95,7 @@ export default function CameraView() {
       console.log('responses ', res.data.responses[0]);
     } catch (err) {
       const _err = err as AxiosError;
-      console.log('err ', _err.response);
+      console.error('ERROR takePicture() in taking picture ', _err.response);
     }
   }
 
@@ -105,12 +110,13 @@ export default function CameraView() {
         type={type}
       >
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={takePicture}>
-            <Text style={styles.text}>Take Picture</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
+          <Pressable
+            accessible
+            accessibilityLabel="Camera Button"
+            accessibilityHint="Takes a picture"
+            style={styles.button}
+            onPress={takePicture}
+          ></Pressable>
         </View>
       </Camera>
     </View>
@@ -136,10 +142,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'flex-end',
     alignItems: 'center',
+    width: 10,
+    height: 10,
+    borderRadius: 100,
+    backgroundColor: colors.whites.pastel,
   },
   text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: 'white',
+    ...globalStyles.baseText,
   },
 });

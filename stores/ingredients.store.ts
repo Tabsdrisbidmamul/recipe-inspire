@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Agent from '../agents';
-import { RecommendResult, Result, SearchResults } from '../interfaces/results.interface';
+import { RandomRecipes, RecommendResult, Result, SearchResults } from '../interfaces/results.interface';
 
 /**
  * store for ingredients, and diet settings as well making http calls to get recipes and recipe details
@@ -69,6 +69,8 @@ export default class IngredientsStore {
   selectedRecipe: Result = {} as Result;
 
   recommendedRecipes: RecommendResult[] = [];
+
+  randomRecipe: RandomRecipes = {} as RandomRecipes;
 
   previousRecipeIds: string[] = [];
 
@@ -171,31 +173,62 @@ export default class IngredientsStore {
     }
   };
 
+  getRandomRecipe = async () => {
+    try {
+      this.setLoader(true);
+
+      //TODO: remove dev call
+      // const res = await Agent.spoonacular.getRandomRecipe();
+
+      //@ts-ignore
+      const res = (await Agent.dev.random()) as RandomRecipes;
+
+      this.setRandomRecipe(res);
+    } catch (e) {
+      console.error('ERROR getRandomRecipe(): could not get recipe');
+    } finally {
+      this.setLoader(false);
+    }
+  };
+
   /**
-   * Another reason why we need an async for loop in JS, promise.all promises to retrieve the recipes at
+   * Set random recipes (which will be an array of one value)
+   * @param results
+   */
+  private setRandomRecipe = (results: RandomRecipes) => {
+    this.randomRecipe = results;
+  };
+
+  /**
+   * Another reason why we need an async for loop in JS, promise.all promises to retrieve the recipes information only for the image url
    * @param recipes
    * @returns
    */
   private _getRecipeInformationToPopulateRecommendedRecipes = async (recipes: RecommendResult[]) => {
-    //TODO: remove dev call
+    let transformedRecipes: RecommendResult[] = [];
 
-    // const promises = recipes.map((el) => Agent.spoonacular.getRecipeInformation(el.id));
-    const promises = recipes.map((el) => Agent.dev.details());
-    const transformedRecipes: RecommendResult[] = [];
+    try {
+      //TODO: remove dev call
 
-    const resolvedPromises = await Promise.all(promises);
+      // const promises = recipes.map((el) => Agent.spoonacular.getRecipeInformation(el.id));
+      const promises = recipes.map((el) => Agent.dev.details());
 
-    resolvedPromises.forEach((recipe) => {
-      transformedRecipes.push({
-        id: recipe.id,
-        imageType: recipe.imageType,
-        title: recipe.title,
-        readyInMinutes: recipe.readyInMinutes,
-        servings: recipe.servings,
-        source: recipe.sourceUrl,
-        image: recipe.image,
+      const resolvedPromises = await Promise.all(promises);
+
+      resolvedPromises.forEach((recipe) => {
+        transformedRecipes.push({
+          id: recipe.id,
+          imageType: recipe.imageType,
+          title: recipe.title,
+          readyInMinutes: recipe.readyInMinutes,
+          servings: recipe.servings,
+          source: recipe.sourceUrl,
+          image: recipe.image,
+        });
       });
-    });
+    } catch (e) {
+      console.error('ERROR _getRecipeInformationToPopulateRecommendedRecipes(), a promise was unresolved');
+    }
 
     return transformedRecipes;
   };

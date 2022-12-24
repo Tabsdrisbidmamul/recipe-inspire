@@ -1,0 +1,1039 @@
+{
+    "recipes": [
+        {
+            "vegetarian": false,
+            "vegan": false,
+            "glutenFree": true,
+            "dairyFree": true,
+            "veryHealthy": false,
+            "cheap": false,
+            "veryPopular": false,
+            "sustainable": false,
+            "lowFodmap": false,
+            "weightWatcherSmartPoints": 16,
+            "gaps": "no",
+            "preparationMinutes": -1,
+            "cookingMinutes": -1,
+            "aggregateLikes": 6,
+            "healthScore": 33,
+            "creditsText": "Foodista.com – The Cooking Encyclopedia Everyone Can Edit",
+            "license": "CC BY 3.0",
+            "sourceName": "Foodista",
+            "pricePerServing": 464.78,
+            "extendedIngredients": [
+                {
+                    "id": 15270,
+                    "aisle": "Seafood",
+                    "image": "shrimp.png",
+                    "consistency": "SOLID",
+                    "name": "shrimp",
+                    "nameClean": "shrimp",
+                    "original": "1 lb. large shrimp (21/25), peeled and deveined",
+                    "originalName": "shrimp (21/25), peeled and deveined",
+                    "amount": 1.0,
+                    "unit": "lb",
+                    "meta": [
+                        "deveined",
+                        "peeled",
+                        "()"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "lb",
+                            "unitLong": "pound"
+                        },
+                        "metric": {
+                            "amount": 453.592,
+                            "unitShort": "g",
+                            "unitLong": "grams"
+                        }
+                    }
+                },
+                {
+                    "id": 1102047,
+                    "aisle": "Spices and Seasonings",
+                    "image": "salt-and-pepper.jpg",
+                    "consistency": "SOLID",
+                    "name": "salt and pepper",
+                    "nameClean": "salt and pepper",
+                    "original": "salt and pepper",
+                    "originalName": "salt and pepper",
+                    "amount": 1.0,
+                    "unit": "serving",
+                    "meta": [],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "serving",
+                            "unitLong": "serving"
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "serving",
+                            "unitLong": "serving"
+                        }
+                    }
+                },
+                {
+                    "id": 1034053,
+                    "aisle": "Oil, Vinegar, Salad Dressing",
+                    "image": "olive-oil.jpg",
+                    "consistency": "LIQUID",
+                    "name": "extra virgin olive oil",
+                    "nameClean": "extra virgin olive oil",
+                    "original": "extra virgin olive oil",
+                    "originalName": "extra virgin olive oil",
+                    "amount": 1.0,
+                    "unit": "serving",
+                    "meta": [],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "serving",
+                            "unitLong": "serving"
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "serving",
+                            "unitLong": "serving"
+                        }
+                    }
+                },
+                {
+                    "id": 11215,
+                    "aisle": "Produce",
+                    "image": "garlic.png",
+                    "consistency": "SOLID",
+                    "name": "garlic cloves",
+                    "nameClean": "garlic",
+                    "original": "8-9 garlic cloves, minced",
+                    "originalName": "garlic cloves, minced",
+                    "amount": 8.0,
+                    "unit": "",
+                    "meta": [
+                        "minced"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 8.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        },
+                        "metric": {
+                            "amount": 8.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        }
+                    }
+                },
+                {
+                    "id": 5096,
+                    "aisle": "Meat",
+                    "image": "chicken-thighs.png",
+                    "consistency": "SOLID",
+                    "name": "skinless boneless chicken thighs",
+                    "nameClean": "boneless skinless chicken thighs",
+                    "original": "1 lb. boneless, skinless chicken thighs, trimmed of excess fat, cut crosswise in half",
+                    "originalName": "boneless, skinless chicken thighs, trimmed of excess fat, cut crosswise in half",
+                    "amount": 1.0,
+                    "unit": "lb",
+                    "meta": [
+                        "boneless",
+                        "skinless",
+                        "trimmed"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "lb",
+                            "unitLong": "pound"
+                        },
+                        "metric": {
+                            "amount": 453.592,
+                            "unitShort": "g",
+                            "unitLong": "grams"
+                        }
+                    }
+                },
+                {
+                    "id": 7019,
+                    "aisle": null,
+                    "image": null,
+                    "consistency": "SOLID",
+                    "name": "chorizo sausage",
+                    "nameClean": null,
+                    "original": "8 oz. Spanish chorizo sausage, sliced 1/2 inch thick",
+                    "originalName": "Spanish chorizo sausage, sliced 1/2 inch thick",
+                    "amount": 8.0,
+                    "unit": "oz",
+                    "meta": [
+                        "spanish",
+                        "sliced"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 8.0,
+                            "unitShort": "oz",
+                            "unitLong": "ounces"
+                        },
+                        "metric": {
+                            "amount": 226.796,
+                            "unitShort": "g",
+                            "unitLong": "grams"
+                        }
+                    }
+                },
+                {
+                    "id": 11821,
+                    "aisle": "Produce",
+                    "image": "red-pepper.jpg",
+                    "consistency": "SOLID",
+                    "name": "red bell pepper",
+                    "nameClean": "red pepper",
+                    "original": "1 red bell pepper, seeded and cut into 1/2 inch wide strips",
+                    "originalName": "red bell pepper, seeded and cut into 1/2 inch wide strips",
+                    "amount": 1.0,
+                    "unit": "",
+                    "meta": [
+                        "red",
+                        "seeded",
+                        "cut into 1/2 inch wide strips"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        }
+                    }
+                },
+                {
+                    "id": 11282,
+                    "aisle": "Produce",
+                    "image": "brown-onion.png",
+                    "consistency": "SOLID",
+                    "name": "onion",
+                    "nameClean": "onion",
+                    "original": "1 . onion, chopped fine",
+                    "originalName": "onion, chopped fine",
+                    "amount": 1.0,
+                    "unit": "",
+                    "meta": [
+                        "chopped",
+                        "fine"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        }
+                    }
+                },
+                {
+                    "id": 10011693,
+                    "aisle": "Canned and Jarred",
+                    "image": "tomatoes-canned.png",
+                    "consistency": "SOLID",
+                    "name": "canned tomatoes",
+                    "nameClean": "canned tomatoes",
+                    "original": "1 (14 1/2 oz.) can diced tomatoes, drained, finely chopped, then drained again",
+                    "originalName": "diced tomatoes, drained, finely chopped, then drained again",
+                    "amount": 14.5,
+                    "unit": "oz",
+                    "meta": [
+                        "diced",
+                        "drained",
+                        "finely chopped",
+                        "canned"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 14.5,
+                            "unitShort": "oz",
+                            "unitLong": "ounces"
+                        },
+                        "metric": {
+                            "amount": 411.068,
+                            "unitShort": "g",
+                            "unitLong": "grams"
+                        }
+                    }
+                },
+                {
+                    "id": 10020052,
+                    "aisle": "Pasta and Rice",
+                    "image": "uncooked-white-rice.png",
+                    "consistency": "SOLID",
+                    "name": "arborio rice",
+                    "nameClean": "risotto rice",
+                    "original": "2 c. Valencia or Arborio rice",
+                    "originalName": "Valencia or Arborio rice",
+                    "amount": 2.0,
+                    "unit": "c",
+                    "meta": [],
+                    "measures": {
+                        "us": {
+                            "amount": 2.0,
+                            "unitShort": "cups",
+                            "unitLong": "cups"
+                        },
+                        "metric": {
+                            "amount": 473.176,
+                            "unitShort": "ml",
+                            "unitLong": "milliliters"
+                        }
+                    }
+                },
+                {
+                    "id": 6970,
+                    "aisle": "Canned and Jarred",
+                    "image": "chicken-broth.png",
+                    "consistency": "LIQUID",
+                    "name": "low sodium chicken broth",
+                    "nameClean": "low sodium chicken broth",
+                    "original": "3 c. low-sodium chicken broth",
+                    "originalName": "low-sodium chicken broth",
+                    "amount": 3.0,
+                    "unit": "c",
+                    "meta": [
+                        "low-sodium"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 3.0,
+                            "unitShort": "cups",
+                            "unitLong": "cups"
+                        },
+                        "metric": {
+                            "amount": 709.764,
+                            "unitShort": "ml",
+                            "unitLong": "milliliters"
+                        }
+                    }
+                },
+                {
+                    "id": 14106,
+                    "aisle": "Alcoholic Beverages",
+                    "image": "white-wine.jpg",
+                    "consistency": "LIQUID",
+                    "name": "dry white wine",
+                    "nameClean": "dry white wine",
+                    "original": "1/3 c. dry white wine",
+                    "originalName": "dry white wine",
+                    "amount": 0.33333334,
+                    "unit": "c",
+                    "meta": [
+                        "dry white"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 0.333,
+                            "unitShort": "cups",
+                            "unitLong": "cups"
+                        },
+                        "metric": {
+                            "amount": 78.863,
+                            "unitShort": "ml",
+                            "unitLong": "milliliters"
+                        }
+                    }
+                },
+                {
+                    "id": 2037,
+                    "aisle": "Ethnic Foods;Spices and Seasonings;Gourmet",
+                    "image": "saffron.jpg",
+                    "consistency": "SOLID",
+                    "name": "saffron threads",
+                    "nameClean": "saffron",
+                    "original": "1/2 t. saffron threads, crumbled",
+                    "originalName": "saffron threads, crumbled",
+                    "amount": 0.5,
+                    "unit": "t",
+                    "meta": [
+                        "crumbled"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 0.5,
+                            "unitShort": "tsps",
+                            "unitLong": "teaspoons"
+                        },
+                        "metric": {
+                            "amount": 0.5,
+                            "unitShort": "tsps",
+                            "unitLong": "teaspoons"
+                        }
+                    }
+                },
+                {
+                    "id": 2004,
+                    "aisle": "Produce;Spices and Seasonings",
+                    "image": "bay-leaves.jpg",
+                    "consistency": "SOLID",
+                    "name": "bay leaf",
+                    "nameClean": "bay leaves",
+                    "original": "1 bay leaf",
+                    "originalName": "bay leaf",
+                    "amount": 1.0,
+                    "unit": "",
+                    "meta": [],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "",
+                            "unitLong": ""
+                        }
+                    }
+                },
+                {
+                    "id": 11009,
+                    "aisle": "Frozen",
+                    "image": "artichoke-hearts.png",
+                    "consistency": "SOLID",
+                    "name": "frozen artichoke hearts",
+                    "nameClean": "frozen artichoke hearts",
+                    "original": "3/4 c. frozen artichoke hearts, thawed",
+                    "originalName": "frozen artichoke hearts, thawed",
+                    "amount": 0.75,
+                    "unit": "c",
+                    "meta": [
+                        "frozen",
+                        "thawed"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 0.75,
+                            "unitShort": "cups",
+                            "unitLong": "cups"
+                        },
+                        "metric": {
+                            "amount": 177.441,
+                            "unitShort": "ml",
+                            "unitLong": "milliliters"
+                        }
+                    }
+                },
+                {
+                    "id": 11304,
+                    "aisle": "Produce",
+                    "image": "peas.jpg",
+                    "consistency": "SOLID",
+                    "name": "peas",
+                    "nameClean": "petite peas",
+                    "original": "1/2 c. frozen peas, thawed",
+                    "originalName": "frozen peas, thawed",
+                    "amount": 0.5,
+                    "unit": "c",
+                    "meta": [
+                        "frozen",
+                        "thawed"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 0.5,
+                            "unitShort": "cups",
+                            "unitLong": "cups"
+                        },
+                        "metric": {
+                            "amount": 118.294,
+                            "unitShort": "ml",
+                            "unitLong": "milliliters"
+                        }
+                    }
+                },
+                {
+                    "id": 11297,
+                    "aisle": "Produce;Spices and Seasonings",
+                    "image": "parsley.jpg",
+                    "consistency": "SOLID",
+                    "name": "flat leaf parsley",
+                    "nameClean": "parsley",
+                    "original": "chopped fresh flat-leaf parsely",
+                    "originalName": "chopped fresh flat parsely",
+                    "amount": 1.0,
+                    "unit": "leaf",
+                    "meta": [
+                        "fresh",
+                        "chopped"
+                    ],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "leaf",
+                            "unitLong": "leave"
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "leaf",
+                            "unitLong": "leave"
+                        }
+                    }
+                },
+                {
+                    "id": 1029150,
+                    "aisle": "Produce",
+                    "image": "lemon-wedge.png",
+                    "consistency": "SOLID",
+                    "name": "lemon wedges",
+                    "nameClean": "lemon wedge",
+                    "original": "lemon wedges",
+                    "originalName": "lemon wedges",
+                    "amount": 1.0,
+                    "unit": "serving",
+                    "meta": [],
+                    "measures": {
+                        "us": {
+                            "amount": 1.0,
+                            "unitShort": "serving",
+                            "unitLong": "serving"
+                        },
+                        "metric": {
+                            "amount": 1.0,
+                            "unitShort": "serving",
+                            "unitLong": "serving"
+                        }
+                    }
+                }
+            ],
+            "id": 631747,
+            "title": "Dutch Oven Paella",
+            "readyInMinutes": 45,
+            "servings": 6,
+            "sourceUrl": "https://www.foodista.com/recipe/HD6HS3BD/dutch-oven-paella",
+            "image": "https://spoonacular.com/recipeImages/631747-556x370.jpg",
+            "imageType": "jpg",
+            "summary": "Dutch Oven Paella might be just the <b>European</b> recipe you are searching for. This recipe makes 6 servings with <b>689 calories</b>, <b>49g of protein</b>, and <b>22g of fat</b> each. For <b>$4.65 per serving</b>, this recipe <b>covers 37%</b> of your daily requirements of vitamins and minerals. 6 people were impressed by this recipe. Not a lot of people really liked this main course. It is a good option if you're following a <b>gluten free and dairy free</b> diet. It is brought to you by Foodista. A mixture of bell pepper, flat-leaf parsely, chicken thighs, and a handful of other ingredients are all it takes to make this recipe so scrumptious. From preparation to the plate, this recipe takes about <b>about 45 minutes</b>. All things considered, we decided this recipe <b>deserves a spoonacular score of 77%</b>. This score is pretty good. Try <a href=\"https://spoonacular.com/recipes/dutch-oven-beef-100680\">Dutch Oven Beef</a>, <a href=\"https://spoonacular.com/recipes/dutch-oven-cobbler-423365\">Dutch Oven Cobbler</a>, and <a href=\"https://spoonacular.com/recipes/the-dutch-oven-from-the-hawthorne-205550\">The Dutch Oven from The Hawthorne</a> for similar recipes.",
+            "cuisines": [
+                "Spanish",
+                "European"
+            ],
+            "dishTypes": [
+                "lunch",
+                "main course",
+                "main dish",
+                "dinner"
+            ],
+            "diets": [
+                "gluten free",
+                "dairy free"
+            ],
+            "occasions": [],
+            "instructions": "Adjust oven rack to lower middle position and heat oven to 350. In a med bowl, toss shrimp with 1 t. minced garlic, 1 T. olive oil, 1/4 t. salt & 1/4 t. pepper. Refrigerate until needed. Season chicken with salt & pepper, set aside.\nHeat 2 t. oil in a large Dutch oven over med-high heat until oil shimmers, add bell pepper and cook, stirring occasionally until skins blister and brown about 3-4 minutes. Remove to a plate and set aside. Add 1 T. more oil to the pot, add chicken thighs and brown well, flipping once, about 3 minutes per side. Remove chicken to a bowl, reduce heat to medium, add sausage and cook 4-5 minutes, stirring frequently, until browned and fat starts to render. Add to bowl with the browned chicken.\n3. At medium heat, add enough oil to the pot to equal 2 T., add onion and cook, stirring frequently, until tender, about 3 minutes, add remaining garlic, cook for 1 minute, add tomatoes, cook and stir until tomatoes thicken and darken slightly about 3 minutes. Add rice, cook and stir for about 2 minutes, making sure everything is evenly mixed. Add broth, wine, saffron, bay leaf and 1/2 t. salt. Add the browned chicken and sausage. Increase heat to med-high, bring to a boil, stirring often. Cover pot and place in the oven. Bake for 15 minutes (liquid should be mostly absorbed). Remove pot from the oven (keep oven door closed to retain heat), remove the lid, nestle the artichoke hearts down in the rice a bit. Sprinkle the shrimp over the top of the rice, then, sprinkle with the peas and bell pepper strips. Replace the led, add back to the oven for another 10 minutes or until the shrimp are opaque.\nTurn stove burner to med-high heat. Remove the pot from the oven, place on the stove cook for 5 minutes to get the browned portion on the bottom of the rice (called Soccarat), rotating the pot 180 degrees halfway through to ensure even browning. Remove pot from heat and let the paella rest, covered, for 5 minutes. Sprinkle with fresh chopped parsley and lemon wedges.",
+            "analyzedInstructions": [
+                {
+                    "name": "",
+                    "steps": [
+                        {
+                            "number": 1,
+                            "step": "Adjust oven rack to lower middle position and heat oven to 35",
+                            "ingredients": [],
+                            "equipment": [
+                                {
+                                    "id": 404784,
+                                    "name": "oven",
+                                    "localizedName": "oven",
+                                    "image": "oven.jpg"
+                                }
+                            ]
+                        },
+                        {
+                            "number": 2,
+                            "step": "In a med bowl, toss shrimp with 1 t. minced garlic, 1 T. olive oil, 1/4 t. salt & 1/4 t. pepper. Refrigerate until needed. Season chicken with salt & pepper, set aside.",
+                            "ingredients": [
+                                {
+                                    "id": 0,
+                                    "name": "minced garlic",
+                                    "localizedName": "minced garlic",
+                                    "image": "garlic.png"
+                                },
+                                {
+                                    "id": 1102047,
+                                    "name": "salt and pepper",
+                                    "localizedName": "salt and pepper",
+                                    "image": "salt-and-pepper.jpg"
+                                },
+                                {
+                                    "id": 4053,
+                                    "name": "olive oil",
+                                    "localizedName": "olive oil",
+                                    "image": "olive-oil.jpg"
+                                },
+                                {
+                                    "id": 5006,
+                                    "name": "whole chicken",
+                                    "localizedName": "whole chicken",
+                                    "image": "whole-chicken.jpg"
+                                },
+                                {
+                                    "id": 1002030,
+                                    "name": "pepper",
+                                    "localizedName": "pepper",
+                                    "image": "pepper.jpg"
+                                },
+                                {
+                                    "id": 15270,
+                                    "name": "shrimp",
+                                    "localizedName": "shrimp",
+                                    "image": "shrimp.png"
+                                },
+                                {
+                                    "id": 2047,
+                                    "name": "salt",
+                                    "localizedName": "salt",
+                                    "image": "salt.jpg"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404783,
+                                    "name": "bowl",
+                                    "localizedName": "bowl",
+                                    "image": "bowl.jpg"
+                                }
+                            ]
+                        },
+                        {
+                            "number": 3,
+                            "step": "Heat 2 t. oil in a large Dutch oven over med-high heat until oil shimmers, add bell pepper and cook, stirring occasionally until skins blister and brown about 3-4 minutes.",
+                            "ingredients": [
+                                {
+                                    "id": 10211821,
+                                    "name": "bell pepper",
+                                    "localizedName": "bell pepper",
+                                    "image": "bell-pepper-orange.png"
+                                },
+                                {
+                                    "id": 4582,
+                                    "name": "cooking oil",
+                                    "localizedName": "cooking oil",
+                                    "image": "vegetable-oil.jpg"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404667,
+                                    "name": "dutch oven",
+                                    "localizedName": "dutch oven",
+                                    "image": "dutch-oven.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 4,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 4,
+                            "step": "Remove to a plate and set aside.",
+                            "ingredients": [],
+                            "equipment": []
+                        },
+                        {
+                            "number": 5,
+                            "step": "Add 1 T. more oil to the pot, add chicken thighs and brown well, flipping once, about 3 minutes per side.",
+                            "ingredients": [
+                                {
+                                    "id": 5091,
+                                    "name": "chicken thighs",
+                                    "localizedName": "chicken thighs",
+                                    "image": "chicken-thigh.jpg"
+                                },
+                                {
+                                    "id": 4582,
+                                    "name": "cooking oil",
+                                    "localizedName": "cooking oil",
+                                    "image": "vegetable-oil.jpg"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404752,
+                                    "name": "pot",
+                                    "localizedName": "pot",
+                                    "image": "stock-pot.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 3,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 6,
+                            "step": "Remove chicken to a bowl, reduce heat to medium, add sausage and cook 4-5 minutes, stirring frequently, until browned and fat starts to render.",
+                            "ingredients": [
+                                {
+                                    "id": 5006,
+                                    "name": "whole chicken",
+                                    "localizedName": "whole chicken",
+                                    "image": "whole-chicken.jpg"
+                                },
+                                {
+                                    "id": 1017063,
+                                    "name": "sausage",
+                                    "localizedName": "sausage",
+                                    "image": "raw-pork-sausage.png"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404783,
+                                    "name": "bowl",
+                                    "localizedName": "bowl",
+                                    "image": "bowl.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 5,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 7,
+                            "step": "Add to bowl with the browned chicken.",
+                            "ingredients": [
+                                {
+                                    "id": 5006,
+                                    "name": "whole chicken",
+                                    "localizedName": "whole chicken",
+                                    "image": "whole-chicken.jpg"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404783,
+                                    "name": "bowl",
+                                    "localizedName": "bowl",
+                                    "image": "bowl.jpg"
+                                }
+                            ]
+                        },
+                        {
+                            "number": 8,
+                            "step": "At medium heat, add enough oil to the pot to equal 2 T., add onion and cook, stirring frequently, until tender, about 3 minutes, add remaining garlic, cook for 1 minute, add tomatoes, cook and stir until tomatoes thicken and darken slightly about 3 minutes.",
+                            "ingredients": [
+                                {
+                                    "id": 11529,
+                                    "name": "tomato",
+                                    "localizedName": "tomato",
+                                    "image": "tomato.png"
+                                },
+                                {
+                                    "id": 11215,
+                                    "name": "garlic",
+                                    "localizedName": "garlic",
+                                    "image": "garlic.png"
+                                },
+                                {
+                                    "id": 11282,
+                                    "name": "onion",
+                                    "localizedName": "onion",
+                                    "image": "brown-onion.png"
+                                },
+                                {
+                                    "id": 4582,
+                                    "name": "cooking oil",
+                                    "localizedName": "cooking oil",
+                                    "image": "vegetable-oil.jpg"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404752,
+                                    "name": "pot",
+                                    "localizedName": "pot",
+                                    "image": "stock-pot.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 7,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 9,
+                            "step": "Add rice, cook and stir for about 2 minutes, making sure everything is evenly mixed.",
+                            "ingredients": [
+                                {
+                                    "id": 20444,
+                                    "name": "rice",
+                                    "localizedName": "rice",
+                                    "image": "uncooked-white-rice.png"
+                                }
+                            ],
+                            "equipment": [],
+                            "length": {
+                                "number": 2,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 10,
+                            "step": "Add broth, wine, saffron, bay leaf and 1/2 t. salt.",
+                            "ingredients": [
+                                {
+                                    "id": 2004,
+                                    "name": "bay leaves",
+                                    "localizedName": "bay leaves",
+                                    "image": "bay-leaves.jpg"
+                                },
+                                {
+                                    "id": 2037,
+                                    "name": "saffron",
+                                    "localizedName": "saffron",
+                                    "image": "saffron.jpg"
+                                },
+                                {
+                                    "id": 1006615,
+                                    "name": "broth",
+                                    "localizedName": "broth",
+                                    "image": "chicken-broth.png"
+                                },
+                                {
+                                    "id": 2047,
+                                    "name": "salt",
+                                    "localizedName": "salt",
+                                    "image": "salt.jpg"
+                                },
+                                {
+                                    "id": 14084,
+                                    "name": "wine",
+                                    "localizedName": "wine",
+                                    "image": "red-wine.jpg"
+                                }
+                            ],
+                            "equipment": []
+                        },
+                        {
+                            "number": 11,
+                            "step": "Add the browned chicken and sausage. Increase heat to med-high, bring to a boil, stirring often. Cover pot and place in the oven.",
+                            "ingredients": [
+                                {
+                                    "id": 5006,
+                                    "name": "whole chicken",
+                                    "localizedName": "whole chicken",
+                                    "image": "whole-chicken.jpg"
+                                },
+                                {
+                                    "id": 1017063,
+                                    "name": "sausage",
+                                    "localizedName": "sausage",
+                                    "image": "raw-pork-sausage.png"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404784,
+                                    "name": "oven",
+                                    "localizedName": "oven",
+                                    "image": "oven.jpg"
+                                },
+                                {
+                                    "id": 404752,
+                                    "name": "pot",
+                                    "localizedName": "pot",
+                                    "image": "stock-pot.jpg"
+                                }
+                            ]
+                        },
+                        {
+                            "number": 12,
+                            "step": "Bake for 15 minutes (liquid should be mostly absorbed).",
+                            "ingredients": [],
+                            "equipment": [
+                                {
+                                    "id": 404784,
+                                    "name": "oven",
+                                    "localizedName": "oven",
+                                    "image": "oven.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 15,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 13,
+                            "step": "Remove pot from the oven (keep oven door closed to retain heat), remove the lid, nestle the artichoke hearts down in the rice a bit.",
+                            "ingredients": [
+                                {
+                                    "id": 99242,
+                                    "name": "artichoke hearts",
+                                    "localizedName": "artichoke hearts",
+                                    "image": "artichoke-hearts.png"
+                                },
+                                {
+                                    "id": 20444,
+                                    "name": "rice",
+                                    "localizedName": "rice",
+                                    "image": "uncooked-white-rice.png"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404784,
+                                    "name": "oven",
+                                    "localizedName": "oven",
+                                    "image": "oven.jpg"
+                                },
+                                {
+                                    "id": 404752,
+                                    "name": "pot",
+                                    "localizedName": "pot",
+                                    "image": "stock-pot.jpg"
+                                }
+                            ]
+                        },
+                        {
+                            "number": 14,
+                            "step": "Sprinkle the shrimp over the top of the rice, then, sprinkle with the peas and bell pepper strips. Replace the led, add back to the oven for another 10 minutes or until the shrimp are opaque.",
+                            "ingredients": [
+                                {
+                                    "id": 10211821,
+                                    "name": "bell pepper",
+                                    "localizedName": "bell pepper",
+                                    "image": "bell-pepper-orange.png"
+                                },
+                                {
+                                    "id": 15270,
+                                    "name": "shrimp",
+                                    "localizedName": "shrimp",
+                                    "image": "shrimp.png"
+                                },
+                                {
+                                    "id": 11304,
+                                    "name": "peas",
+                                    "localizedName": "peas",
+                                    "image": "peas.jpg"
+                                },
+                                {
+                                    "id": 20444,
+                                    "name": "rice",
+                                    "localizedName": "rice",
+                                    "image": "uncooked-white-rice.png"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404784,
+                                    "name": "oven",
+                                    "localizedName": "oven",
+                                    "image": "oven.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 10,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 15,
+                            "step": "Turn stove burner to med-high heat.",
+                            "ingredients": [],
+                            "equipment": [
+                                {
+                                    "id": 404794,
+                                    "name": "stove",
+                                    "localizedName": "stove",
+                                    "image": "oven.jpg"
+                                }
+                            ]
+                        },
+                        {
+                            "number": 16,
+                            "step": "Remove the pot from the oven, place on the stove cook for 5 minutes to get the browned portion on the bottom of the rice (called Soccarat), rotating the pot 180 degrees halfway through to ensure even browning.",
+                            "ingredients": [
+                                {
+                                    "id": 20444,
+                                    "name": "rice",
+                                    "localizedName": "rice",
+                                    "image": "uncooked-white-rice.png"
+                                }
+                            ],
+                            "equipment": [
+                                {
+                                    "id": 404794,
+                                    "name": "stove",
+                                    "localizedName": "stove",
+                                    "image": "oven.jpg"
+                                },
+                                {
+                                    "id": 404784,
+                                    "name": "oven",
+                                    "localizedName": "oven",
+                                    "image": "oven.jpg"
+                                },
+                                {
+                                    "id": 404752,
+                                    "name": "pot",
+                                    "localizedName": "pot",
+                                    "image": "stock-pot.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 5,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 17,
+                            "step": "Remove pot from heat and let the paella rest, covered, for 5 minutes.",
+                            "ingredients": [],
+                            "equipment": [
+                                {
+                                    "id": 404752,
+                                    "name": "pot",
+                                    "localizedName": "pot",
+                                    "image": "stock-pot.jpg"
+                                }
+                            ],
+                            "length": {
+                                "number": 5,
+                                "unit": "minutes"
+                            }
+                        },
+                        {
+                            "number": 18,
+                            "step": "Sprinkle with fresh chopped parsley and lemon wedges.",
+                            "ingredients": [
+                                {
+                                    "id": 1029150,
+                                    "name": "lemon wedge",
+                                    "localizedName": "lemon wedge",
+                                    "image": "lemon-wedge.png"
+                                },
+                                {
+                                    "id": 11297,
+                                    "name": "parsley",
+                                    "localizedName": "parsley",
+                                    "image": "parsley.jpg"
+                                }
+                            ],
+                            "equipment": []
+                        }
+                    ]
+                }
+            ],
+            "originalId": null,
+            "spoonacularSourceUrl": "https://spoonacular.com/dutch-oven-paella-631747"
+        }
+    ]
+}

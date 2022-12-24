@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, StyleProp, ViewStyle } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
@@ -9,6 +9,7 @@ interface IProps {
   children: JSX.Element[] | JSX.Element;
   isScrollable?: boolean;
   isKeyboardDismissible?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -16,7 +17,7 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function RootView({ children, isScrollable, isKeyboardDismissible }: IProps) {
+export default function RootView({ children, isScrollable, isKeyboardDismissible, style }: IProps) {
   return (
     <LinearGradient
       style={[styles.root]}
@@ -26,7 +27,7 @@ export default function RootView({ children, isScrollable, isKeyboardDismissible
       locations={[0.4, 1]}
     >
       {isScrollable ? (
-        <View style={[styles.container]}>
+        <View style={[styles.container, style]}>
           {isKeyboardDismissible ? (
             <ScrollView keyboardDismissMode="interactive" style={styles.scrollContainer}>
               {children}
@@ -36,7 +37,7 @@ export default function RootView({ children, isScrollable, isKeyboardDismissible
           )}
         </View>
       ) : (
-        <View style={[styles.container]}>{children}</View>
+        <View style={[styles.container, style]}>{children}</View>
       )}
     </LinearGradient>
   );

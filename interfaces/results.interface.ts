@@ -126,6 +126,10 @@ export interface Result {
   unusedIngredients: any[];
 }
 
+export interface RandomRecipes {
+  recipes: Result[];
+}
+
 export interface RecommendResult {
   id: number;
   imageType: string;

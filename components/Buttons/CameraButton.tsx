@@ -3,18 +3,27 @@ import { Pressable, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * Camera button, when pressed will navigate to the camera screen
  * @returns
  */
 export default function CameraButton() {
+  const navigation = useNavigation();
+
+  function handleOnPress() {
+    //@ts-ignore
+    navigation.navigate('Camera');
+  }
+
   return (
     <Pressable
       accessible
       accessibilityLabel="Camera button"
       accessibilityHint="Navigates to camera screen"
       style={styles.iconContainer}
+      onPress={handleOnPress}
     >
       <Ionicons name="camera-outline" style={[styles.icon, styles.cameraIcon]} />
     </Pressable>

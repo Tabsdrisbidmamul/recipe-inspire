@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { View, StyleSheet, Image, Text } from 'react-native';
+import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
 import globalConstants from '../../constants/globalConstants';
 import { globalStyles, globalTagStyles } from '../../constants/globalStyles';
 import BaseCard from './BaseCard';
@@ -58,7 +58,7 @@ export default observer(function SearchResultCard({ id, uri, title, summary, die
       />
       <View accessible style={styles.contentContainer}>
         <Text style={styles.header}>{extractWords(title)}...</Text>
-        <PillContainer style={{ maxWidth: 250 }}>
+        <PillContainer style={{ maxWidth: Dimensions.get('screen').width < 400 ? 200 : 250 }}>
           {diet.map((el, i) => (
             <Pill key={i} message={el} />
           ))}

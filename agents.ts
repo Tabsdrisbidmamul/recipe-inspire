@@ -3,7 +3,8 @@ import results from './data/results/result1.json';
 import results2 from './data/results/result2.json';
 import details from './data/details/details1.json';
 import recommend from './data/recommend/recommend1.json';
-import { RecommendResult, Result, SearchResults } from './interfaces/results.interface';
+import random from './data/random/random1.json';
+import { RandomRecipes, RecommendResult, Result, SearchResults } from './interfaces/results.interface';
 
 const sleep = (delay: number) => {
   return new Promise((resolve: any) => {
@@ -11,7 +12,7 @@ const sleep = (delay: number) => {
   });
 };
 
-// BUG :Base url is not respected in native
+// BUG :Base url is not respected in react native
 // axios.defaults.baseURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&';
 
 // axios.interceptors.response.use(async (response) => {
@@ -46,12 +47,14 @@ const dev = {
     await sleep(1000);
     return recommend;
   },
+  random: async () => {
+    await sleep(1000);
+    return random;
+  },
 };
 
 const spoonacular = {
   searchWithQuery: (query: string, offset: number) => {
-    // console.log(`spoonacular query ${query} and offset ${offset}\n`);
-    // console.log(`query=${query}&offset=${offset}&addRecipeNutrition=true&addRecipeInformation=true`);
     return requests.get<SearchResults>(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&fillIngredients=true&addRecipeInformation=true`
     );
@@ -86,6 +89,11 @@ const spoonacular = {
   getSimiliarRecipe: (recipeId: number) =>
     requests.get<RecommendResult[]>(
       `https://api.spoonacular.com/recipes/${recipeId}/similar?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1`
+    ),
+
+  getRandomRecipe: () =>
+    requests.get<RandomRecipes>(
+      'https://api.spoonacular.com/recipes/random?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1'
     ),
 };
 

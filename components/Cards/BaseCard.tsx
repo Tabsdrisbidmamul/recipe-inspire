@@ -28,7 +28,7 @@ export default function BaseCard({ children, style, mode, onPress }: IProps) {
       onPress={onPress}
       accessible
       accessibilityLabel="Touchable Card"
-      accessibilityHint="Navigate to recipe"
+      accessibilityHint="Navigate to recipes or camera screen"
       style={[styles.card, style]}
     >
       {children}
