@@ -1,7 +1,7 @@
 import BaseCard from './BaseCard';
 import { ExtendedIngredient } from '../../interfaces/results.interface';
 import React, { useLayoutEffect, useState } from 'react';
-import { Text, StyleSheet, View } from 'react-native';
+import { Text, StyleSheet, View, Dimensions } from 'react-native';
 import { globalStyles } from '../../constants/globalStyles';
 import colors from '../../constants/colors';
 
@@ -20,7 +20,7 @@ export default function IngredientDetails({ extendedDetails }: IProps) {
       <Text accessible accessibilityLabel="Title" accessibilityHint="Ingredients header" style={styles.header}>
         Ingredients
       </Text>
-      <View>
+      <View style={styles.ingredientsContainer}>
         {extendedDetails?.map((el, i) => (
           <View accessible accessibilityLabel="" style={styles.container} key={i}>
             <View style={styles.circle}></View>
@@ -42,6 +42,9 @@ const styles = StyleSheet.create({
   header: {
     ...globalStyles.headerH2,
     color: colors.primary.red,
+  },
+  ingredientsContainer: {
+    maxWidth: Dimensions.get('screen').width < 400 ? 250 : 300,
   },
   container: {
     flexDirection: 'row',
