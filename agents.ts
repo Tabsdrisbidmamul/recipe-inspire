@@ -85,7 +85,7 @@ const spoonacular = {
 
   getSimiliarRecipe: (recipeId: number) =>
     requests.get<RecommendResult[]>(
-      `https://api.spoonacular.com/recipes/${recipeId}/similar?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=3`
+      `https://api.spoonacular.com/recipes/${recipeId}/similar?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1`
     ),
 };
 

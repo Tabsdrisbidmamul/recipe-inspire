@@ -63,13 +63,14 @@ export default class IngredientsStore {
   } as { [key: string]: boolean };
 
   loader = false;
+  recommendedLoader = false;
   paginateLoader = false;
 
   selectedRecipe: Result = {} as Result;
 
   recommendedRecipes: RecommendResult[] = [];
 
-  previousRecipe: Result[] = [];
+  previousRecipeIds: string[] = [];
 
   navigationId: number = 0;
 
@@ -118,15 +119,15 @@ export default class IngredientsStore {
    * @param id
    */
   setNavigationId = (id: number) => {
-    this.navigationId;
+    this.navigationId = id;
   };
 
-  pushToPreviousRecipe = (recipe: Result) => {
-    this.previousRecipe.push(recipe);
+  pushToPreviousRecipeIds = (id: string) => {
+    this.previousRecipeIds.push(id);
   };
 
-  popPreviousRecipe = () => {
-    return this.previousRecipe.pop();
+  popPreviousRecipeIds = () => {
+    return this.previousRecipeIds.pop();
   };
 
   /**
@@ -152,7 +153,7 @@ export default class IngredientsStore {
    */
   getRecommendedRecipes = async (recipeId: number) => {
     try {
-      this.setLoader(true);
+      this.setRecommendedLoader(true);
       //TODO: remove dev call
 
       // const res = await Agent.spoonacular.getSimiliarRecipe(recipeId);
@@ -166,7 +167,7 @@ export default class IngredientsStore {
     } catch (e) {
       console.error(`ERROR: getRecommendedRecipes() could not get recipes for recipe id ${recipeId}`);
     } finally {
-      this.setLoader(false);
+      this.setRecommendedLoader(false);
     }
   };
 
@@ -363,6 +364,14 @@ export default class IngredientsStore {
     } else {
       this.searchResultsCache = [];
     }
+  };
+
+  /**
+   * Set the loader for when recommended recipes are loading
+   * @param state
+   */
+  private setRecommendedLoader = (state: boolean) => {
+    this.recommendedLoader = state;
   };
 
   /**

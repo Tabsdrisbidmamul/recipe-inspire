@@ -34,8 +34,8 @@ export default observer(function Details() {
     getRecipe,
     loader,
     getRecommendedRecipes,
-    popPreviousRecipe,
-    previousRecipe,
+    popPreviousRecipeIds,
+    previousRecipeIds,
     navigationId,
     setNavigationId,
   } = ingredientsStore;
@@ -45,7 +45,7 @@ export default observer(function Details() {
   useLayoutEffect(() => {
     getRecipe(+navigationId);
     getRecommendedRecipes(+navigationId);
-  }, [route.params]);
+  }, [navigationId]);
 
   useLayoutEffect(() => {
     setRecipe(selectedRecipe);
@@ -54,11 +54,11 @@ export default observer(function Details() {
   function handlePressBack() {
     //@ts-ignore
     if (navigation.canGoBack()) {
-      if (previousRecipe.length) {
-        const previousRecipe = popPreviousRecipe();
+      if (previousRecipeIds.length) {
+        const previousRecipe = popPreviousRecipeIds();
 
-        if (previousRecipe !== undefined) {
-          setNavigationId(previousRecipe.id);
+        if (previousRecipe) {
+          setNavigationId(+previousRecipe);
         }
       }
       navigation.goBack();

@@ -21,7 +21,7 @@ interface IProps {
 export default observer(function RecommendedCard({ recipe }: IProps) {
   const navigation = useNavigation();
   const { ingredientsStore } = useStore();
-  const { recommendedRecipes, loader, pushToPreviousRecipe } = ingredientsStore;
+  const { recommendedRecipes, recommendedLoader, pushToPreviousRecipeIds, setNavigationId } = ingredientsStore;
 
   const [recipes, setRecipes] = useState<RecommendResult[]>([]);
 
@@ -29,16 +29,18 @@ export default observer(function RecommendedCard({ recipe }: IProps) {
     setRecipes(recommendedRecipes);
   }, [recommendedRecipes]);
 
-  function handleCardPressed() {
-    pushToPreviousRecipe(recipe);
+  function handleCardPressed(id: number) {
+    // push the previous parent recipe
+    pushToPreviousRecipeIds(recipe.id.toString());
+
+    // set the clicked recipe as the current recipe
+    setNavigationId(id);
 
     //@ts-ignore
-    navigation.push('Details', {
-      recipeId: recipe.id,
-    });
+    navigation.push('Details');
   }
 
-  return loader ? (
+  return recommendedLoader ? (
     <LottieLoader />
   ) : (
     <Content style={{ marginTop: 12 }}>
@@ -49,7 +51,7 @@ export default observer(function RecommendedCard({ recipe }: IProps) {
             accessible
             accessibilityLabel="Recommended recipe"
             accessibilityHint={`Navigate to ${el.title}`}
-            onPress={() => handleCardPressed()}
+            onPress={() => handleCardPressed(el.id)}
             key={i}
           >
             <ImageCard
