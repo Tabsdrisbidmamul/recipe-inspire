@@ -146,3 +146,22 @@ export interface SearchResults {
   number: number;
   totalResults: number;
 }
+
+export interface Image {
+  content: string;
+}
+
+export interface Feature {
+  maxResults: number;
+  type: string;
+  model?: string;
+}
+
+export interface Request {
+  image: Image;
+  features: Feature[];
+}
+
+export interface VisionRequest {
+  requests: Request[];
+}

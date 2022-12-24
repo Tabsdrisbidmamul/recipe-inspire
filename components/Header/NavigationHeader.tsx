@@ -12,7 +12,7 @@ import useStore from '../../hooks/useStore';
 interface IProps {
   title: string;
   handleNavigateBack: (...args: any) => any;
-  mode: 'default' | 'recipe';
+  mode: 'default' | 'recipe' | 'transparent';
 }
 
 /**
@@ -29,7 +29,13 @@ export default observer(function NavigationHeader({ title, handleNavigateBack, m
 
   return (
     <>
-      <View style={[styles.container, { marginTop: height }]}>
+      <View
+        style={[
+          styles.container,
+          { marginTop: height },
+          { backgroundColor: mode === 'transparent' ? 'transparent' : colors.whites.pastel },
+        ]}
+      >
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <Ionicons onPress={handleNavigateBack} name="arrow-back-sharp" style={styles.icon} />
           <Text style={styles.title}>{title}</Text>

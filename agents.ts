@@ -4,7 +4,8 @@ import results2 from './data/results/result2.json';
 import details from './data/details/details1.json';
 import recommend from './data/recommend/recommend1.json';
 import random from './data/random/random1.json';
-import { RandomRecipes, RecommendResult, Result, SearchResults } from './interfaces/results.interface';
+import { RandomRecipes, RecommendResult, Result, SearchResults, VisionRequest } from './interfaces/results.interface';
+import { ResponseObject } from './interfaces/visions.interface';
 
 const sleep = (delay: number) => {
   return new Promise((resolve: any) => {
@@ -97,9 +98,20 @@ const spoonacular = {
     ),
 };
 
+const google = {
+  vision: {
+    annotateImage: (data: VisionRequest) =>
+      requests.post<ResponseObject>(
+        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDBNHsBZ-AkKromEvC4lpA4TrWlFazoMZ0',
+        data
+      ),
+  },
+};
+
 const Agent = {
   dev,
   spoonacular,
+  google,
 };
 
 export default Agent;

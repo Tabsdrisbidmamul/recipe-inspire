@@ -8,16 +8,30 @@ import { globalStyles } from '../../constants/globalStyles';
 import LottieLoader from '../Loader/LottieLoader';
 import RootView from '../Root/RootView';
 import BaseCard from '../Cards/BaseCard';
+import { useNavigation } from '@react-navigation/native';
+import { resetGlobalState } from 'mobx/dist/internal';
+import globalConstants from '../../constants/globalConstants';
+import PermissionsCard from '../Cards/PermissionsCard';
+import Agent from '../../agents';
+import { VisionRequest } from '../../interfaces/results.interface';
+import NavigationHeader from '../Header/NavigationHeader';
 
 /**
  * Camera view to take images and have them ready in the app cache
  * @returns
  */
 export default function CameraView() {
+  const navigation = useNavigation();
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
   let camera = useRef<Camera>(null);
+
+  function handleCancelPressed() {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
+  }
 
   if (!permission) {
     return (
@@ -30,10 +44,7 @@ export default function CameraView() {
   if (!permission.granted) {
     return (
       <RootView style={styles.container}>
-        <View>
-          <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-          <Button onPress={requestPermission} title="grant permission" />
-        </View>
+        <PermissionsCard onPressCancel={handleCancelPressed} onPressGrant={requestPermission} />
       </RootView>
     );
   }
@@ -49,7 +60,7 @@ export default function CameraView() {
       encoding: FileSystem.EncodingType.Base64,
     });
 
-    const data = {
+    const data: VisionRequest = {
       requests: [
         {
           image: {
@@ -86,13 +97,9 @@ export default function CameraView() {
     };
 
     try {
-      const res = await axios.post(
-        'https://vision.googleapis.com/v1/images:annotate?key=AIzaSyDBNHsBZ-AkKromEvC4lpA4TrWlFazoMZ0',
-        data
-      );
+      const res = await Agent.google.vision.annotateImage(data);
 
-      console.log('res ', res.data);
-      console.log('responses ', res.data.responses[0]);
+      console.log('res ', res.responses);
     } catch (err) {
       const _err = err as AxiosError;
       console.error('ERROR takePicture() in taking picture ', _err.response);
@@ -101,6 +108,7 @@ export default function CameraView() {
 
   return (
     <View style={styles.container}>
+      <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
       <Camera
         ref={(ref: any) => {
           // @ts-ignore
@@ -149,5 +157,6 @@ const styles = StyleSheet.create({
   },
   text: {
     ...globalStyles.baseText,
+    textAlign: 'center',
   },
 });
