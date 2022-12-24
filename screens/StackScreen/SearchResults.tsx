@@ -42,6 +42,8 @@ export default observer(function SearchResults() {
                 title={item.title}
                 summary={`${item.summary}`}
                 diets={item.diets}
+                readyInMinutes={item.readyInMinutes}
+                servings={item.servings}
               />
             )}
             //@ts-ignore

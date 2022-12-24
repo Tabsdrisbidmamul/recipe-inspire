@@ -9,6 +9,7 @@ import PillContainer from '../Pill/PillContainer';
 import Pill from '../Pill/Pill';
 import { observer } from 'mobx-react-lite';
 import useStore from '../../hooks/useStore';
+import colors from '../../constants/colors';
 
 interface IProps {
   id: string;
@@ -16,6 +17,8 @@ interface IProps {
   title: string;
   summary: string;
   diets: string[];
+  readyInMinutes: number;
+  servings: number;
 }
 
 /**
@@ -23,7 +26,15 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default observer(function SearchResultCard({ id, uri, title, summary, diets: diet }: IProps) {
+export default observer(function SearchResultCard({
+  id,
+  uri,
+  title,
+  summary,
+  diets,
+  readyInMinutes,
+  servings,
+}: IProps) {
   const navigation = useNavigation();
   const { ingredientsStore } = useStore();
   const { setNavigationId } = ingredientsStore;
@@ -59,17 +70,22 @@ export default observer(function SearchResultCard({ id, uri, title, summary, die
       <View accessible style={styles.contentContainer}>
         <Text style={styles.header}>{extractWords(title)}...</Text>
         <PillContainer style={{ maxWidth: Dimensions.get('screen').width < 400 ? 200 : 250 }}>
-          {diet.map((el, i) => (
+          {diets.map((el, i) => (
             <Pill key={i} message={el} />
           ))}
         </PillContainer>
         <RenderHtml
-          contentWidth={250}
+          contentWidth={Dimensions.get('screen').width < 400 ? 200 : 250}
           source={{
             html: `${summary.slice(0, 100)}...`,
           }}
           tagsStyles={tagStyles}
         ></RenderHtml>
+        <View style={styles.readyAndServingsContainer}>
+          <Text style={[styles.text, styles.readyAndServingsText]}>Ready in {readyInMinutes} minutes</Text>
+          <View style={styles.circle}></View>
+          <Text style={styles.readyAndServingsText}>Servings {servings}</Text>
+        </View>
       </View>
     </BaseCard>
   );
@@ -102,10 +118,28 @@ const styles = StyleSheet.create({
     ...globalStyles.baseText,
     maxWidth: 250,
   },
+  readyAndServingsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    marginTop: 10,
+    maxWidth: Dimensions.get('screen').width < 400 ? 200 : 250,
+  },
+  readyAndServingsText: {
+    fontSize: 13,
+    color: colors.whites.doveGrey,
+  },
+  circle: {
+    ...globalStyles.circle,
+    backgroundColor: colors.blacks.charcoal,
+    marginHorizontal: 8,
+    marginTop: 2,
+  },
 });
 
 const tagStyles = {
   body: {
     ...globalTagStyles.body,
+    maxWidth: Dimensions.get('screen').width < 400 ? 175 : 250,
   },
 };

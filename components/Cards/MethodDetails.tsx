@@ -45,6 +45,7 @@ export default function MethodDetails({ analyzedInstructions }: IProps) {
 const styles = StyleSheet.create({
   header: {
     ...globalStyles.headerH2,
+    color: colors.primary.red,
   },
   text: {
     ...globalStyles.baseText,

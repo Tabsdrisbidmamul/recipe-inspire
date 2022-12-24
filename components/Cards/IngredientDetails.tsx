@@ -41,6 +41,7 @@ export default function IngredientDetails({ extendedDetails }: IProps) {
 const styles = StyleSheet.create({
   header: {
     ...globalStyles.headerH2,
+    color: colors.primary.red,
   },
   container: {
     flexDirection: 'row',
