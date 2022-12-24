@@ -29,15 +29,13 @@ export default observer(function NavigationHeader({ title, handleNavigateBack, m
 
   return (
     <>
-      <View
-        style={[
-          styles.container,
-          { marginTop: height },
-          { backgroundColor: mode === 'transparent' ? 'transparent' : colors.whites.pastel },
-        ]}
-      >
+      <View style={[styles.container, { marginTop: height }, mode === 'transparent' ? styles.transparent : null]}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <Ionicons onPress={handleNavigateBack} name="arrow-back-sharp" style={styles.icon} />
+          <Ionicons
+            onPress={handleNavigateBack}
+            name="arrow-back-sharp"
+            style={[styles.icon, mode === 'transparent' ? styles.backButtonForCameraView : null]}
+          />
           <Text style={styles.title}>{title}</Text>
         </View>
         {mode === 'recipe' ? <Ionicons name="heart-outline" style={styles.icon} /> : null}
@@ -60,10 +58,23 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
 
+  transparent: {
+    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    position: 'absolute',
+    top: 0,
+    left: 10,
+    borderRadius: 100,
+    paddingHorizontal: 0,
+  },
+
   icon: {
     ...globalStyles.icon,
     marginRight: 16,
     marginLeft: 16,
+  },
+
+  backButtonForCameraView: {
+    color: colors.whites.pastel,
   },
 
   title: {

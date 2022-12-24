@@ -1,5 +1,5 @@
-import { Camera, CameraType } from 'expo-camera';
-import React, { useRef, useState } from 'react';
+import { Camera, CameraType, getCameraPermissionsAsync } from 'expo-camera';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { Button, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import axios, { AxiosError } from 'axios';
 import * as FileSystem from 'expo-file-system';
@@ -23,7 +23,11 @@ import NavigationHeader from '../Header/NavigationHeader';
 export default function CameraView() {
   const navigation = useNavigation();
   const [type, setType] = useState(CameraType.back);
-  const [permission, requestPermission] = Camera.useCameraPermissions();
+  const [permission, setPermission] = useState(false);
+
+  useLayoutEffect(() => {
+    handleGrantPressed();
+  }, []);
 
   let camera = useRef<Camera>(null);
 
@@ -33,18 +37,16 @@ export default function CameraView() {
     }
   }
 
-  if (!permission) {
-    return (
-      <View>
-        <LottieLoader />
-      </View>
-    );
+  async function handleGrantPressed() {
+    const cameraPermission = await Camera.requestCameraPermissionsAsync();
+
+    setPermission(cameraPermission.status === 'granted');
   }
 
-  if (!permission.granted) {
+  if (!permission) {
     return (
       <RootView style={styles.container}>
-        <PermissionsCard onPressCancel={handleCancelPressed} onPressGrant={requestPermission} />
+        <PermissionsCard onPressCancel={handleCancelPressed} onPressGrant={handleGrantPressed} />
       </RootView>
     );
   }
@@ -108,7 +110,6 @@ export default function CameraView() {
 
   return (
     <View style={styles.container}>
-      <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
       <Camera
         ref={(ref: any) => {
           // @ts-ignore
@@ -117,14 +118,19 @@ export default function CameraView() {
         style={styles.camera}
         type={type}
       >
+        <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
         <View style={styles.buttonContainer}>
           <Pressable
             accessible
             accessibilityLabel="Camera Button"
             accessibilityHint="Takes a picture"
-            style={styles.button}
+            style={styles.pressableButton}
             onPress={takePicture}
-          ></Pressable>
+          >
+            <View style={styles.button}>
+              <View style={styles.innerButton}></View>
+            </View>
+          </Pressable>
         </View>
       </Camera>
     </View>
@@ -138,6 +144,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
+    position: 'relative',
   },
   buttonContainer: {
     flex: 1,
@@ -146,12 +153,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     margin: 64,
   },
-  button: {
+  pressableButton: {
     flex: 1,
     alignSelf: 'flex-end',
     alignItems: 'center',
-    width: 10,
-    height: 10,
+  },
+  button: {
+    width: 90,
+    height: 90,
+    borderRadius: 100,
+    // padding: 10,
+    borderColor: colors.whites.pastel,
+    borderWidth: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  innerButton: {
+    width: 70,
+    height: 70,
     borderRadius: 100,
     backgroundColor: colors.whites.pastel,
   },
