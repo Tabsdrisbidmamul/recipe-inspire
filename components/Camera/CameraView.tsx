@@ -15,15 +15,23 @@ import PermissionsCard from '../Cards/PermissionsCard';
 import Agent from '../../agents';
 import { VisionRequest } from '../../interfaces/results.interface';
 import NavigationHeader from '../Header/NavigationHeader';
+import { observer } from 'mobx-react-lite';
+import useStore from '../../hooks/useStore';
+import FullScreenLoader from '../Loader/FullScreenLoader';
 
 /**
  * Camera view to take images and have them ready in the app cache
  * @returns
  */
-export default function CameraView() {
+export default observer(function CameraView() {
   const navigation = useNavigation();
+  const { photoStore } = useStore();
+  const { getImageAnnotations, loader } = photoStore;
+
   const [type, setType] = useState(CameraType.back);
   const [permission, setPermission] = useState(false);
+
+  const [cameraLoader, setCameraLoader] = useState(false);
 
   useLayoutEffect(() => {
     handleGrantPressed();
@@ -53,10 +61,11 @@ export default function CameraView() {
 
   async function takePicture() {
     if (!permission) return;
+
+    setCameraLoader(true);
+
     // @ts-ignore
     const photo = (await camera.takePictureAsync()) as { height: number; uri: string; width: number };
-
-    console.log("finished taking photo here's the photo", photo);
 
     const imageBase64 = await FileSystem.readAsStringAsync(`${photo.uri}`, {
       encoding: FileSystem.EncodingType.Base64,
@@ -98,14 +107,9 @@ export default function CameraView() {
       ],
     };
 
-    try {
-      const res = await Agent.google.vision.annotateImage(data);
+    await getImageAnnotations(data);
 
-      console.log('res ', res.responses);
-    } catch (err) {
-      const _err = err as AxiosError;
-      console.error('ERROR takePicture() in taking picture ', _err.response);
-    }
+    setCameraLoader(false);
   }
 
   return (
@@ -118,24 +122,30 @@ export default function CameraView() {
         style={styles.camera}
         type={type}
       >
-        <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
-        <View style={styles.buttonContainer}>
-          <Pressable
-            accessible
-            accessibilityLabel="Camera Button"
-            accessibilityHint="Takes a picture"
-            style={styles.pressableButton}
-            onPress={takePicture}
-          >
-            <View style={styles.button}>
-              <View style={styles.innerButton}></View>
+        {cameraLoader ? (
+          <FullScreenLoader />
+        ) : (
+          <>
+            <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
+            <View style={styles.buttonContainer}>
+              <Pressable
+                accessible
+                accessibilityLabel="Camera Button"
+                accessibilityHint="Takes a picture"
+                style={styles.pressableButton}
+                onPress={takePicture}
+              >
+                <View style={styles.button}>
+                  <View style={styles.innerButton}></View>
+                </View>
+              </Pressable>
             </View>
-          </Pressable>
-        </View>
+          </>
+        )}
       </Camera>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
