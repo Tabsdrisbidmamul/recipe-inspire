@@ -4,12 +4,18 @@ import { View, StyleSheet, ScrollView, StyleProp, ViewStyle } from 'react-native
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
+import NavigationHeader from '../Header/NavigationHeader';
+import LottieLoader from '../Loader/LottieLoader';
 
 interface IProps {
   children: JSX.Element[] | JSX.Element;
   isScrollable?: boolean;
   isKeyboardDismissible?: boolean;
   style?: StyleProp<ViewStyle>;
+  showHeader?: boolean;
+  title?: string;
+  mode?: 'default' | 'recipe' | 'transparent';
+  onPress?: (...args: any) => any;
 }
 
 /**
@@ -17,7 +23,16 @@ interface IProps {
  * @param param0
  * @returns
  */
-export default function RootView({ children, isScrollable, isKeyboardDismissible, style }: IProps) {
+export default function RootView({
+  children,
+  isScrollable,
+  isKeyboardDismissible,
+  showHeader,
+  style,
+  title,
+  mode,
+  onPress,
+}: IProps) {
   return (
     <LinearGradient
       style={[styles.root]}
@@ -33,7 +48,10 @@ export default function RootView({ children, isScrollable, isKeyboardDismissible
               {children}
             </ScrollView>
           ) : (
-            <ScrollView style={styles.scrollContainer}>{children}</ScrollView>
+            <>
+              {showHeader ? <NavigationHeader title={title!} mode={mode!} handleNavigateBack={onPress!} /> : null}
+              <ScrollView style={styles.scrollContainer}>{children}</ScrollView>
+            </>
           )}
         </View>
       ) : (

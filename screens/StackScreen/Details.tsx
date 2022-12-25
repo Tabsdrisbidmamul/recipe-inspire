@@ -66,9 +66,7 @@ export default observer(function Details() {
   }
 
   return (
-    <RootView isScrollable>
-      <NavigationHeader handleNavigateBack={handlePressBack} title="Recipe" mode="recipe" />
-
+    <RootView isScrollable showHeader title="Recipe" mode="recipe" onPress={handlePressBack}>
       {loader ? (
         <LottieLoader />
       ) : (
