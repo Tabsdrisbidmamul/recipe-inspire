@@ -3,6 +3,7 @@ import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 import CameraScreen from '../../screens/StackScreen/CameraScreen';
 import Details from '../../screens/StackScreen/Details';
 import Ingredients from '../../screens/StackScreen/Ingredients';
@@ -18,22 +19,25 @@ const Stack = createStackNavigator();
  */
 export default function Navigation() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-        }}
-        initialRouteName="HomeTab"
-      >
-        <Stack.Screen name="HomeTab" component={NavigationTabs} />
-        <Stack.Screen name="Details" component={Details} />
-        <Stack.Screen name="Settings" component={Settings} />
-        <Stack.Screen name="Ingredients" component={Ingredients} />
-        <Stack.Screen name="SearchResults" component={SearchResults} />
-        <Stack.Screen name="Camera" component={CameraScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+          initialRouteName="HomeTab"
+        >
+          <Stack.Screen name="HomeTab" component={NavigationTabs} />
+          <Stack.Screen name="Details" component={Details} />
+          <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="Ingredients" component={Ingredients} />
+          <Stack.Screen name="SearchResults" component={SearchResults} />
+          <Stack.Screen name="Camera" component={CameraScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <Toast />
+    </>
   );
 }
 

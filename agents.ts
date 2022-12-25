@@ -1,4 +1,4 @@
-import axios, { Axios, AxiosResponse } from 'axios';
+import axios, { Axios, AxiosError, AxiosResponse } from 'axios';
 import results from './data/results/result1.json';
 import results2 from './data/results/result2.json';
 import details from './data/details/details1.json';
@@ -6,6 +6,7 @@ import recommend from './data/recommend/recommend1.json';
 import random from './data/random/random1.json';
 import { RandomRecipes, RecommendResult, Result, SearchResults, VisionRequest } from './interfaces/results.interface';
 import { ResponseObject } from './interfaces/visions.interface';
+import Toast from 'react-native-toast-message';
 
 const sleep = (delay: number) => {
   return new Promise((resolve: any) => {
@@ -16,11 +17,20 @@ const sleep = (delay: number) => {
 // BUG :Base url is not respected in react native
 // axios.defaults.baseURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&';
 
-// axios.interceptors.response.use(async (response) => {
-//   await sleep(1000);
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error: AxiosError) => {
+    Toast.show({
+      type: 'error',
+      text1: 'Something went wrong',
+      position: 'top',
+    });
 
-//   return response;
-// });
+    return Promise.reject(error);
+  }
+);
 
 const responseBody = <T>(response: AxiosResponse<T>) => response.data;
 
@@ -92,10 +102,11 @@ const spoonacular = {
       `https://api.spoonacular.com/recipes/${recipeId}/similar?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1`
     ),
 
-  getRandomRecipe: () =>
-    requests.get<RandomRecipes>(
-      'https://api.spoonacular.com/recipes/random?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1'
-    ),
+  getRandomRecipe: () => {
+    return requests.get<RandomRecipes>(
+      'https://api.spoonacular.com/recipes/rando?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1'
+    );
+  },
 };
 
 const google = {

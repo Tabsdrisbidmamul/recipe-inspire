@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Agent from '../agents';
 import { RandomRecipes, RecommendResult, Result, SearchResults } from '../interfaces/results.interface';
+import Toast from 'react-native-toast-message';
 
 /**
  * store for ingredients, and diet settings as well making http calls to get recipes and recipe details
