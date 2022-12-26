@@ -1,5 +1,7 @@
 // Grave, K., n.d. Detect swipe left in React Native (online). Stackoverflow. Available from: https://stackoverflow.com/questions/45854450/detect-swipe-left-in-react-native [Accessed 26/12/2022]
 
+// adapted to pass parameters to callback
+
 import { Dimensions } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 

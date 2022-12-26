@@ -303,6 +303,13 @@ export default class IngredientsStore {
         .map((el) => el[0]);
 
       res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters, this.currentPage);
+
+      // scanned ingredients; do a ingredients search
+    } else if (this.scannedIngredients.length) {
+      res = await Agent.spoonacular.searchWithIngredients(
+        this.scannedIngredients.map((el) => el.ingredient),
+        this.currentPage
+      );
     } else {
       // TODO: remove dev call
       // res = await Agent.spoonacular.searchWithQuery(this.searchValue, this.currentPage);

@@ -1,7 +1,7 @@
 import Modal from 'react-native-modal';
 import { StatusBar as SB } from 'expo-status-bar';
 import Ionicons from '@expo/vector-icons/build/Ionicons';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dimensions, Platform, ScrollView, View, StyleSheet, Text, Pressable, Image } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
@@ -10,6 +10,10 @@ import useStore from '../../hooks/useStore';
 import globalConstants from '../../constants/globalConstants';
 import ImageCard from '../Cards/ImageCard';
 import { useSwipe } from '../../hooks/useSwipe';
+import IngredientsContent from '../Content/IngredientsContent';
+import DoneButton from '../Buttons/DoneButtton';
+import { useNavigation } from '@react-navigation/native';
+import { ingredientsMode } from '../../types/ingredientsMode.types';
 
 interface IProps {
   toggleModal: (...args: any) => any;
@@ -17,18 +21,49 @@ interface IProps {
 }
 
 export default observer(function CameraModal({ toggleModal, isModalVisible }: IProps) {
-  const { ingredientsStore } = useStore();
-  const { scannedIngredients, removedScannedIngredients } = ingredientsStore;
+  // hack: re-render on every swipe
+  const [count, setCount] = useState(0);
 
+  const { ingredientsStore } = useStore();
+  const {
+    scannedIngredients,
+    removedScannedIngredients,
+    removeScannedIngredientAndPushToRemoveList,
+    removeScannedIngredientAndPushToScannedList,
+    fetchResults,
+  } = ingredientsStore;
+
+  const navigation = useNavigation();
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 6);
 
-  function onSwipeLeft(index: number) {
-    console.log('SWIPE_LEFT index: ', index);
+  function onSwipeLeft(index: number, mode: ingredientsMode) {
+    // We only remove from the include class
+    if (mode === 'not-include') return;
+
+    console.log(`SWIPE_LEFT index: ${index}, mode: ${mode}`);
+    removeScannedIngredientAndPushToRemoveList(index);
+    setCount(count + 1);
   }
 
-  function onSwipeRight(index: number) {
-    console.log('SWIPE_RIGHT index ', index);
+  function onSwipeRight(index: number, mode: ingredientsMode) {
+    // We only add from the remove class
+    if (mode === 'include') return;
+
+    console.log(`SWIPE_RIGHT index ${index}, mode: ${mode}`);
+    removeScannedIngredientAndPushToScannedList(index);
+    setCount(count + 1);
   }
+
+  async function navigateToSearchResultsScreen() {
+    // do an eager search - to force the search results screen to have content
+    await fetchResults();
+
+    //@ts-ignore
+    navigation.navigate('SearchResults');
+  }
+
+  // hack: force re-render when swiping on ingredients
+  useEffect(() => {}, [count]);
 
   return (
     <Modal
@@ -45,61 +80,35 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
       {Platform.OS === 'android' ? <SB style="light" /> : null}
       <View style={styles.modalContainer}>
         <View style={styles.headerContainer}>
-          <Ionicons onPress={toggleModal} name="close" size={32} color={colors.whites.pastel} />
+          {/* <Ionicons onPress={toggleModal} name="close" size={32} color={colors.whites.pastel} /> */}
         </View>
 
         <View style={styles.bodyContainer}>
           <ScrollView style={{ flex: 1 }}>
             <View style={{ flex: 1 }} onStartShouldSetResponder={() => true}>
               <View style={styles.acceptContainer}>
-                <Text style={styles.header}>Ingredients to include</Text>
-                <View>
-                  {scannedIngredients.map((el, i) => (
-                    <View
-                      onTouchStart={(e) => onTouchStart(e, i)}
-                      onTouchEnd={(e) => onTouchEnd(e, i)}
-                      style={styles.resultContainer}
-                      key={i}
-                    >
-                      <ImageCard
-                        readyInMinutes={0}
-                        servings={0}
-                        title={el.ingredient}
-                        uri={el.photo.uri}
-                        showInformation={false}
-                      />
-                    </View>
-                  ))}
-                </View>
+                <IngredientsContent
+                  title="Ingredients to include"
+                  ingredients={scannedIngredients}
+                  onTouchEnd={onTouchEnd}
+                  onTouchStart={onTouchStart}
+                  mode="include"
+                />
               </View>
 
               <View style={styles.notAcceptContainer}>
-                <Text style={styles.header}>Ingredients to not include</Text>
-                <View>
-                  {removedScannedIngredients.map((el, i) => (
-                    <View style={styles.resultContainer} key={i}>
-                      <ImageCard
-                        readyInMinutes={0}
-                        servings={0}
-                        title={el.ingredient}
-                        uri={el.photo.uri}
-                        showInformation={false}
-                      />
-                    </View>
-                  ))}
-                </View>
+                <IngredientsContent
+                  title="Ingredients to not include"
+                  ingredients={removedScannedIngredients}
+                  onTouchEnd={onTouchEnd}
+                  onTouchStart={onTouchStart}
+                  mode="not-include"
+                />
               </View>
             </View>
           </ScrollView>
 
-          <Pressable
-            accessible
-            accessibilityLabel="Done button"
-            accessibilityHint="Navigates to the recipe search screen"
-            style={styles.doneButton}
-          >
-            <Text style={[styles.text, { textAlign: 'center' }]}>Done</Text>
-          </Pressable>
+          <DoneButton onPress={navigateToSearchResultsScreen} />
         </View>
       </View>
     </Modal>
@@ -114,16 +123,6 @@ const styles = StyleSheet.create({
   header: {
     ...globalStyles.headerH2,
     color: colors.whites.pastel,
-  },
-
-  doneButton: {
-    padding: 10,
-    paddingHorizontal: 30,
-    borderRadius: globalConstants.cardBorderRadius,
-    backgroundColor: colors.primary.green,
-    marginBottom: 30,
-    marginRight: 5,
-    alignSelf: 'flex-end',
   },
 
   modalContainer: {
@@ -153,26 +152,4 @@ const styles = StyleSheet.create({
   },
 
   notAcceptContainer: {},
-
-  resultContainer: {
-    flexDirection: 'row',
-    borderRadius: globalConstants.cardBorderRadius,
-    backgroundColor: colors.whites.pastel,
-    marginBottom: 20,
-  },
-
-  image: {
-    width: 100,
-    height: 150,
-    aspectRatio: 1 / 1,
-    resizeMode: 'cover',
-    borderTopLeftRadius: globalConstants.cardBorderRadius,
-    borderBottomLeftRadius: globalConstants.cardBorderRadius,
-    flex: 2,
-  },
-
-  modalText: {
-    color: colors.blacks.charcoal,
-    flex: 1,
-  },
 });

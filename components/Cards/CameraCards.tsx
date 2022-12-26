@@ -23,7 +23,7 @@ export default function CameraCards({ cards, onPress }: IProps) {
       onPress={onPress}
     >
       <View style={styles.imageContainer}>
-        {cards.map((el, i) => (
+        {cards?.map((el, i) => (
           <View style={styles.innerImageContainer} key={i}>
             <Image
               style={[
