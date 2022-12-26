@@ -1,6 +1,6 @@
 import { Camera, CameraType } from 'expo-camera';
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { Dimensions, Platform, StyleSheet, View, Text, ScrollView } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import RootView from '../Root/RootView';
@@ -14,10 +14,7 @@ import Toast from 'react-native-toast-message';
 import { IPhotoAndResults } from '../../interfaces/results.interface';
 import CameraCards from '../Cards/CameraCards';
 import TakePictureButton from '../Buttons/TakePictureButton';
-import Modal from 'react-native-modal';
-import { StatusBar as SB } from 'expo-status-bar';
-import Ionicons from '@expo/vector-icons/build/Ionicons';
-import ModalSlideup from '../Modal/ModalSlideup';
+import CameraModal from '../Modal/CameraModal';
 
 /**
  * Camera view to take images and have them ready in the app cache
@@ -115,7 +112,7 @@ export default observer(function CameraView() {
               <CameraCards onPress={toggleModal} cards={cards} />
             </View>
 
-            <ModalSlideup isModalVisible={isModalVisible} toggleModal={toggleModal} />
+            <CameraModal isModalVisible={isModalVisible} toggleModal={toggleModal} />
           </>
         )}
       </Camera>

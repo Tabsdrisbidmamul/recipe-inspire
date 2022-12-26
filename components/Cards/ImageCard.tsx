@@ -10,6 +10,7 @@ interface IProps {
   readyInMinutes: number;
   servings: number;
   title: string;
+  showInformation?: boolean;
   style?: StyleProp<ViewStyle>;
 }
 
@@ -17,7 +18,7 @@ interface IProps {
  *
  * @returns
  */
-export default function ImageCard({ uri, readyInMinutes, servings, title, style }: IProps) {
+export default function ImageCard({ uri, readyInMinutes, servings, title, showInformation = true, style }: IProps) {
   return (
     <View style={[styles.imageContainer, style]}>
       <ImageBackground source={{ uri }} imageStyle={{ borderRadius: 12 }} style={styles.image}>
@@ -28,11 +29,13 @@ export default function ImageCard({ uri, readyInMinutes, servings, title, style 
         <View>
           <Text style={styles.header}>{title}</Text>
         </View>
-        <View style={{ flexDirection: 'row', marginTop: -10, justifyContent: 'flex-end' }}>
-          <Text style={styles.text}>Ready in {readyInMinutes} minutes</Text>
-          <View style={styles.circle}></View>
-          <Text style={styles.text}>Servings {servings}</Text>
-        </View>
+        {showInformation ? (
+          <View style={{ flexDirection: 'row', marginTop: -10, justifyContent: 'flex-end' }}>
+            <Text style={styles.text}>Ready in {readyInMinutes} minutes</Text>
+            <View style={styles.circle}></View>
+            <Text style={styles.text}>Servings {servings}</Text>
+          </View>
+        ) : null}
       </View>
     </View>
   );
