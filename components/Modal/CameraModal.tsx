@@ -40,7 +40,6 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
     // We only remove from the include class
     if (mode === 'not-include') return;
 
-    console.log(`SWIPE_LEFT index: ${index}, mode: ${mode}`);
     removeScannedIngredientAndPushToRemoveList(index);
     setCount(count + 1);
   }
@@ -49,7 +48,6 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
     // We only add from the remove class
     if (mode === 'include') return;
 
-    console.log(`SWIPE_RIGHT index ${index}, mode: ${mode}`);
     removeScannedIngredientAndPushToScannedList(index);
     setCount(count + 1);
   }
