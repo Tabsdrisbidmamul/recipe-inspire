@@ -160,6 +160,6 @@ const styles = StyleSheet.create({
     marginLeft: 40,
   },
   animatedTextRight: {
-    marginRight: 40,
+    marginRight: 20,
   },
 });
