@@ -1,23 +1,23 @@
-import { Camera, CameraType, getCameraPermissionsAsync } from 'expo-camera';
-import React, { useLayoutEffect, useRef, useState } from 'react';
-import { Button, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import axios, { AxiosError } from 'axios';
-import * as FileSystem from 'expo-file-system';
+import { Camera, CameraType } from 'expo-camera';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Dimensions, Platform, StyleSheet, View, Text, ScrollView } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
-import LottieLoader from '../Loader/LottieLoader';
 import RootView from '../Root/RootView';
-import BaseCard from '../Cards/BaseCard';
 import { useNavigation } from '@react-navigation/native';
-import { resetGlobalState } from 'mobx/dist/internal';
-import globalConstants from '../../constants/globalConstants';
 import PermissionsCard from '../Cards/PermissionsCard';
-import Agent from '../../agents';
-import { VisionRequest } from '../../interfaces/results.interface';
 import NavigationHeader from '../Header/NavigationHeader';
 import { observer } from 'mobx-react-lite';
 import useStore from '../../hooks/useStore';
 import FullScreenLoader from '../Loader/FullScreenLoader';
+import Toast from 'react-native-toast-message';
+import { IPhotoAndResults } from '../../interfaces/results.interface';
+import CameraCards from '../Cards/CameraCards';
+import TakePictureButton from '../Buttons/TakePictureButton';
+import Modal from 'react-native-modal';
+import { StatusBar as SB } from 'expo-status-bar';
+import Ionicons from '@expo/vector-icons/build/Ionicons';
+import ModalSlideup from '../Modal/ModalSlideup';
 
 /**
  * Camera view to take images and have them ready in the app cache
@@ -25,17 +25,29 @@ import FullScreenLoader from '../Loader/FullScreenLoader';
  */
 export default observer(function CameraView() {
   const navigation = useNavigation();
-  const { photoStore } = useStore();
-  const { getImageAnnotations, loader } = photoStore;
+  const { photoStore, ingredientsStore } = useStore();
+
+  const { takePicture, loader } = photoStore;
+  const { setScannedIngredients, scannedIngredients } = ingredientsStore;
 
   const [type, setType] = useState(CameraType.back);
   const [permission, setPermission] = useState(false);
 
-  const [cameraLoader, setCameraLoader] = useState(false);
+  const [cards, setCards] = useState<IPhotoAndResults[]>([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [count, setCount] = useState(0);
 
   useLayoutEffect(() => {
     handleGrantPressed();
   }, []);
+
+  // hack: re-render on array change
+  // Only get the first 3 cards
+  useEffect(() => {
+    if (cards.length < 3) {
+      setCards(scannedIngredients);
+    }
+  }, [count]);
 
   let camera = useRef<Camera>(null);
 
@@ -45,10 +57,34 @@ export default observer(function CameraView() {
     }
   }
 
+  function toggleModal() {
+    setIsModalVisible(!isModalVisible);
+  }
+
   async function handleGrantPressed() {
     const cameraPermission = await Camera.requestCameraPermissionsAsync();
 
     setPermission(cameraPermission.status === 'granted');
+  }
+
+  async function handlePictureTaken() {
+    try {
+      const res = await takePicture(permission, camera);
+
+      if (res === undefined) {
+        throw new Error('Could not determine the ingredient name');
+      }
+
+      setScannedIngredients(res);
+
+      // hack: re-render on array change
+      setCount(count + 1);
+    } catch (e: any) {
+      Toast.show({
+        type: 'error',
+        text1: e.message,
+      });
+    }
   }
 
   if (!permission) {
@@ -57,59 +93,6 @@ export default observer(function CameraView() {
         <PermissionsCard onPressCancel={handleCancelPressed} onPressGrant={handleGrantPressed} />
       </RootView>
     );
-  }
-
-  async function takePicture() {
-    if (!permission) return;
-
-    setCameraLoader(true);
-
-    // @ts-ignore
-    const photo = (await camera.takePictureAsync()) as { height: number; uri: string; width: number };
-
-    const imageBase64 = await FileSystem.readAsStringAsync(`${photo.uri}`, {
-      encoding: FileSystem.EncodingType.Base64,
-    });
-
-    const data: VisionRequest = {
-      requests: [
-        {
-          image: {
-            content: imageBase64,
-          },
-          features: [
-            {
-              maxResults: 10,
-              type: 'LANDMARK_DETECTION',
-            },
-
-            {
-              maxResults: 10,
-              type: 'OBJECT_LOCALIZATION',
-            },
-
-            {
-              maxResults: 10,
-              type: 'LABEL_DETECTION',
-            },
-            {
-              maxResults: 10,
-              model: 'builtin/latest',
-              type: 'DOCUMENT_TEXT_DETECTION',
-            },
-
-            {
-              maxResults: 10,
-              type: 'IMAGE_PROPERTIES',
-            },
-          ],
-        },
-      ],
-    };
-
-    await getImageAnnotations(data);
-
-    setCameraLoader(false);
   }
 
   return (
@@ -122,24 +105,17 @@ export default observer(function CameraView() {
         style={styles.camera}
         type={type}
       >
-        {cameraLoader ? (
-          <FullScreenLoader />
+        {loader ? (
+          <FullScreenLoader message="Determining ingredient..." />
         ) : (
           <>
             <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
             <View style={styles.buttonContainer}>
-              <Pressable
-                accessible
-                accessibilityLabel="Camera Button"
-                accessibilityHint="Takes a picture"
-                style={styles.pressableButton}
-                onPress={takePicture}
-              >
-                <View style={styles.button}>
-                  <View style={styles.innerButton}></View>
-                </View>
-              </Pressable>
+              <TakePictureButton handlePictureTaken={handlePictureTaken} />
+              <CameraCards onPress={toggleModal} cards={cards} />
             </View>
+
+            <ModalSlideup isModalVisible={isModalVisible} toggleModal={toggleModal} />
           </>
         )}
       </Camera>
@@ -163,29 +139,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     margin: 64,
   },
-  pressableButton: {
-    flex: 1,
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-  },
-  button: {
-    width: 90,
-    height: 90,
-    borderRadius: 100,
-    // padding: 10,
-    borderColor: colors.whites.pastel,
-    borderWidth: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  innerButton: {
-    width: 70,
-    height: 70,
-    borderRadius: 100,
-    backgroundColor: colors.whites.pastel,
-  },
   text: {
     ...globalStyles.baseText,
-    textAlign: 'center',
+    color: colors.whites.pastel,
   },
 });

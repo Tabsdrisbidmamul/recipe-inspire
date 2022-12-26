@@ -1,7 +1,13 @@
 import { makeAutoObservable, runInAction } from 'mobx';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Agent from '../agents';
-import { RandomRecipes, RecommendResult, Result, SearchResults } from '../interfaces/results.interface';
+import {
+  IPhotoAndResults,
+  RandomRecipes,
+  RecommendResult,
+  Result,
+  SearchResults,
+} from '../interfaces/results.interface';
 import Toast from 'react-native-toast-message';
 
 /**
@@ -76,6 +82,9 @@ export default class IngredientsStore {
   previousRecipeIds: string[] = [];
 
   navigationId: number = 0;
+
+  scannedIngredients: IPhotoAndResults[] = [];
+  removedScannedIngredients: IPhotoAndResults[] = [];
 
   constructor() {
     makeAutoObservable(this);
@@ -326,6 +335,44 @@ export default class IngredientsStore {
     } finally {
       this.setLoader(false);
     }
+  };
+
+  /**
+   * Add ingredients to the scanned ingredients
+   * @param photoAndIngredient
+   */
+  setScannedIngredients = (photoAndIngredient: IPhotoAndResults) => {
+    this.scannedIngredients.push(photoAndIngredient);
+  };
+
+  /**
+   * Remove scanned ingredient at index position and push the removed element to the removed list
+   * @param index
+   */
+  removeScannedIngredientAndPushToRemoveList = (index: number) => {
+    const elementToRemove = this.scannedIngredients[index];
+    this.setRemovedScannedIngredients(elementToRemove);
+
+    this.scannedIngredients.splice(index, 1);
+  };
+
+  /**
+   * Add an element to the removed scanned ingredients
+   * @param photoAndIngredient
+   */
+  setRemovedScannedIngredients = (photoAndIngredient: IPhotoAndResults) => {
+    this.removedScannedIngredients.push(photoAndIngredient);
+  };
+
+  /**
+   * Remove the scanned ingredient from the remove list and push the element back to the scanned list
+   * @param index
+   */
+  removeScannedIngredientAndPushToScannedList = (index: number) => {
+    const elementToRemove = this.removedScannedIngredients[index];
+    this.setScannedIngredients(elementToRemove);
+
+    this.removedScannedIngredients.splice(index, 1);
   };
 
   /**

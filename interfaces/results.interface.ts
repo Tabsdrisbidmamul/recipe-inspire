@@ -1,3 +1,5 @@
+import { IPhoto } from './photo.interface';
+
 export interface Us {
   amount: number;
   unitShort: string;
@@ -164,4 +166,9 @@ export interface Request {
 
 export interface VisionRequest {
   requests: Request[];
+}
+
+export interface IPhotoAndResults {
+  photo: IPhoto;
+  ingredient: string;
 }

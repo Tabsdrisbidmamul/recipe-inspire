@@ -2,10 +2,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieLoader from './LottieLoader';
 
-export default function FullScreenLoader() {
+interface IProps {
+  message?: string;
+}
+
+export default function FullScreenLoader({ message }: IProps) {
   return (
     <View style={styles.root}>
-      <LottieLoader mode="dark" />
+      <LottieLoader message={message} mode="dark" />
     </View>
   );
 }

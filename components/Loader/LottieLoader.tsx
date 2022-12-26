@@ -10,13 +10,14 @@ import { globalStyles } from '../../constants/globalStyles';
 interface IProps {
   style?: StyleProp<ViewStyle>;
   mode?: 'light' | 'dark';
+  message?: string;
 }
 
 /**
  * For iOS only, display a lottie animation as the loader
  * @returns
  */
-export default function LottieLoader({ style, mode = 'light' }: IProps) {
+export default function LottieLoader({ style, mode = 'light', message }: IProps) {
   let loader = <></>;
 
   if (Platform.OS === 'android') {
@@ -38,7 +39,9 @@ export default function LottieLoader({ style, mode = 'light' }: IProps) {
   loader = (
     <>
       <ActivityIndicator size="large" color={mode === 'light' ? colors.blacks.charcoal : colors.whites.pastel} />
-      <Text style={[styles.text, mode === 'dark' ? { color: colors.whites.pastel } : null]}>Loading...</Text>
+      <Text style={[styles.text, mode === 'dark' ? { color: colors.whites.pastel } : null]}>
+        {message !== undefined ? message : 'Loading...'}
+      </Text>
     </>
   );
 
