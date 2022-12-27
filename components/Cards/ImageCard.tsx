@@ -20,8 +20,8 @@ interface IProps {
 }
 
 const slideLeft = {
-  from: {
-    translateX: 10,
+  0: {
+    translateX: 20,
   },
   to: {
     translateX: 0,
@@ -30,7 +30,7 @@ const slideLeft = {
 
 const slideRight = {
   from: {
-    translateX: -10,
+    translateX: -20,
   },
   to: {
     translateX: 0,
@@ -38,7 +38,7 @@ const slideRight = {
 };
 
 /**
- *
+ * Drop fade effect for image cards
  * @returns
  */
 export default function ImageCard({
@@ -164,9 +164,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   animatedTextLeft: {
-    marginLeft: 40,
+    marginLeft: 30,
   },
   animatedTextRight: {
-    marginRight: 20,
+    marginRight: 10,
   },
 });
