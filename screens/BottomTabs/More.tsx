@@ -28,6 +28,11 @@ export default observer(function More() {
     navigation.navigate('Ingredients');
   }
 
+  function navigateToDiets() {
+    //@ts-ignore
+    navigation.navigate('Diets');
+  }
+
   return (
     <RootView>
       <ContentHeader title="More" />
@@ -39,7 +44,8 @@ export default observer(function More() {
       <BaseCard>
         <View>
           <ButtonHorizontal onPress={navigateToSettings} text="Settings" />
-          <ButtonHorizontal onPress={navigateToIngredients} style={{ marginBottom: 0 }} text="Ingredients" />
+          <ButtonHorizontal onPress={navigateToIngredients} text="Ingredients" />
+          {/* <ButtonHorizontal onPress={navigateToDiets} style={{ marginBottom: 0 }} text="Diets" /> */}
         </View>
       </BaseCard>
     </RootView>
