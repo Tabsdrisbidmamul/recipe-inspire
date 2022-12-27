@@ -11,7 +11,6 @@ import IngredientsContent from '../Content/IngredientsContent';
 import DoneButton from '../Buttons/DoneButtton';
 import { useNavigation } from '@react-navigation/native';
 import { ingredientsMode as IngredientsMode } from '../../types/ingredientsMode.types';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import DraggableLine from '../Line/DraggableLine';
 
 interface IProps {
@@ -24,7 +23,6 @@ export default observer(function CameraModal({ toggleModal, isModalVisible, mode
   // hack: re-render on every swipe
   const [count, setCount] = useState(0);
 
-  const insets = useSafeAreaInsets();
   const { ingredientsStore } = useStore();
   const {
     scannedIngredients,
@@ -32,6 +30,7 @@ export default observer(function CameraModal({ toggleModal, isModalVisible, mode
     removeScannedIngredientAndPushToRemoveList,
     removeScannedIngredientAndPushToScannedList,
     fetchResults,
+    setScannedIngredientsFilter,
   } = ingredientsStore;
 
   const navigation = useNavigation();
@@ -55,6 +54,10 @@ export default observer(function CameraModal({ toggleModal, isModalVisible, mode
 
   async function navigateToSearchResultsScreen() {
     toggleModal();
+    scannedIngredients.forEach((ingredientObj) => {
+      setScannedIngredientsFilter(ingredientObj.ingredient, true);
+    });
+
     // do an eager search - to force the search results screen to have content
     await fetchResults();
 
@@ -64,8 +67,6 @@ export default observer(function CameraModal({ toggleModal, isModalVisible, mode
 
   // hack: force re-render when swiping on ingredients
   useEffect(() => {}, [count]);
-
-  // const paddingTop = insets.top;
 
   return (
     <Modal
