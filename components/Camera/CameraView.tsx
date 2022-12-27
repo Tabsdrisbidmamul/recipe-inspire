@@ -15,6 +15,8 @@ import { IPhotoAndResults } from '../../interfaces/results.interface';
 import CameraCards from '../Cards/CameraCards';
 import TakePictureButton from '../Buttons/TakePictureButton';
 import CameraModal from '../Modal/CameraModal';
+import { ingredientsMode } from '../../types/ingredientsMode.types';
+import CameraBinCards from '../Cards/CameraBinCards';
 
 /**
  * Camera view to take images and have them ready in the app cache
@@ -25,13 +27,14 @@ export default observer(function CameraView() {
   const { photoStore, ingredientsStore } = useStore();
 
   const { takePicture, loader } = photoStore;
-  const { setScannedIngredients, scannedIngredients } = ingredientsStore;
+  const { setScannedIngredients, scannedIngredients, removedScannedIngredients } = ingredientsStore;
 
   const [type, setType] = useState(CameraType.back);
   const [permission, setPermission] = useState(false);
 
   const [cards, setCards] = useState<IPhotoAndResults[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [mode, setMode] = useState<ingredientsMode>('include');
   const [count, setCount] = useState(0);
 
   useLayoutEffect(() => {
@@ -54,7 +57,8 @@ export default observer(function CameraView() {
     }
   }
 
-  function toggleModal() {
+  function toggleModal(mode: ingredientsMode) {
+    setMode(mode);
     setIsModalVisible(!isModalVisible);
   }
 
@@ -108,11 +112,12 @@ export default observer(function CameraView() {
           <>
             <NavigationHeader handleNavigateBack={handleCancelPressed} title="" mode="transparent" />
             <View style={styles.buttonContainer}>
+              <CameraBinCards cards={removedScannedIngredients} onPress={() => toggleModal('not-include')} />
               <TakePictureButton handlePictureTaken={handlePictureTaken} />
-              <CameraCards onPress={toggleModal} cards={cards} />
+              <CameraCards onPress={() => toggleModal('include')} cards={cards} />
             </View>
 
-            <CameraModal isModalVisible={isModalVisible} toggleModal={toggleModal} />
+            <CameraModal mode={mode} isModalVisible={isModalVisible} toggleModal={toggleModal} />
           </>
         )}
       </Camera>

@@ -1,6 +1,6 @@
 import { observer } from 'mobx-react-lite';
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Text, Switch } from 'react-native';
+import { View, StyleSheet, Text, Switch, Platform } from 'react-native';
 import { globalStyles } from '../../constants/globalStyles';
 import useStore from '../../hooks/useStore';
 
@@ -45,6 +45,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    ...Platform.select({
+      ios: {
+        ...globalStyles.baseContentMargin,
+      },
+    }),
   },
   text: {
     ...globalStyles.baseText,

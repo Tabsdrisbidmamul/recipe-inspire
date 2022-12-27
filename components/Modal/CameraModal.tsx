@@ -1,29 +1,30 @@
 import Modal from 'react-native-modal';
 import { StatusBar as SB } from 'expo-status-bar';
-import Ionicons from '@expo/vector-icons/build/Ionicons';
 import React, { useEffect, useState } from 'react';
-import { Dimensions, Platform, ScrollView, View, StyleSheet, Text, Pressable, Image } from 'react-native';
+import { Dimensions, Platform, ScrollView, View, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import { observer } from 'mobx-react-lite';
 import useStore from '../../hooks/useStore';
-import globalConstants from '../../constants/globalConstants';
-import ImageCard from '../Cards/ImageCard';
 import { useSwipe } from '../../hooks/useSwipe';
 import IngredientsContent from '../Content/IngredientsContent';
 import DoneButton from '../Buttons/DoneButtton';
 import { useNavigation } from '@react-navigation/native';
-import { ingredientsMode } from '../../types/ingredientsMode.types';
+import { ingredientsMode as IngredientsMode } from '../../types/ingredientsMode.types';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import DraggableLine from '../Line/DraggableLine';
 
 interface IProps {
   toggleModal: (...args: any) => any;
   isModalVisible: boolean;
+  mode: IngredientsMode;
 }
 
-export default observer(function CameraModal({ toggleModal, isModalVisible }: IProps) {
+export default observer(function CameraModal({ toggleModal, isModalVisible, mode }: IProps) {
   // hack: re-render on every swipe
   const [count, setCount] = useState(0);
 
+  const insets = useSafeAreaInsets();
   const { ingredientsStore } = useStore();
   const {
     scannedIngredients,
@@ -36,7 +37,7 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
   const navigation = useNavigation();
   const { onTouchStart, onTouchEnd } = useSwipe(onSwipeLeft, onSwipeRight, 6);
 
-  function onSwipeLeft(index: number, mode: ingredientsMode) {
+  function onSwipeLeft(index: number, mode: IngredientsMode) {
     // We only remove from the include class
     if (mode === 'not-include') return;
 
@@ -44,7 +45,7 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
     setCount(count + 1);
   }
 
-  function onSwipeRight(index: number, mode: ingredientsMode) {
+  function onSwipeRight(index: number, mode: IngredientsMode) {
     // We only add from the remove class
     if (mode === 'include') return;
 
@@ -53,6 +54,7 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
   }
 
   async function navigateToSearchResultsScreen() {
+    toggleModal();
     // do an eager search - to force the search results screen to have content
     await fetchResults();
 
@@ -62,6 +64,8 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
 
   // hack: force re-render when swiping on ingredients
   useEffect(() => {}, [count]);
+
+  // const paddingTop = insets.top;
 
   return (
     <Modal
@@ -77,36 +81,38 @@ export default observer(function CameraModal({ toggleModal, isModalVisible }: IP
     >
       {Platform.OS === 'android' ? <SB style="light" /> : null}
       <View style={styles.modalContainer}>
-        <View style={styles.headerContainer}>
-          {/* <Ionicons onPress={toggleModal} name="close" size={32} color={colors.whites.pastel} /> */}
+        <View style={[styles.headerContainer]}>
+          <DraggableLine />
         </View>
 
         <View style={styles.bodyContainer}>
           <ScrollView style={{ flex: 1 }}>
             <View style={{ flex: 1 }} onStartShouldSetResponder={() => true}>
-              <View style={styles.acceptContainer}>
-                <IngredientsContent
-                  title="Ingredients to include"
-                  ingredients={scannedIngredients}
-                  onTouchEnd={onTouchEnd}
-                  onTouchStart={onTouchStart}
-                  mode="include"
-                />
-              </View>
-
-              <View style={styles.notAcceptContainer}>
-                <IngredientsContent
-                  title="Ingredients to not include"
-                  ingredients={removedScannedIngredients}
-                  onTouchEnd={onTouchEnd}
-                  onTouchStart={onTouchStart}
-                  mode="not-include"
-                />
-              </View>
+              {mode === 'include' ? (
+                <View style={styles.acceptContainer}>
+                  <IngredientsContent
+                    title="Ingredients to include"
+                    ingredients={scannedIngredients}
+                    onTouchEnd={onTouchEnd}
+                    onTouchStart={onTouchStart}
+                    mode="include"
+                  />
+                </View>
+              ) : (
+                <View style={styles.notAcceptContainer}>
+                  <IngredientsContent
+                    title="Ingredients to not include"
+                    ingredients={removedScannedIngredients}
+                    onTouchEnd={onTouchEnd}
+                    onTouchStart={onTouchStart}
+                    mode="not-include"
+                  />
+                </View>
+              )}
             </View>
           </ScrollView>
 
-          <DoneButton onPress={navigateToSearchResultsScreen} />
+          {mode === 'include' ? <DoneButton onPress={navigateToSearchResultsScreen} /> : null}
         </View>
       </View>
     </Modal>
@@ -125,18 +131,18 @@ const styles = StyleSheet.create({
 
   modalContainer: {
     flex: 1,
-    marginTop: Dimensions.get('screen').height / 6,
+    marginTop: Dimensions.get('screen').height / 4,
     borderTopRightRadius: 12,
     borderTopLeftRadius: 12,
   },
   headerContainer: {
-    paddingVertical: 15,
+    paddingVertical: 20,
     paddingHorizontal: 20,
     paddingBottom: 10,
     backgroundColor: colors.blacks.charcoal,
     borderTopRightRadius: 12,
     borderTopLeftRadius: 12,
-    alignItems: 'flex-end',
+    alignItems: 'center',
   },
   bodyContainer: {
     backgroundColor: colors.blacks.charcoal,

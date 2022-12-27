@@ -86,6 +86,8 @@ export default class IngredientsStore {
   scannedIngredients: IPhotoAndResults[] = [];
   removedScannedIngredients: IPhotoAndResults[] = [];
 
+  scannedIngredientsFilter = {} as { [key: string]: boolean };
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -140,6 +142,24 @@ export default class IngredientsStore {
 
   popPreviousRecipeIds = () => {
     return this.previousRecipeIds.pop();
+  };
+
+  /**
+   * Set or add the key value to the ingredients filter to
+   * @param key
+   * @param value
+   */
+  setScannedIngredientsFilter = (key: string, value: boolean) => {
+    this.scannedIngredientsFilter[key] = value;
+    this.fetchResults();
+  };
+
+  /**
+   * Delete the filter
+   * @param key
+   */
+  removeSetScannedIngredient = (key: string) => {
+    delete this.scannedIngredientsFilter[key];
   };
 
   /**

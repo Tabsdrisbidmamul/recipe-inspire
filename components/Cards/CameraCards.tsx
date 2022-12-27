@@ -28,7 +28,7 @@ export default function CameraCards({ cards, onPress }: IProps) {
             <Image
               style={[
                 styles.image,
-                i === 0 ? { transform: [{ rotate: '10deg' }], zIndex: 3 } : null,
+                i === 0 ? { zIndex: 3 } : null,
                 i === 1 ? { transform: [{ rotate: '-20deg' }], zIndex: 2 } : null,
                 i === 2 ? { transform: [{ rotate: '45deg' }], zIndex: 1 } : null,
               ]}

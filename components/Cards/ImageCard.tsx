@@ -59,27 +59,29 @@ export default function ImageCard({
       <View style={[styles.contentContainer, !showInformation ? { maxWidth: undefined, width: '100%' } : null]}>
         <Animated.View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           {!showInformation && mode === 'include' ? (
-            <Animatable.Text
+            <Animatable.View
               animation={slideLeft}
               iterationCount="infinite"
               direction="alternate"
-              style={[styles.text, styles.animatedText, styles.animatedTextLeft]}
+              style={[styles.animatedView, styles.animatedText, styles.animatedTextLeft]}
             >
               <AntDesign name="arrowleft" size={24} style={styles.icon} />
-            </Animatable.Text>
+              <Text style={styles.text}>remove</Text>
+            </Animatable.View>
           ) : null}
 
           <Text style={[styles.header, mode === 'include' ? styles.headerRight : styles.headerLeft]}>{title}</Text>
 
           {!showInformation && mode === 'not-include' ? (
-            <Animatable.Text
+            <Animatable.View
               animation={slideRight}
               iterationCount="infinite"
               direction="alternate"
-              style={[styles.text, styles.animatedText, styles.animatedTextRight]}
+              style={[styles.animatedView, styles.animatedText, styles.animatedTextRight]}
             >
+              <Text style={styles.text}>add</Text>
               <AntDesign name="arrowright" size={24} style={styles.icon} />
-            </Animatable.Text>
+            </Animatable.View>
           ) : null}
         </Animated.View>
         {showInformation ? (
@@ -152,6 +154,11 @@ const styles = StyleSheet.create({
   },
   icon: {
     color: colors.whites.pastel,
+    marginHorizontal: 5,
+  },
+  animatedView: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   animatedText: {
     marginTop: 10,
