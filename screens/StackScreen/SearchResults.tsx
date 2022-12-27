@@ -10,6 +10,7 @@ import EmptyList from '../../components/Message/EmptyList';
 import SearchFilters from '../../components/Inputs/SearchFilters';
 import uuid from 'react-native-uuid';
 import { Result } from '../../interfaces/results.interface';
+import SearchIngredients from '../../components/Inputs/SearchIngredients';
 
 /**
  * Screen for search results
@@ -28,6 +29,8 @@ export default observer(function SearchResults() {
       <SearchField mode="input" />
 
       <SearchFilters />
+
+      <SearchIngredients />
 
       {loader ? (
         <LottieLoader />

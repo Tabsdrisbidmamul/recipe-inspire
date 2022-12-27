@@ -1,14 +1,35 @@
 import { observer } from 'mobx-react-lite';
-import React from 'react';
-import { ScrollView, View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, View, StyleSheet, Pressable, Text } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
+import useStore from '../../hooks/useStore';
+import { Entypo } from '@expo/vector-icons';
 
 export default observer(function SearchIngredients() {
-  let content = <></>;
+  const { ingredientsStore } = useStore();
+  const { scannedIngredients, removeScannedIngredient } = ingredientsStore;
+
+  function handleIngredientPressed(i: number) {
+    removeScannedIngredient(i);
+  }
+
+  const content = scannedIngredients.map((el, i) => (
+    <Pressable
+      key={i}
+      accessible
+      accessibilityLabel="Filter option"
+      accessibilityHint={`Filter for ${el.ingredient} currently is toggled`}
+      style={[styles.pill, styles.active]}
+      onPress={() => handleIngredientPressed(i)}
+    >
+      <Text style={[styles.text, styles.activeText]}>{el.ingredient}</Text>
+      <Entypo name="cross" style={styles.icon} />
+    </Pressable>
+  ));
 
   return (
-    <View>
+    <View style={styles.root}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {content}
       </ScrollView>
@@ -19,10 +40,13 @@ export default observer(function SearchIngredients() {
 const styles = StyleSheet.create({
   root: {
     ...globalStyles.baseContentMargin,
+    marginTop: -10,
   },
   pill: {
     ...globalStyles.basePill,
     marginRight: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   active: {
     backgroundColor: colors.blacks.charcoal,
@@ -34,5 +58,10 @@ const styles = StyleSheet.create({
   },
   activeText: {
     color: colors.whites.pastel,
+  },
+  icon: {
+    color: colors.whites.pastel,
+    fontSize: 18,
+    marginTop: 2,
   },
 });

@@ -158,8 +158,9 @@ export default class IngredientsStore {
    * Delete the filter
    * @param key
    */
-  removeSetScannedIngredient = (key: string) => {
+  removeScannedIngredientFilters = (key: string) => {
     delete this.scannedIngredientsFilter[key];
+    this.fetchResults();
   };
 
   /**
@@ -267,7 +268,8 @@ export default class IngredientsStore {
    * Fetch the search results which will rendered on the search results screen
    */
   fetchResults = async () => {
-    if (this.searchValue === '') {
+    // do not search if no value or no filters set
+    if (this.searchValue === '' && !this._anyFiltersToggled()) {
       this.setSearchResults({} as SearchResults);
       this.setSearchResultsCache([], 'fetch');
       return;
@@ -307,6 +309,19 @@ export default class IngredientsStore {
     } finally {
       this.setPaginateLoader(false);
     }
+  };
+
+  /**
+   * Check if any or some of the filters in ingredients or diets filter have been set
+   */
+  private _anyFiltersToggled = () => {
+    const isDietFiltersSet = Object.entries(this.filters).some(([key, value]) => {
+      if (value) return true;
+    });
+
+    const isIngredientFiltersSet = this.scannedIngredients.length !== 0;
+
+    return isDietFiltersSet || isIngredientFiltersSet;
   };
 
   /**
@@ -370,6 +385,15 @@ export default class IngredientsStore {
    */
   setScannedIngredients = (photoAndIngredient: IPhotoAndResults) => {
     this.scannedIngredients.push(photoAndIngredient);
+  };
+
+  /**
+   * Remove the scanned index from the array and update the results
+   * @param index
+   */
+  removeScannedIngredient = (index: number) => {
+    this.scannedIngredients.splice(index, 1);
+    this.fetchResults();
   };
 
   /**

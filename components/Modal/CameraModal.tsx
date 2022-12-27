@@ -30,7 +30,6 @@ export default observer(function CameraModal({ toggleModal, isModalVisible, mode
     removeScannedIngredientAndPushToRemoveList,
     removeScannedIngredientAndPushToScannedList,
     fetchResults,
-    setScannedIngredientsFilter,
   } = ingredientsStore;
 
   const navigation = useNavigation();
@@ -54,9 +53,6 @@ export default observer(function CameraModal({ toggleModal, isModalVisible, mode
 
   async function navigateToSearchResultsScreen() {
     toggleModal();
-    scannedIngredients.forEach((ingredientObj) => {
-      setScannedIngredientsFilter(ingredientObj.ingredient, true);
-    });
 
     // do an eager search - to force the search results screen to have content
     await fetchResults();
