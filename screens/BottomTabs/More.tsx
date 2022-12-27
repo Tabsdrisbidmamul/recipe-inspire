@@ -44,7 +44,7 @@ export default observer(function More() {
       <BaseCard>
         <View>
           <ButtonHorizontal onPress={navigateToSettings} text="Settings" />
-          <ButtonHorizontal onPress={navigateToIngredients} text="Ingredients" />
+          <ButtonHorizontal onPress={navigateToIngredients} style={{ marginBottom: 0 }} text="Ingredients" />
           {/* <ButtonHorizontal onPress={navigateToDiets} style={{ marginBottom: 0 }} text="Diets" /> */}
         </View>
       </BaseCard>
