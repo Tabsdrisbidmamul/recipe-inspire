@@ -8,22 +8,22 @@ import { Entypo } from '@expo/vector-icons';
 
 export default observer(function SearchIngredients() {
   const { ingredientsStore } = useStore();
-  const { scannedIngredients, removeScannedIngredient } = ingredientsStore;
+  const { scannedIngredientsFilter, removeScannedIngredientFilters } = ingredientsStore;
 
-  function handleIngredientPressed(i: number) {
-    removeScannedIngredient(i);
+  function handleIngredientPressed(key: string) {
+    removeScannedIngredientFilters(key);
   }
 
-  const content = scannedIngredients.map((el, i) => (
+  const content = Object.keys(scannedIngredientsFilter).map((el, i) => (
     <Pressable
       key={i}
       accessible
       accessibilityLabel="Filter option"
-      accessibilityHint={`Filter for ${el.ingredient} currently is toggled`}
+      accessibilityHint={`Filter for ${el} currently is toggled`}
       style={[styles.pill, styles.active]}
-      onPress={() => handleIngredientPressed(i)}
+      onPress={() => handleIngredientPressed(el)}
     >
-      <Text style={[styles.text, styles.activeText]}>{el.ingredient}</Text>
+      <Text style={[styles.text, styles.activeText]}>{el}</Text>
       <Entypo name="cross" style={styles.icon} />
     </Pressable>
   ));

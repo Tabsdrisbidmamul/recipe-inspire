@@ -317,7 +317,9 @@ export default class IngredientsStore {
       if (value) return true;
     });
 
-    const isIngredientFiltersSet = this.scannedIngredients.length !== 0;
+    const isIngredientFiltersSet = Object.entries(this.scannedIngredientsFilter).some(([key, value]) => {
+      if (value) return true;
+    });
 
     return isDietFiltersSet || isIngredientFiltersSet;
   };
