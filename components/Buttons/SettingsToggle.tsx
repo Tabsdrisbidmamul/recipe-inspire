@@ -18,13 +18,27 @@ export default observer(function SettingsToggle({ name, value }: IProps) {
   const { ingredientsStore } = useStore();
   const [isEnable, setIsEnabled] = useState(value);
 
-  const { setCommonIngredients, storeCommonIngredientsToLocalStorage } = ingredientsStore;
+  const {
+    setCommonIngredients,
+    storeCommonIngredientsToLocalStorage,
+    setScannedIngredientsFilter,
+    removeScannedIngredientFilters,
+  } = ingredientsStore;
 
-  // For every component update, notify the store
   useEffect(() => {
     setCommonIngredients(name.toLowerCase(), isEnable);
     storeCommonIngredientsToLocalStorage();
   }, [isEnable, setCommonIngredients, storeCommonIngredientsToLocalStorage]);
+
+  function toggleSwitch() {
+    if (isEnable) {
+      removeScannedIngredientFilters(name);
+      setIsEnabled(false);
+    } else {
+      setScannedIngredientsFilter(name, true);
+      setIsEnabled(true);
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -33,7 +47,7 @@ export default observer(function SettingsToggle({ name, value }: IProps) {
         accessible
         accessibilityLabel="Switch toggle"
         accessibilityHint={`Set the setting for ${name} on or off`}
-        onValueChange={setIsEnabled}
+        onValueChange={toggleSwitch}
         value={isEnable}
       />
     </View>

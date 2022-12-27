@@ -17,6 +17,8 @@ export default observer(function Ingredients() {
     commonIngredients,
     setCommonIngredients,
     storeCommonIngredientsToLocalStorage,
+    setScannedIngredientsFilter,
+    fetchResults,
   } = ingredientsStore;
 
   const { toggleModal } = commonStore;
@@ -36,6 +38,10 @@ export default observer(function Ingredients() {
     setCommonIngredients(value.trim().toLowerCase(), true);
 
     await storeCommonIngredientsToLocalStorage();
+
+    // eager search to force search results screen to have results
+    setScannedIngredientsFilter(value, true);
+    await fetchResults();
   }
 
   return (

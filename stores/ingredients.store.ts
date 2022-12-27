@@ -340,8 +340,10 @@ export default class IngredientsStore {
       res = await Agent.spoonacular.searchWithQueryAndFilters(this.searchValue, filters, this.currentPage);
 
       // scanned ingredients; do a ingredients search
-    } else if (this.scannedIngredients.length) {
+    } else if (Object.values(this.scannedIngredientsFilter).some((el) => el)) {
       const ingredients = Object.keys(this.scannedIngredientsFilter);
+
+      console.log('_fetchResults ingredients ', ingredients);
 
       res = await Agent.spoonacular.searchWithIngredients(ingredients, this.currentPage);
     } else {
