@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     ...globalStyles.buttonBackgroundColor,
-
+    ...globalStyles.shadows,
     borderRadius: 100,
     flexDirection: 'row',
     alignItems: 'center',
