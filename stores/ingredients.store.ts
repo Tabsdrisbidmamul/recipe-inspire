@@ -8,7 +8,6 @@ import {
   Result,
   SearchResults,
 } from '../interfaces/results.interface';
-import Toast from 'react-native-toast-message';
 
 /**
  * store for ingredients, and diet settings as well making http calls to get recipes and recipe details
@@ -99,8 +98,6 @@ export default class IngredientsStore {
     try {
       const item = JSON.stringify(this.commonIngredients);
 
-      // console.log('SAVING storeCommonIngredientsToLocalStorage item ', item);
-
       await AsyncStorage.setItem(this.COMMON_INGREDIENT_KEY, item);
     } catch (e: any) {
       console.log('ERROR: Could not save common ingredients to local storage ', e.message);
@@ -113,8 +110,6 @@ export default class IngredientsStore {
   getCommonIngredientsFromLocalStorage = async () => {
     try {
       const ingredients = await AsyncStorage.getItem(this.COMMON_INGREDIENT_KEY);
-
-      // console.log('RETRIEVE getCommonIngredientsFromLocalStorage ingredients ', ingredients);
 
       if (ingredients !== null) {
         const item = JSON.parse(ingredients);
@@ -204,6 +199,9 @@ export default class IngredientsStore {
     }
   };
 
+  /**
+   * Make a call to the API to get a selection of recipes
+   */
   getRandomRecipe = async () => {
     try {
       this.setLoader(true);
@@ -231,7 +229,7 @@ export default class IngredientsStore {
   };
 
   /**
-   * Another reason why we need an async for loop in JS, promise.all promises to retrieve the recipes information only for the image url
+   * Another reason why we need an async forloop in JS, promise.all promises to retrieve the recipes information only for the image url
    * @param recipes
    * @returns
    */

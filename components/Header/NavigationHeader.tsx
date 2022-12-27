@@ -8,11 +8,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import globalConstants from '../../constants/globalConstants';
 import { observer } from 'mobx-react-lite';
 import useStore from '../../hooks/useStore';
+import { NavigationMode } from '../../types/navigateionMode.type';
+import { ModalMode } from '../../types/modalMode.types';
 
 interface IProps {
   title: string;
   handleNavigateBack: (...args: any) => any;
-  mode: 'default' | 'recipe' | 'transparent';
+  mode: NavigationMode;
 }
 
 /**
@@ -21,11 +23,18 @@ interface IProps {
  * @returns
  */
 export default observer(function NavigationHeader({ title, handleNavigateBack, mode = 'default' }: IProps) {
-  const { ingredientsStore } = useStore();
+  const { ingredientsStore, commonStore } = useStore();
+
   const { selectedRecipe } = ingredientsStore;
+  const { toggleModal } = commonStore;
+
   const insets = useSafeAreaInsets();
 
   const height = insets.top + globalConstants.insetHeight;
+
+  function handleIconPressed(mode: ModalMode) {
+    toggleModal(mode);
+  }
 
   return (
     <>
@@ -38,7 +47,25 @@ export default observer(function NavigationHeader({ title, handleNavigateBack, m
           />
           <Text style={styles.title}>{title}</Text>
         </View>
-        {mode === 'recipe' ? <Ionicons name="heart-outline" style={styles.icon} /> : null}
+        {mode === 'recipe' ? (
+          <Ionicons
+            accessible
+            accessibilityLabel="Favourite icon"
+            accessibilityHint="Tap to favourite this recipe"
+            name="heart-outline"
+            style={styles.icon}
+          />
+        ) : null}
+        {mode === 'add' ? (
+          <Ionicons
+            accessible
+            accessibilityLabel="Plus icon"
+            accessibilityHint="Tap to add a new common ingredient"
+            name="add-sharp"
+            style={[styles.icon, { fontSize: 24, marginTop: 2 }]}
+            onPress={() => handleIconPressed('add')}
+          />
+        ) : null}
       </View>
       <StatusBar style="light"></StatusBar>
     </>

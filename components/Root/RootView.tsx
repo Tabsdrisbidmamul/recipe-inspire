@@ -4,6 +4,7 @@ import { View, StyleSheet, ScrollView, StyleProp, ViewStyle } from 'react-native
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
+import { NavigationMode } from '../../types/navigateionMode.type';
 import NavigationHeader from '../Header/NavigationHeader';
 import LottieLoader from '../Loader/LottieLoader';
 
@@ -14,7 +15,7 @@ interface IProps {
   style?: StyleProp<ViewStyle>;
   showHeader?: boolean;
   title?: string;
-  mode?: 'default' | 'recipe' | 'transparent';
+  mode?: NavigationMode;
   onPress?: (...args: any) => any;
 }
 

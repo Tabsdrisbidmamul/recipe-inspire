@@ -1,20 +1,25 @@
 import { observer } from 'mobx-react-lite';
-import React, { useEffect } from 'react';
-import { StyleSheet, Switch } from 'react-native';
-import { globalStyles } from '../../constants/globalStyles';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import NavigationHeader from '../../components/Header/NavigationHeader';
-import ContentHeader from '../../components/Header/ContentHeader';
 import RootView from '../../components/Root/RootView';
 import BaseCard from '../../components/Cards/BaseCard';
 import SettingsToggle from '../../components/Buttons/SettingsToggle';
 import useStore from '../../hooks/useStore';
+import BaseModal from '../../components/Modal/BaseModal';
 
 export default observer(function Ingredients() {
-  const { ingredientsStore } = useStore();
+  const { ingredientsStore, commonStore } = useStore();
   const navigation = useNavigation();
 
-  const { getCommonIngredientsFromLocalStorage, commonIngredients } = ingredientsStore;
+  const {
+    getCommonIngredientsFromLocalStorage,
+    commonIngredients,
+    setCommonIngredients,
+    storeCommonIngredientsToLocalStorage,
+  } = ingredientsStore;
+
+  const { toggleModal } = commonStore;
 
   function navigateGoBack() {
     if (navigation.canGoBack()) {
@@ -26,17 +31,21 @@ export default observer(function Ingredients() {
     getCommonIngredientsFromLocalStorage();
   }, []);
 
+  async function handleModalInputSubmission(value: string) {
+    toggleModal();
+    setCommonIngredients(value.trim().toLowerCase(), true);
+
+    await storeCommonIngredientsToLocalStorage();
+  }
+
   return (
-    <RootView isScrollable title="Ingredients" showHeader onPress={navigateGoBack}>
-      {/* <NavigationHeader title="Ingredients" handleNavigateBack={navigateGoBack} mode="default" /> */}
-
-      {/* <ContentHeader title="Bare Minimum" /> */}
-
+    <RootView isScrollable mode="add" title="Ingredients" showHeader onPress={navigateGoBack}>
       <BaseCard>
         {Object.entries(commonIngredients).map((el, i) => (
           <SettingsToggle key={i} name={el[0]} value={el[1]} />
         ))}
       </BaseCard>
+      <BaseModal mode="add" onPress={handleModalInputSubmission} />
     </RootView>
   );
 });
