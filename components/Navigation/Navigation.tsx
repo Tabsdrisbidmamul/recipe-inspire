@@ -10,6 +10,7 @@ import Diets from '../../screens/StackScreen/Diets';
 import Ingredients from '../../screens/StackScreen/Ingredients';
 import SearchResults from '../../screens/StackScreen/SearchResults';
 import Settings from '../../screens/StackScreen/Settings';
+import LoginForm from '../Forms/LoginForm';
 import NavigationTabs from './NavigationTabs';
 
 const Stack = createStackNavigator();
@@ -36,6 +37,7 @@ export default function Navigation() {
           <Stack.Screen name="SearchResults" component={SearchResults} />
           <Stack.Screen name="Camera" component={CameraScreen} />
           <Stack.Screen name="Diets" component={Diets} />
+          <Stack.Screen name="LoginForm" component={LoginForm} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />

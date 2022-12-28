@@ -4,6 +4,8 @@ import { globalStyles } from '../../constants/globalStyles';
 
 interface IProps {
   onPress?: (...args: any) => any;
+  message: string;
+  mode: 'login' | 'logout';
 }
 
 /**
@@ -11,16 +13,30 @@ interface IProps {
  * @param props
  * @returns
  */
-export default function LoginButton({ onPress }: IProps) {
-  return (
+export default function AuthButton({ onPress, message, mode }: IProps) {
+  async function handleButtonPressed() {
+    onPress!().then();
+  }
+
+  return mode === 'login' ? (
     <Pressable
       accessible
       accessibilityLabel="Login button"
       accessibilityHint="Navigates to login screen and form"
-      onPress={onPress}
+      onPress={handleButtonPressed}
       style={styles.button}
     >
-      <Text style={styles.buttonText}>Log in</Text>
+      <Text style={styles.buttonText}>{message}</Text>
+    </Pressable>
+  ) : (
+    <Pressable
+      accessible
+      accessibilityLabel="Logout button"
+      accessibilityHint="Log user out"
+      onPress={handleButtonPressed}
+      style={styles.button}
+    >
+      <Text style={styles.buttonText}>{message}</Text>
     </Pressable>
   );
 }

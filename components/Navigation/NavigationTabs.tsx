@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../../screens/BottomTabs/Home';
-import Favourites from '../../screens/BottomTabs/Search';
+import Favourites from '../../screens/BottomTabs/Favourites';
 import { Ionicons } from '@expo/vector-icons';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';

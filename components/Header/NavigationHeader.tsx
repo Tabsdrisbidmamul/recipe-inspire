@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { globalStyles } from '../../constants/globalStyles';
 import { Ionicons } from '@expo/vector-icons';
@@ -23,18 +23,46 @@ interface IProps {
  * @returns
  */
 export default observer(function NavigationHeader({ title, handleNavigateBack, mode = 'default' }: IProps) {
-  const { ingredientsStore, commonStore } = useStore();
+  const { ingredientsStore, commonStore, userStore } = useStore();
 
   const { selectedRecipe } = ingredientsStore;
   const { toggleModal } = commonStore;
+  const { user, setFavourites, favourites, removeFavourites } = userStore;
 
   const insets = useSafeAreaInsets();
 
   const height = insets.top + globalConstants.insetHeight;
 
+  const [favourited, setFavourited] = useState(false);
+
   function handleIconPressed(mode: ModalMode) {
     toggleModal(mode);
   }
+
+  async function handleFavouritePress() {
+    if (!favourited) {
+      await setFavourites(selectedRecipe);
+      setFavourited(true);
+    } else {
+      await removeFavourites(selectedRecipe);
+      setFavourited(false);
+    }
+  }
+
+  function isRecipeInFavourites() {
+    if (favourites.length) {
+      const recipe = favourites.find((el) => el.id === selectedRecipe.id);
+
+      setFavourited(!!recipe);
+      return !!recipe;
+    }
+
+    return false;
+  }
+
+  useLayoutEffect(() => {
+    isRecipeInFavourites();
+  }, []);
 
   return (
     <>
@@ -47,13 +75,14 @@ export default observer(function NavigationHeader({ title, handleNavigateBack, m
           />
           <Text style={styles.title}>{title}</Text>
         </View>
-        {mode === 'recipe' ? (
+        {mode === 'recipe' && user !== undefined ? (
           <Ionicons
             accessible
             accessibilityLabel="Favourite icon"
             accessibilityHint="Tap to favourite this recipe"
-            name="heart-outline"
+            name={favourited ? 'heart-sharp' : 'heart-outline'}
             style={styles.icon}
+            onPress={handleFavouritePress}
           />
         ) : null}
         {mode === 'add' ? (

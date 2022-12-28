@@ -56,7 +56,10 @@ export default function RootView({
           )}
         </View>
       ) : (
-        <View style={[styles.container, style]}>{children}</View>
+        <View style={[styles.container, style]}>
+          {showHeader ? <NavigationHeader title={title!} mode={mode!} handleNavigateBack={onPress!} /> : null}
+          <View>{children}</View>
+        </View>
       )}
     </LinearGradient>
   );

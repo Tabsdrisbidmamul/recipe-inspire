@@ -12,7 +12,7 @@ import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 import useStore from '../../hooks/useStore';
 import { RandomRecipes, Result } from '../../interfaces/results.interface';
-
+import { createUser, obj, readFirestore, signInUser, writeToFirestore } from '../../firebase';
 /**
  * Tab screen for home, this is not the screen for search results, but rather a content page where we can present the option to go to search results page, but also misc. items for quick searches or inspiration on what to search. We also present
  * @returns
@@ -26,6 +26,8 @@ export default observer(function Home() {
 
   useLayoutEffect(() => {
     getRandomRecipe();
+    // signInUser('admin@email.com', 'Password@123');
+    // writeToFirestore('favourites', 'gnelQua21VNJ8NbFuF8B2vTWAzI2', { recipes: [obj] });
   }, []);
 
   useLayoutEffect(() => {
