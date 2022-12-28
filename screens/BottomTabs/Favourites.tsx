@@ -22,8 +22,6 @@ export default observer(function Favourites() {
 
   const { setNavigationId } = ingredientsStore;
 
-  console.log('favourites ', favourites);
-
   function navigateToRecipe(id: number) {
     setNavigationId(id);
 
