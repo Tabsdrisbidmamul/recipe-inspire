@@ -28,7 +28,7 @@ export default observer(function LoginForm() {
   }
 
   async function login() {
-    const user = await signInUser(emailValue, passwordValue);
+    const user = await signInUser(emailValue.toLowerCase(), passwordValue);
 
     if (user === undefined) {
       Toast.show({

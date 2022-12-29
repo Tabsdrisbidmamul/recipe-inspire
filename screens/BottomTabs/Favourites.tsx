@@ -38,7 +38,7 @@ export default observer(function Favourites() {
       ) : favourites.length === 0 ? (
         <Text style={styles.text}>Your favourites are empty, how about adding a recipe</Text>
       ) : (
-        <>
+        <View style={styles.root}>
           {favourites.map((el, i) => (
             <Pressable
               accessible
@@ -46,17 +46,21 @@ export default observer(function Favourites() {
               accessibilityHint="Tap to navigate to recipe view"
               onPress={() => navigateToRecipe(el.id)}
               key={i}
+              style={{ marginBottom: 20 }}
             >
               <ImageCard readyInMinutes={el.readyInMinutes} servings={el.servings} title={el.title} uri={el.image} />
             </Pressable>
           ))}
-        </>
+        </View>
       )}
     </RootView>
   );
 });
 
 const styles = StyleSheet.create({
+  root: {
+    marginBottom: 50,
+  },
   text: {
     ...globalStyles.baseText,
     color: colors.whites.doveGrey,

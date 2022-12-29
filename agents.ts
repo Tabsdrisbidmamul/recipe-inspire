@@ -71,6 +71,20 @@ const spoonacular = {
     );
   },
 
+  searchWithQueryAndIngredientsAndFilters: (query: string, filters: string[], ingredients: string[], offset: number) =>
+    requests.get<SearchResults>(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&includeIngredients=${ingredients.join(
+        ','
+      )}diet=${filters.join(',')}&fillIngredients=true&addRecipeInformation=true`
+    ),
+
+  searchWithQueryAndIngredients: (query: string, ingredients: string[], offset: number) =>
+    requests.get<SearchResults>(
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&includeIngredients=${ingredients.join(
+        ','
+      )}&fillIngredients=true&addRecipeInformation=true`
+    ),
+
   searchWithQueryAndFilters: (query: string, filters: string[], offset: number) =>
     requests.get<SearchResults>(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&query=${query}&offset=${offset}&diet=${filters.join(
@@ -104,7 +118,7 @@ const spoonacular = {
 
   getRandomRecipe: () => {
     return requests.get<RandomRecipes>(
-      'https://api.spoonacular.com/recipes/rando?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1'
+      'https://api.spoonacular.com/recipes/random?apiKey=1d0ed0ed46ed44bd8b12ef46cefd537d&number=1'
     );
   },
 };

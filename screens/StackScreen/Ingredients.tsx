@@ -8,6 +8,9 @@ import SettingsToggle from '../../components/Buttons/SettingsToggle';
 import useStore from '../../hooks/useStore';
 import BaseModal from '../../components/Modal/BaseModal';
 
+/**
+ * Ingredients screen - toggle different ingredients
+ */
 export default observer(function Ingredients() {
   const { ingredientsStore, commonStore } = useStore();
   const navigation = useNavigation();

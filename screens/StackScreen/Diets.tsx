@@ -7,6 +7,9 @@ import BaseModal from '../../components/Modal/BaseModal';
 import RootView from '../../components/Root/RootView';
 import useStore from '../../hooks/useStore';
 
+/**
+ * Diets screen
+ */
 export default observer(function Diets() {
   const navigation = useNavigation();
   const { ingredientsStore } = useStore();

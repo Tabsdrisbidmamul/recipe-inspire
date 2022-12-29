@@ -214,7 +214,7 @@ export default class IngredientsStore {
 
       this.setRandomRecipe(res);
     } catch (e) {
-      console.error('ERROR getRandomRecipe(): could not get recipe');
+      console.error('ERROR getRandomRecipe(): could not get recipe', e);
     } finally {
       this.setLoader(false);
     }
@@ -331,8 +331,36 @@ export default class IngredientsStore {
   private _fetchResults = async () => {
     let res = {} as SearchResults;
 
-    // any filters set, add them to the query
-    if (Object.values(this.filters).some((el) => el)) {
+    // search with query, filters and ingredients
+    if (
+      this.searchValue !== '' &&
+      Object.values(this.filters).some((el) => el) &&
+      Object.values(this.scannedIngredientsFilter).some((el) => el)
+    ) {
+      const ingredients = Object.keys(this.scannedIngredientsFilter);
+      const filters = Object.entries(this.filters)
+        .filter((el) => el[1])
+        .map((el) => el[0]);
+
+      res = await Agent.spoonacular.searchWithQueryAndIngredientsAndFilters(
+        this.searchValue,
+        filters,
+        ingredients,
+        this.currentPage
+      );
+    } else if (
+      Object.values(this.filters).some((el) => el) &&
+      Object.values(this.scannedIngredientsFilter).some((el) => el)
+    ) {
+      const ingredients = Object.keys(this.scannedIngredientsFilter);
+      const filters = Object.entries(this.filters)
+        .filter((el) => el[1])
+        .map((el) => el[0]);
+
+      res = await Agent.spoonacular.searchWithIngredientsAndFilters(ingredients, filters, this.currentPage);
+
+      // any filters set, add them to the query
+    } else if (Object.values(this.filters).some((el) => el)) {
       const filters = Object.entries(this.filters)
         .filter((el) => el[1])
         .map((el) => el[0]);
@@ -343,7 +371,7 @@ export default class IngredientsStore {
     } else if (Object.values(this.scannedIngredientsFilter).some((el) => el)) {
       const ingredients = Object.keys(this.scannedIngredientsFilter);
 
-      res = await Agent.spoonacular.searchWithIngredients(ingredients, this.currentPage);
+      res = await Agent.spoonacular.searchWithQueryAndIngredients(this.searchValue, ingredients, this.currentPage);
     } else {
       // TODO: remove dev call
       // res = await Agent.spoonacular.searchWithQuery(this.searchValue, this.currentPage);

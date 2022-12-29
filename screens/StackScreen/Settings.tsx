@@ -4,6 +4,10 @@ import { View, Text, StyleSheet } from 'react-native';
 import colors from '../../constants/colors';
 import { globalStyles } from '../../constants/globalStyles';
 
+/**
+ * Settings screen
+ * @returns
+ */
 export default function Settings() {
   return (
     <LinearGradient style={styles.root} colors={[colors.gradient.pink, colors.gradient.purple]}>
