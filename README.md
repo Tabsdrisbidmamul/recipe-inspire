@@ -21,4 +21,7 @@ Expo app which will allows users to scan fruit or veg - this will be pushed up t
 
 ## Acknowledgements
 
-Jalajpathak, n.d. Food loader (online). LottieFiles. Available from: https://lottiefiles.com/130956-food-loader [Accessed 21/12/2022]
+- Grave, K., n.d. Detect swipe left in React Native (online). Stackoverflow. Available from: https://stackoverflow.com/questions/45854450/detect-swipe-left-in-react-native [Accessed 26/12/2022]
+  adapted to pass parameters to callback
+
+- Jalajpathak, n.d. Food loader (online). LottieFiles. Available from: https://lottiefiles.com/130956-food-loader [Accessed 21/12/2022]
