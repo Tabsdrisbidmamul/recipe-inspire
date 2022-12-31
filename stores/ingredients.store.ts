@@ -182,12 +182,8 @@ export default class IngredientsStore {
   getRecommendedRecipes = async (recipeId: number) => {
     try {
       this.setRecommendedLoader(true);
-      //TODO: remove dev call
 
-      // const res = await Agent.spoonacular.getSimiliarRecipe(recipeId);
-
-      // @ts-ignore
-      const res = (await Agent.dev.recommend()) as RecommendResult[];
+      const res = await Agent.spoonacular.getSimiliarRecipe(recipeId);
 
       const results = await this._getRecipeInformationToPopulateRecommendedRecipes(res);
 
@@ -206,11 +202,7 @@ export default class IngredientsStore {
     try {
       this.setLoader(true);
 
-      //TODO: remove dev call
-      // const res = await Agent.spoonacular.getRandomRecipe();
-
-      //@ts-ignore
-      const res = (await Agent.dev.random()) as RandomRecipes;
+      const res = await Agent.spoonacular.getRandomRecipe();
 
       this.setRandomRecipe(res);
     } catch (e) {
@@ -237,10 +229,7 @@ export default class IngredientsStore {
     let transformedRecipes: RecommendResult[] = [];
 
     try {
-      //TODO: remove dev call
-
-      // const promises = recipes.map((el) => Agent.spoonacular.getRecipeInformation(el.id));
-      const promises = recipes.map((el) => Agent.dev.details());
+      const promises = recipes.map((el) => Agent.spoonacular.getRecipeInformation(el.id));
 
       const resolvedPromises = await Promise.all(promises);
 
@@ -373,11 +362,7 @@ export default class IngredientsStore {
 
       res = await Agent.spoonacular.searchWithQueryAndIngredients(this.searchValue, ingredients, this.currentPage);
     } else {
-      // TODO: remove dev call
-      // res = await Agent.spoonacular.searchWithQuery(this.searchValue, this.currentPage);
-
-      //@ts-ignore
-      res = (await Agent.dev.paginate()) as SearchResults;
+      res = await Agent.spoonacular.searchWithQuery(this.searchValue, this.currentPage);
     }
 
     return res;
@@ -391,11 +376,7 @@ export default class IngredientsStore {
     try {
       this.setLoader(true);
 
-      // TODO: remove dev calls
-      // const recipe = await Agent.spoonacular.getRecipeInformation(recipeId);
-
-      // @ts-ignore
-      const recipe = (await Agent.dev.details()) as Result;
+      const recipe = await Agent.spoonacular.getRecipeInformation(recipeId);
 
       this.setSelectedRecipe(recipe);
     } catch (e) {
